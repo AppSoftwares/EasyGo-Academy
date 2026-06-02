@@ -1,0 +1,1041 @@
+# PROMPT PARA GITHUB COPILOT - EASYGO ACADEMY
+
+## CONTEXTO GENERAL
+
+EASYGO ACADEMY es una aplicación móvil de aprendizaje de inglés diseñada específicamente para hispanohablantes que viven en Estados Unidos. La aplicación debe seguir una arquitectura frontend-heavy donde el 80% de la lógica corre en el dispositivo móvil y solo el 20% requiere conexión a la nube o base de datos, optimizando el rendimiento y permitiendo funcionalidad offline completa.
+
+---
+
+## SECCIÓN 1: ARQUITECTURA TÉCNICA
+
+### 1.1 Estructura de Aplicación
+
+```
+EasyGoAcademy/
+├── src/
+│   ├── app/                          # Next.js 15 App Router
+│   │   ├── (auth)/                   # Rutas autenticadas
+│   │   │   ├── login/
+│   │   │   ├── register/
+│   │   │   └── onboarding/
+│   │   ├── (main)/                   # Rutas principales autenticadas
+│   │   │   ├── dashboard/            # Panel principal
+│   │   │   ├── lessons/              # Lecciones interactivas
+│   │   │   ├── practice/             # Práctica de conversación
+│   │   │   ├── community/             # Foros y comunidad
+│   │   │   ├── scanner/               # Escáner de objetos
+│   │   │   ├── progress/              # Seguimiento de progreso
+│   │   │   └── settings/             # Configuración
+│   │   └── api/                      # Rutas API serverless
+│   │       ├── auth/
+│   │       ├── sync/
+│   │       └── analytics/
+│   ├── components/                   # Componentes reutilizables
+│   │   ├── ui/                       # Componentes base
+│   │   ├── lessons/                  # Componentes de lecciones
+│   │   ├── practice/                # Componentes de práctica
+│   │   ├── gamification/             # Sistema de gamificación
+│   │   └── ai/                       # Componentes de IA
+│   ├── hooks/                        # Custom hooks React
+│   ├── lib/                          # Utilidades y configuración
+│   ├── services/                     # Servicios de negocio
+│   └── stores/                       # Estado global (Zustand)
+├── public/
+│   └── assets/                       # Recursos estáticos
+└── tests/                            # Pruebas unitarias y E2E
+```
+
+### 1.2 Arquitectura de Datos Local
+
+```typescript
+// IndexedDB Schema para funcionamiento offline
+const DB_SCHEMAS = {
+  lessons: {
+    id: 'string',
+    level: 'beginner|intermediate|advanced',
+    category: 'string',
+    content: 'JSON',
+    audioUrl: 'string',
+    lastSynced: 'timestamp'
+  },
+  vocabulary: {
+    id: 'string',
+    word: 'string',
+    translation: 'string',
+    phonetic: 'string',
+    audioUrl: 'string',
+    mastery: 'number',
+    lastReviewed: 'timestamp'
+  },
+  progress: {
+    lessonId: 'string',
+    completed: 'boolean',
+    score: 'number',
+    timeSpent: 'number'
+  },
+  streaks: {
+    currentStreak: 'number',
+    longestStreak: 'number',
+    lastActivityDate: 'date'
+  }
+};
+```
+
+### 1.3 Estado de la Aplicación
+
+```typescript
+// Estado global manejado con Zustand para persistencia offline
+interface AppState {
+  user: UserProfile | null;
+  lessons: Lesson[];
+  vocabulary: VocabularyItem[];
+  streak: StreakData;
+  achievements: Achievement[];
+  settings: UserSettings;
+  syncStatus: 'synced' | 'pending' | 'error';
+}
+```
+
+---
+
+## SECCIÓN 2: DISEÑO Y MARCA
+
+### 2.1 Sistema de Colores
+
+```
+Primary Gradient:
+  Start: #FF6B35 (Naranja Coral)
+  End: #8B5CF6 (Púrpura Violeta)
+
+Background Colors:
+  Primary: #FFFFFF
+  Secondary: #F8F9FA
+  Dark Mode Background: #1A1A2E
+
+Text Colors:
+  Primary: #FFFFFF (sobre gradientes)
+  Secondary: #1A1A2E
+  Muted: #6B7280
+
+Accent Colors:
+  Success: #10B981
+  Warning: #F59E0B
+  Error: #EF4444
+  Info: #3B82F6
+
+Streak Colors:
+  Gold: #FFD700
+  Silver: #C0C0C0
+  Bronze: #CD7F32
+```
+
+### 2.2 Tipografía
+
+```
+Font Families:
+  Primary: Inter (Google Fonts)
+  Logo: Poppins Bold + Dancing Script (Academy)
+  Fallback: system-ui, -apple-system
+
+Typography Scale:
+  H1: 2.5rem / 700 / line-height: 1.2
+  H2: 2rem / 600 / line-height: 1.3
+  H3: 1.5rem / 600 / line-height: 1.4
+  Body: 1rem / 400 / line-height: 1.5
+  Small: 0.875rem / 400 / line-height: 1.5
+  Caption: 0.75rem / 500 / line-height: 1.4
+```
+
+### 2.3 Espaciado y Layout
+
+```
+Spacing System (8px base):
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  2xl: 48px
+  3xl: 64px
+
+Border Radius:
+  sm: 8px
+  md: 12px
+  lg: 16px
+  xl: 24px
+  full: 9999px
+
+Breakpoints:
+  mobile: 320px - 480px
+  tablet: 481px - 768px
+  desktop: 769px+
+```
+
+### 2.4 Componentes de UI
+
+```
+Button Component:
+  Variants: primary, secondary, ghost, outline
+  Sizes: sm (32px), md (40px), lg (48px)
+  States: default, hover, active, disabled, loading
+  Icon Support: left, right, icon-only
+
+Input Component:
+  Types: text, email, password, voice-input
+  States: default, focus, error, disabled
+  Features: clear button, voice toggle, validation
+
+Card Component:
+  Variants: lesson, achievement, leaderboard, stats
+  Shadow: soft shadow para elevación
+  Gradient borders para elementos destacados
+
+Progress Components:
+  Circular Progress: para tiempo de práctica
+  Linear Progress: para lecciones
+  Streak Counter: con animación de llamas
+```
+
+---
+
+## SECCIÓN 3: FUNCIONALIDADES PRINCIPALES
+
+### 3.1 Sistema de Lecciones
+
+```
+Lesson Structure:
+  ├── Level System
+  │   ├── Beginner (A1-A2): Fundamentos básicos
+  │   ├── Intermediate (B1-B2): Comunicación fluida
+  │   └── Advanced (C1-C2): Dominio profesional
+  │
+  ├── Categories
+  │   ├── Daily Conversations
+  │   ├── Professional English
+  │   ├── Cultural Immersion
+  │   ├── Grammar Essentials
+  │   ├── Pronunciation Mastery
+  │   └── Vocabulary Building
+  │
+  └── Content Types
+      ├── Video Lessons: Clips de 3-5 minutos
+      ├── Interactive Exercises: drag-drop, matching, fill-blank
+      ├── Audio Practice: listening comprehension
+      └── Scenario Simulations: role-play con IA
+```
+
+### 3.2 Práctica de Conversación
+
+```
+Real Conversation Practice:
+  ├── AI Conversation Partner
+  │   ├── Context-aware responses
+  │   ├── Cultural context integration
+  │   ├── Difficulty adaptation
+  │   └── Topic suggestions
+  │
+  ├── Voice Recognition System
+  │   ├── Real-time pronunciation feedback
+  │   ├── Accent analysis
+  │   ├── Grammar correction
+  │   └── Fluency scoring
+  │
+  └── Scenario Library
+      ├── Shopping & Restaurants
+      ├── Medical Appointments
+      ├── Job Interviews
+      ├── Daily Interactions
+      ├── Emergency Situations
+      └── Family & Social
+```
+
+### 3.3 Sistema de Gamificación
+
+```
+Achievement System:
+  ├── Badges
+  │   ├── Streak Badges: 7, 30, 100, 365 days
+  │   ├── Mastery Badges: First 100 words, 500 words, all categories
+  │   ├── Social Badges: First friend, community helper, leader
+  │   └── Special Badges: Night owl, Early bird, Weekend warrior
+  │
+  ├── Leaderboards
+  │   ├── Weekly XP Rankings
+  │   ├── Monthly Streak Champions
+  │   ├── Category Masters
+  │   └── All-time Top Learners
+  │
+  ├── XP System
+  │   ├── Lesson completion: 50-200 XP
+  │   ├── Conversation practice: 30-100 XP
+  │   ├── Daily check-in: 10 XP
+  │   ├── Streak bonus: multiplier system
+  │   └── Achievement unlocked: 100-500 XP
+  │
+  └── Rewards
+      ├── Daily Missions: Complete 3 lessons, Practice 10 minutes
+      ├── Weekly Goals: Reach level X, Learn 50 words
+      └── Special Events: Holiday challenges, Community events
+```
+
+### 3.4 Rastreador de Rachas
+
+```
+Streak System:
+  ├── Visual Elements
+  │   ├── Animated flame icon (growing with streak length)
+  │   ├── Calendar heatmap showing activity
+  │   ├── Streak counter with day count
+  │   └── "At risk" warning for missed days
+  │
+  ├── Streak Protection
+  │   ├── Streak freeze (purchasable with XP)
+  │   ├── Grace period (1 day forgiveness)
+  │   └── Recovery option (complete mission to restore)
+  │
+  └── Rewards
+      ├── 7-day streak: Special badge + 50 XP bonus
+      ├── 30-day streak: Exclusive theme + 200 XP
+      ├── 100-day streak: Premium features unlocked + 1000 XP
+      └── Year streak: Legendary badge + full premium access
+```
+
+### 3.5 Foros Comunitarios
+
+```
+Community Features:
+  ├── Discussion Forums
+  │   ├── General English Practice
+  │   ├── Cultural Exchange
+  │   ├── Tips & Resources
+  │   ├── Success Stories
+  │   └── Help & Questions
+  │
+  ├── Study Groups
+  │   ├── By level (Beginner, Intermediate, Advanced)
+  │   ├── By interest (Professional, Travel, Family)
+  │   └── By location (Region-based groups)
+  │
+  ├── Peer Support
+  │   ├── Conversation partners matching
+  │   ├── Mentorship program
+  │   └── Language exchange board
+  │
+  └── Moderation
+      ├── Auto-moderation con IA
+      ├── Report system
+      └── Content guidelines
+```
+
+### 3.6 Escáner de Objetos (Cámara)
+
+```
+Object Scanner:
+  ├── Camera Integration
+  │   ├── Real-time object detection (TensorFlow.js)
+  │   ├── Multi-language labels
+  │   ├── Pronunciation playback
+  │   └── Save to vocabulary list
+  │
+  ├── Supported Languages
+  │   ├── English (primary)
+  │   └── Spanish (reference)
+  │
+  └── Features
+      ├── History of scanned objects
+      ├── Flashcard generation from scans
+      ├── Category organization
+      └── Audio pronunciation repeat
+```
+
+### 3.7 Seguimiento de Progreso
+
+```
+Progress Dashboard:
+  ├── Statistics Overview
+  │   ├── Total learning time
+  │   ├── Words learned
+  │   ├── Lessons completed
+  │   ├── Current streak
+  │   └── XP earned
+  │
+  ├── Visual Charts
+  │   ├── Weekly activity graph
+  │   ├── Level progression timeline
+  │   ├── Vocabulary mastery pie chart
+  │   └── Skills radar chart (speaking, listening, reading, writing)
+  │
+  ├── Milestones
+  │   ├── Level completion certificates
+  │   ├── Skill achievements
+  │   └── Special recognitions
+  │
+  └── Vocabulary Tracker
+      ├── Words by category
+      ├── Mastery levels (new, learning, review, mastered)
+      ├── Spaced repetition schedule
+      └── Export capabilities
+```
+
+### 3.8 Pronunciación y Fonética
+
+```
+Phonetic System:
+  ├── Phonetic Classes
+  │   ├── American English Sounds
+  │   │   ├── TH sounds (voiced/unvoiced)
+  │   │   ├── R sounds variations
+  │   │   ├── V vs B distinction
+  │   │   ├── Silent letters
+  │   │   └── Diphthongs
+  │   │
+  │   └── Spanish-English Comparisons
+  │       ├── Common confusion points
+  │       ├── Sound mappings
+  │       └── Cultural pronunciation context
+  │
+  ├── Visual Guides
+  │   ├── Mouth position diagrams
+  │   ├── Audio examples (slow/fast)
+  │   ├── Common mistakes to avoid
+  │   └── Practice exercises
+  │
+  └── Real-time Feedback
+      ├── Speech recognition accuracy
+      ├── Fluency scoring
+      ├── Specific sound correction
+      └── Progress tracking per sound
+```
+
+### 3.9 Traducción con Voz
+
+```
+Voice Translation:
+  ├── Input Methods
+  │   ├── Voice to text (speech recognition)
+  │   ├── Text input with suggestions
+  │   └── Camera translation (future feature)
+  │
+  ├── Translation Features
+  │   ├── Instant English translation
+  │   ├── Context-aware translations
+  │   ├── Cultural nuances explanation
+  │   └── Usage examples
+  │
+  └── Learning Integration
+      ├── Save to vocabulary
+      ├── Show in context sentences
+      ├── Audio pronunciation
+      └── Related words/synonyms
+```
+
+### 3.10 Gramática en Tiempo Real
+
+```
+Grammar Correction System:
+  ├── Real-time Analysis
+  │   ├── Sentence structure validation
+  │   ├── Verb tense correction
+  │   ├── Article usage (a/an/the)
+  │   ├── Preposition suggestions
+  │   └── Word order feedback
+  │
+  ├── Visual Feedback
+  │   ├── Highlighted errors
+  │   ├── Correction suggestions
+  │   ├── Explanation tooltips
+  │   └── Quick reference cards
+  │
+  └── Practice Integration
+      ├── Grammar games
+      ├── Error correction exercises
+      ├── Sentence building practice
+      └── Natural conversation context
+```
+
+---
+
+## SECCIÓN 4: FUNCIONALIDAD OFFLINE
+
+### 4.1 PWA Configuration
+
+```javascript
+// next.config.js PWA setup
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts',
+        expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 }
+      }
+    },
+    {
+      urlPattern: /\/lessons/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'lessons-cache',
+        expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 7 }
+      }
+    }
+  ]
+});
+```
+
+### 4.2 Offline Capabilities
+
+```
+Offline Features:
+  ├── Downloaded Content
+  │   ├── Lesson content (text, images)
+  │   ├── Audio files for lessons
+  │   ├── Vocabulary lists
+  │   └── Grammar references
+  │
+  ├── Sync Capabilities
+  │   ├── Automatic sync when online
+  │   ├── Conflict resolution
+  │   ├── Progress preservation
+  │   └── Achievement synchronization
+  │
+  └── Offline Limitations
+      ├── AI conversation partner (limited)
+      ├── Real-time pronunciation scoring
+      └── Community features
+```
+
+---
+
+## SECCIÓN 5: AUTENTICACIÓN Y SEGURIDAD
+
+### 5.1 Sistema de Autenticación
+
+```
+Authentication Flow:
+  ├── Sign Up
+  │   ├── Email registration
+  │   ├── Google Sign-in
+  │   ├── Apple Sign-in
+  │   └── Phone verification
+  │
+  ├── Sign In
+  │   ├── Email + Password
+  │   ├── Social login
+  │   ├── Biometric authentication
+  │   └── Remember device
+  │
+  └── Security Features
+      ├── Two-factor authentication
+      ├── Session management
+      ├── Password strength requirements
+      └── Account recovery options
+```
+
+### 5.2 Protección de Datos
+
+```
+Data Protection:
+  ├── User Data
+  │   ├── Encryption at rest
+  │   ├── Encryption in transit (TLS 1.3)
+  │   ├── Data minimization principle
+  │   └── Right to deletion (GDPR/CCPA)
+  │
+  ├── Privacy Controls
+  │   ├── Data visibility settings
+  │   ├── Activity sharing preferences
+  │   └── Third-party sharing controls
+  │
+  └── Compliance
+      ├── COPPA (children's data)
+      ├── FERPA (educational records)
+      ├── SOC 2 Type II certification
+      └── Regular security audits
+```
+
+---
+
+## SECCIÓN 6: ESTRUCTURA DE BASE DE DATOS
+
+### 6.1 Database Schema (Supabase/PostgreSQL)
+
+```sql
+-- Users Table
+CREATE TABLE users (
+  id UUID PRIMARY KEY REFERENCES auth.users(id),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  display_name VARCHAR(100),
+  avatar_url TEXT,
+  level VARCHAR(20) DEFAULT 'beginner',
+  total_xp INTEGER DEFAULT 0,
+  current_streak INTEGER DEFAULT 0,
+  longest_streak INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Lessons Table
+CREATE TABLE lessons (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  level VARCHAR(20) NOT NULL,
+  category VARCHAR(50) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  content JSONB NOT NULL,
+  duration_minutes INTEGER,
+  xp_reward INTEGER DEFAULT 100,
+  order_index INTEGER,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- User Progress Table
+CREATE TABLE user_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  lesson_id UUID REFERENCES lessons(id),
+  completed BOOLEAN DEFAULT FALSE,
+  score INTEGER,
+  time_spent_seconds INTEGER,
+  completed_at TIMESTAMP,
+  UNIQUE(user_id, lesson_id)
+);
+
+-- Vocabulary Table
+CREATE TABLE vocabulary (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  word VARCHAR(255) NOT NULL,
+  translation TEXT NOT NULL,
+  phonetic VARCHAR(255),
+  audio_url TEXT,
+  category VARCHAR(50),
+  difficulty VARCHAR(20)
+);
+
+-- User Vocabulary (learned words)
+CREATE TABLE user_vocabulary (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  vocabulary_id UUID REFERENCES vocabulary(id),
+  mastery_level INTEGER DEFAULT 0,
+  last_reviewed TIMESTAMP,
+  next_review TIMESTAMP,
+  times_correct INTEGER DEFAULT 0,
+  times_incorrect INTEGER DEFAULT 0
+);
+
+-- Achievements Table
+CREATE TABLE achievements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  icon_url TEXT,
+  xp_reward INTEGER,
+  criteria JSONB
+);
+
+-- User Achievements
+CREATE TABLE user_achievements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  achievement_id UUID REFERENCES achievements(id),
+  unlocked_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Community Posts
+CREATE TABLE community_posts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  title VARCHAR(255),
+  content TEXT NOT NULL,
+  category VARCHAR(50),
+  likes_count INTEGER DEFAULT 0,
+  comments_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Daily Missions
+CREATE TABLE daily_missions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  xp_reward INTEGER,
+  mission_type VARCHAR(50),
+  target_value INTEGER
+);
+
+-- User Daily Progress
+CREATE TABLE user_daily_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  date DATE NOT NULL,
+  lessons_completed INTEGER DEFAULT 0,
+  xp_earned INTEGER DEFAULT 0,
+  minutes_practiced INTEGER DEFAULT 0,
+  missions_completed INTEGER DEFAULT 0,
+  UNIQUE(user_id, date)
+);
+
+-- User Badges
+CREATE TABLE user_badges (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  badge_type VARCHAR(50) NOT NULL,
+  earned_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+---
+
+## SECCIÓN 7: API ENDPOINTS
+
+### 7.1 API Structure
+
+```
+API Routes:
+  /api/auth
+    ├── POST /register - Create new user
+    ├── POST /login - User authentication
+    ├── POST /logout - End session
+    └── POST /refresh - Refresh token
+
+  /api/users
+    ├── GET /profile - Get user profile
+    ├── PUT /profile - Update profile
+    ├── GET /stats - Get user statistics
+    └── GET /achievements - Get achievements
+
+  /api/lessons
+    ├── GET / - List all lessons
+    ├── GET /:id - Get lesson details
+    ├── POST /:id/progress - Update progress
+    └── GET /categories - Get lesson categories
+
+  /api/vocabulary
+    ├── GET / - Get user vocabulary
+    ├── POST / - Add new word
+    ├── PUT /:id - Update mastery
+    └── DELETE /:id - Remove word
+
+  /api/community
+    ├── GET /posts - List posts
+    ├── POST /posts - Create post
+    ├── GET /posts/:id - Get post details
+    └── POST /posts/:id/comments - Add comment
+
+  /api/sync
+    ├── POST /upload - Upload offline data
+    ├── GET /download - Download updates
+    └── GET /status - Sync status
+
+  /api/ai
+    ├── POST /conversation - AI conversation
+    ├── POST /pronunciation - Pronunciation check
+    └── POST /translate - Translation service
+```
+
+---
+
+## SECCIÓN 8: COMPONENTES REQUERIDOS
+
+### 8.1 Core Components
+
+```typescript
+// Components Structure
+components/
+├── ui/
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── Input.tsx
+│   ├── Progress.tsx
+│   ├── Badge.tsx
+│   ├── Avatar.tsx
+│   ├── Modal.tsx
+│   ├── Toast.tsx
+│   └── Skeleton.tsx
+│
+├── layout/
+│   ├── Header.tsx
+│   ├── BottomNav.tsx
+│   ├── Sidebar.tsx
+│   └── PageContainer.tsx
+│
+├── lessons/
+│   ├── LessonCard.tsx
+│   ├── LessonProgress.tsx
+│   ├── VideoPlayer.tsx
+│   ├── Quiz.tsx
+│   └── VocabularyList.tsx
+│
+├── practice/
+│   ├── ConversationPartner.tsx
+│   ├── VoiceRecorder.tsx
+│   ├── PronunciationFeedback.tsx
+│   ├── GrammarChecker.tsx
+│   └── TranslationInput.tsx
+│
+├── gamification/
+│   ├── XPBar.tsx
+│   ├── StreakCounter.tsx
+│   ├── AchievementBadge.tsx
+│   ├── Leaderboard.tsx
+│   ├── DailyMissions.tsx
+│   └── LevelProgress.tsx
+│
+├── community/
+│   ├── PostCard.tsx
+│   ├── CommentSection.tsx
+│   ├── StudyGroupCard.tsx
+│   └── UserMention.tsx
+│
+├── scanner/
+│   ├── CameraView.tsx
+│   ├── ObjectLabel.tsx
+│   └── VocabularySave.tsx
+│
+└── progress/
+    ├── StatsDashboard.tsx
+    ├── VocabularyChart.tsx
+    ├── ActivityGraph.tsx
+    └── SkillsRadar.tsx
+```
+
+---
+
+## SECCIÓN 9: FUNCIONALIDADES DE IA
+
+### 9.1 AI Services
+
+```
+AI Integration:
+  ├── Conversation AI
+  │   ├── OpenAI GPT-4 Integration
+  │   ├── Context preservation
+  │   ├── Cultural sensitivity
+  │   └── Adaptive difficulty
+  │
+  ├── Speech Recognition
+  │   ├── Web Speech API
+  │   ├── Pronunciation scoring
+  │   ├── Accent adaptation
+  │   └── Real-time feedback
+  │
+  ├── Object Detection
+  │   ├── TensorFlow.js MobileNet
+  │   ├── Custom trained model
+  │   ├── Multi-language labeling
+  │   └── Offline support
+  │
+  └── Translation
+      ├── DeepL API Integration
+      ├── Context-aware translation
+      ├── Usage examples
+      └── Cultural notes
+```
+
+---
+
+## SECCIÓN 10: MOCKUPS Y WIREFRAMES
+
+### 10.1 Pantallas Principales
+
+```
+Screen Structure:
+  1. Splash Screen
+     - Logo animado
+     - Carga de recursos
+
+  2. Onboarding (3-4 screens)
+     - Bienvenida + propuesta de valor
+     - Selección de nivel
+     - Establecimiento de objetivos
+     - Permisos y configuración
+
+  3. Login/Register
+     - Email/Password
+     - Social login buttons
+     - Forgot password
+
+  4. Dashboard (Home)
+     - Header con avatar y streak
+     - Nivel actual y XP
+     - Lecciones recomendadas
+     - Missions del día
+     - Actividad reciente
+     - Quick actions
+
+  5. Lecciones
+     - Lista por categoría
+     - Progreso por lección
+     - Contenido interactivo
+     - Quiz y ejercicios
+
+  6. Práctica de Conversación
+     - Selector de escenario
+     - Chat de IA
+     - Feedback en tiempo real
+     - Historial de práctica
+
+  7. Vocabulario
+     - Lista de palabras
+     - Flashcards interactivos
+     - Spaced repetition
+     - Categorías
+
+  8. Comunidad
+     - Feed de posts
+     - Foros por categoría
+     - Crear post
+     - Perfiles de usuarios
+
+  9. Escáner
+     - Vista de cámara
+     - Detección de objetos
+     - Palabra + traducción
+     - Guardar a vocabulario
+
+  10. Progreso
+     - Dashboard con stats
+     - Gráficos de actividad
+     - Logros desbloqueados
+     - Goals
+
+  11. Ajustes
+     - Perfil
+     - Notificaciones
+     - Descargas offline
+     - Privacidad
+     - Tema (claro/oscuro)
+```
+
+---
+
+## SECCIÓN 11: REQUISITOS NO FUNCIONALES
+
+### 11.1 Performance
+
+```
+Performance Targets:
+  - First Contentful Paint: < 1.5s
+  - Time to Interactive: < 3s
+  - Lighthouse Score: > 90
+  - Bundle Size: < 250KB initial
+  - Offline functionality: < 50MB cached
+
+Optimization:
+  - Code splitting por ruta
+  - Image optimization (WebP)
+  - Lazy loading de componentes
+  - Service Worker caching
+  - IndexedDB para datos locales
+```
+
+### 11.2 Accesibilidad
+
+```
+Accessibility Requirements:
+  - WCAG 2.1 Level AA compliance
+  - Screen reader support
+  - Keyboard navigation
+  - Color contrast ratios
+  - Touch target sizes (min 44px)
+  - Voice control support
+```
+
+### 11.3 Testing
+
+```
+Testing Strategy:
+  - Unit tests: Jest + React Testing Library
+  - E2E tests: Playwright
+  - Accessibility: axe-core
+  - Performance: Lighthouse CI
+  - Cross-browser: Chrome, Safari, Firefox, Edge
+```
+
+---
+
+## SECCIÓN 12: DEPLOYMENT
+
+### 12.1 Infrastructure
+
+```
+Deployment Stack:
+  - Frontend: Vercel (Next.js)
+  - Database: Supabase (PostgreSQL)
+  - Auth: Supabase Auth
+  - Storage: Supabase Storage (audio, images)
+  - AI Services: OpenAI API
+  - Analytics: Vercel Analytics
+
+Environment Variables:
+  NEXT_PUBLIC_SUPABASE_URL=
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=
+  OPENAI_API_KEY=
+  NEXT_PUBLIC_APP_URL=
+```
+
+---
+
+## SECCIÓN 13: METADATA Y SEO
+
+### 13.1 App Store Metadata
+
+```
+App Store Optimization:
+  - App Name: EasyGo Academy
+  - Tagline: "Aprende inglés, conquista tu confianza"
+  - Description: [Long description with features]
+  - Keywords: english, learning, spanish, hispanos, USA, conversational, pronunciation
+
+Screenshots:
+  - Dashboard
+  - Lesson example
+  - Conversation practice
+  - Achievement celebration
+  - Community feature
+```
+
+---
+
+## SECCIÓN 14: INTEGRACIONES
+
+### 14.1 Third-party Services
+
+```
+Integrations:
+  ├── Analytics: Vercel Analytics, Mixpanel
+  ├── Error Tracking: Sentry
+  ├── Push Notifications: Firebase Cloud Messaging
+  ├── Speech: Web Speech API, Deepgram
+  ├── Translation: DeepL API
+  ├── Payments: Stripe (future premium)
+  └── Social: Google, Apple Sign-in
+```
+
+---
+
+## PROMPT FINAL PARA GITHUB COPILOT
+
+Crea una aplicación móvil completa para EasyGo Academy siguiendo EXACTAMENTE todas las especificaciones anteriores. Implementa TODO el código necesario con:
+
+1. **Next.js 15** con App Router, TypeScript, TailwindCSS
+2. **Supabase** para backend y autenticación
+3. **PWA** con soporte offline completo
+4. **Zustand** para estado global con persistencia
+5. **Componentes UI** following el diseño de marca (gradientes púrpura-naranja, tipografía Inter)
+6. **Gamificación** completa (XP, streaks, badges, leaderboards)
+7. **Reconocimiento de voz** para pronunciación
+8. **Cámara** para escanear objetos
+9. **Gramática en tiempo real** durante práctica oral
+10. **Foros comunitarios** con posts y comentarios
+11. **Progressive Web App** optimizada para móviles
+12. **Traducción** con entrada de voz a texto
+13. **Dashboard de progreso** con gráficos
+14. **Sistema de lecciones** estructurado por niveles
+15. **Clases fonéticas** para sonidos del inglés
+
+Prioriza la experiencia móvil, accesibilidad offline, y una interfaz minimalista e intuitiva para usuarios de todas las edades.

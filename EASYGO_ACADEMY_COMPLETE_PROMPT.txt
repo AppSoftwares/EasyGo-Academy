@@ -1,0 +1,1017 @@
+# PROMPT PARA GITHUB COPILOT — EASYGO ACADEMY
+
+## APLICACIÓN MÓVIL DE APRENDIZAJE DE INGLÉS PARA HISPANOHABLANTES
+
+---
+
+## DESCRIPCIÓN GENERAL DEL PROYECTO
+
+EasyGo Academy es una aplicación móvil Progressive Web App (PWA) diseñada específicamente para hispanohablantes que viven en Estados Unidos y necesitan aprender inglés de manera práctica y conversacional. La aplicación debe funcionar predominantemente en modo offline (arquitectura 80% local / 20% nube) para optimizar recursos y permitir aprendizaje sin conexión a internet.
+
+**Plataformas objetivo:**
+- Aplicación Android (compilada con Capacitor)
+- Panel de administración web (accesible desde navegador)
+- PWA con funcionalidad offline completa
+
+**Arquitectura de datos:**
+- 80% de la lógica corre en el dispositivo móvil
+- 20% requiere conexión a la nube o base de datos
+- Almacenamiento local con IndexedDB para funcionamiento offline
+- Sincronización automática cuando hay conexión disponible
+
+---
+
+## SECCIÓN 1: REQUISITOS TÉCNICOS FUNDAMENTALES
+
+### 1.1 Stack Tecnológico
+
+Utiliza las siguientes tecnologías y configura el proyecto en consecuencia:
+
+```
+Framework principal: React 18+ con TypeScript
+Sistema de construcción: Vite 6.0
+Framework CSS: Tailwind CSS 3.4
+Gestión de estado: Zustand con persistencia local
+Base de datos local: IndexedDB (mediante idb-react)
+Backend cloud: Supabase (PostgreSQL + Auth + Storage)
+Autenticación: Supabase Auth
+Compilación Android: Capacitor 8.3
+Comunicación: PWA (Service Workers)
+UI Components: Lucide React icons + Componentes custom
+Gráficos: Recharts (para dashboards de progreso)
+Traducción i18n: i18next + react-i18next
+```
+
+### 1.2 Estructura de Carpetas del Proyecto
+
+Organiza todo el código siguiendo esta estructura modular:
+
+```
+easygo-academy/
+├── src/
+│   ├── App.tsx                    # Componente principal con routing
+│   ├── main.tsx                   # Punto de entrada
+│   ├── index.css                 # Estilos globales + Tailwind
+│   ├── types/
+│   │   └── index.ts              # Definiciones TypeScript
+│   ├── stores/
+│   │   └── index.ts              # Zustand stores (auth, progress, vocabulary, gamification, community)
+│   ├── utils/
+│   │   └── colors.ts             # Variables de marca (colores, gradientes, fuentes)
+│   ├── components/
+│   │   ├── ui/                   # Button, Card, Modal, Badge, Progress, Toast, Avatar, Input
+│   │   ├── layout/               # Header, BottomNav, PageContainer, SectionHeader, QuickActionButton
+│   │   ├── lessons/              # DailyProgressCard, LessonCard, LessonList, Quiz
+│   │   ├── practice/             # ConversationPractice, PronunciationFeedback, GrammarChecker, VoiceInput
+│   │   ├── gamification/         # XPAndLevel, StreakDisplay, DailyMissions, AchievementsGrid, LeaderboardPreview, RewardsStore
+│   │   ├── community/            # CommunityFeed, StudyGroupCard, LeaderboardCard, CommunityStats, PostCard
+│   │   ├── scanner/              # ObjectScanner (cámara + TensorFlow.js)
+│   │   ├── progress/             # StatsDashboard, VocabularyTracker, ActivityChart, SkillsRadar
+│   │   └── admin/                # AdminDashboard, AdminUsers, AdminLessons, AdminAnalytics, AdminCommunity, AdminSettings
+│   └── pages/
+│       └── [todas las páginas como componentes]
+├── android/                      # Proyecto Android (Capacitor)
+├── public/
+│   └── assets/                   # Recursos estáticos
+├── capacitor.config.ts           # Configuración Capacitor
+├── tailwind.config.js            # Configuración Tailwind con marca
+├── tsconfig.json                 # Configuración TypeScript
+└── package.json                  # Dependencias
+```
+
+### 1.3 Sistema de Colores de Marca
+
+Implementa estos colores exactamente como están definidos en las pautas de marca:
+
+```css
+/* Gradiente Principal (usar en fondos, botones principales, badges) */
+--gradient-start: #FF6B35 (Naranja Coral)
+--gradient-end: #8B5CF6 (Púrpura Violeta)
+background: linear-gradient(135deg, #FF6B35 0%, #8B5CF6 100%)
+
+/* Colores de Fondo */
+--bg-light: #FFFFFF
+--bg-secondary: #F8F9FA
+--bg-dark: #1A1A2E
+
+/* Colores de Texto */
+--text-primary: #FFFFFF (sobre gradientes)
+--text-secondary: #1A1A2E (sobre fondos claros)
+--text-muted: #6B7280
+
+/* Colores de Acento */
+--accent-success: #10B981 (verde)
+--accent-warning: #F59E0B (amarillo)
+--accent-error: #EF4444 (rojo)
+--accent-info: #3B82F6 (azul)
+
+/* Colores de Rachas */
+--streak-gold: #FFD700
+--streak-silver: #C0C0C0
+--streak-bronze: #CD7F32
+```
+
+### 1.4 Tipografía
+
+```css
+/* Fuentes a importar desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&family=Dancing+Script:wght@400;600&display=swap');
+
+/* Familia tipográfica */
+--font-primary: 'Inter', system-ui, sans-serif;
+--font-logo: 'Poppins', sans-serif;
+--font-academy: 'Dancing Script', cursive;
+
+/* Escala tipográfica */
+h1: 2.5rem, weight 700, line-height 1.2
+h2: 2rem, weight 600, line-height 1.3
+h3: 1.5rem, weight 600, line-height 1.4
+body: 1rem, weight 400, line-height 1.5
+small: 0.875rem, weight 400
+caption: 0.75rem, weight 500
+```
+
+### 1.5 Sistema de Espaciado
+
+```
+Espaciado base: 8px
+--space-xs: 4px
+--space-sm: 8px
+--space-md: 16px
+--space-lg: 24px
+--space-xl: 32px
+--space-2xl: 48px
+
+Border radius:
+--radius-sm: 8px
+--radius-md: 12px
+--radius-lg: 16px
+--radius-xl: 24px
+--radius-full: 9999px
+```
+
+---
+
+## SECCIÓN 2: ARQUITECTURA DE DATOS LOCAL
+
+### 2.1 Esquema de IndexedDB
+
+Implementa el siguiente esquema para almacenamiento offline:
+
+```typescript
+// Estructura de lecciones (sincronizadas desde la nube)
+interface Lesson {
+  id: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  category: string;
+  title: string;
+  description: string;
+  durationMinutes: number;
+  xpReward: number;
+  content: LessonContent[];
+  audioUrl?: string;
+  isDownloaded: boolean;
+  lastSynced: string;
+}
+
+// Estructura de vocabulario del usuario
+interface VocabularyItem {
+  id: string;
+  word: string;
+  translation: string;
+  phonetic: string;
+  phoneticAudioUrl?: string;
+  category: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  masteryLevel: number; // 0-5
+  lastReviewed?: string;
+  nextReview?: string;
+  timesCorrect: number;
+  timesIncorrect: number;
+}
+
+// Estructura de progreso del usuario
+interface UserProgress {
+  lessonId: string;
+  completed: boolean;
+  score: number;
+  timeSpentSeconds: number;
+  completedAt?: string;
+}
+
+// Estructura de progreso diario
+interface DailyProgress {
+  date: string;
+  lessonsCompleted: number;
+  xpEarned: number;
+  minutesPracticed: number;
+  missionsCompleted: number;
+  wordsLearned: number;
+}
+```
+
+### 2.2 Stores de Zustand
+
+Crea stores separados para cada dominio funcional:
+
+```typescript
+// Auth Store - usuario, autenticación, configuración
+// Progress Store - progreso de lecciones, progreso diario
+// Vocabulary Store - palabras aprendidas, mastery
+// Gamification Store - XP, rachas, badges, achievements, missions
+// Community Store - posts, comentarios, grupos
+// App Store - estado online/offline, sync status, idioma
+```
+
+Cada store debe usar `persist` con `createJSONStorage(() => localStorage)` para persistencia local.
+
+---
+
+## SECCIÓN 3: FUNCIONALIDADES PRINCIPALES
+
+### 3.1 Sistema de Onboarding
+
+Crea una pantalla de onboarding con 4 slides que se muestran solo la primera vez:
+
+```
+Slide 1: emoji='🌟', título='Bienvenido a EasyGo Academy'
+Slide 2: emoji='💬', título='Conversaciones Reales'
+Slide 3: emoji='🔥', título='Mantén tu Racha'
+Slide 4: emoji='👥', título='Aprende en Comunidad'
+```
+
+Cada slide debe tener:
+- Indicador de progreso (dots)
+- Botón "Siguiente" y opción "Saltar"
+- Animación suave entre slides
+- Gradiente de fondo (purple → orange)
+
+### 3.2 Página Principal (Home)
+
+Implementa los siguientes componentes:
+
+```
+- Header: Logo EasyGo, streak counter, XP display, avatar
+- DailyProgressCard: Barra de progreso de meta diaria (minutos practicados)
+- QuickActionButtons: 4 botones circulares (Hablar, Escanear, Lecciones, Comunidad)
+- DailyMissions: Card con información de racha actual
+- ContinueLearning: Lista de lecciones en progreso
+- VocabularyPreview: Palabras aprendidas con badges
+- LeaderboardPreview: Top 5 usuarios
+```
+
+### 3.3 Sistema de Lecciones
+
+Crea una página de lecciones con:
+
+```
+Categorías (filtro horizontal scroll):
+- Todos 📚
+- Conversaciones 💬
+- Pronunciación 🎤
+- Vocabulario 📖
+- Gramática 📝
+- Cultura 🌎
+- Fonética 🔊
+
+Componente LessonCard:
+- Icono de categoría
+- Título y descripción
+- Duración y XP
+- Indicador de completado
+- Progreso de lección
+- Estado hover con shadow
+```
+
+Cada lección debe tener niveles (Principiante, Intermedio, Avanzado) y categorias específicas.
+
+### 3.4 Práctica de Conversación
+
+Implementa ConversationPractice con:
+
+```
+Selector de escenarios:
+- En el Restaurante 🍽️
+- En la Tienda 🛍️
+- Entrevista de Trabajo 💼
+- Doctor Appointment 🏥
+- Conversación Diaria 💬
+- Emergencias 🚨
+
+Componente ConversationPractice:
+- Chat interface con mensajes
+- Input de texto
+- Botón de micrófono (voice input)
+- Indicador de "typing..."
+- Retroalimentación de IA simulada
+- Feedback gramatical en tiempo real
+- Escenarios contextuales
+
+Componente PronunciationFeedback:
+- Palabra objetivo
+- Representación fonética
+- Score de pronunciación (0-100%)
+- Retroalimentación visual con círculo de progreso
+- Botón de reintento
+- Botón de escuchar modelo
+```
+
+### 3.5 Escáner de Objetos (Cámara)
+
+Implementa ObjectScanner con:
+
+```
+Funcionalidades:
+- Activación de cámara del dispositivo
+- Vista de cámara en tiempo real
+- Simulación de detección de objetos (datos de prueba)
+- Objeto detectado con nombre en inglés, traducción y fonética
+- Botón para escuchar pronunciación (SpeechSynthesis)
+- Botón para guardar a vocabulario
+- Historial de escaneos
+
+Objetos predefinidos para demo:
+- apple → manzana → /ˈæpəl/
+- book → libro → /bʊk/
+- chair → silla → /tʃer/
+- water → agua → /ˈwɔːtər/
+- phone → teléfono → /foʊn/
+- computer → computadora → /kəmˈpjuːtər/
+```
+
+### 3.6 Comunidad
+
+Implementa CommunityPage con:
+
+```
+Sección de estadísticas:
+- Total Posts
+- Usuarios Activos
+- Preguntas Respondidas
+
+Componente CommunityFeed:
+- Filtro por categoría (Todos, Tips, Historias, Preguntas)
+- Lista de posts con:
+  - Avatar de usuario
+  - Nombre y handle
+  - Contenido del post
+  - Contador de likes y comentarios
+  - Botón de like
+  - Botón de guardar
+
+Grupos de Estudio:
+- Beginners (B)
+- Intermediate (I)
+- Advanced (A)
+- Badge de "Unirse"
+```
+
+### 3.7 Progreso
+
+Implementa ProgressPage con:
+
+```
+Componente XPAndLevel:
+- Nivel actual con icono de corona
+- Barra de progreso de XP
+- XP total
+
+Componente StreakDisplay:
+- Emoji de llama con animación
+- Días de racha actual
+- Mejor racha
+
+Componente AchievementsGrid:
+- Grid de badges 2x4
+- Estados: desbloqueado (color) / bloqueado (grayscale)
+- Badges: Primera Palabra, 7 Días, Primera Conversación, etc.
+
+Componente StatsDashboard:
+- Overview cards (streak, XP, lecciones, palabras)
+- Gráfico de actividad semanal (barras con gradiente)
+- Gráfico de habilidades (radar chart)
+- Mapa de calor de actividad (calendario)
+- Distribución de vocabulario (pie chart)
+
+Componente VocabularyTracker:
+- Lista de palabras con mastery bars
+- Botón de escuchar pronunciación
+- Filtrado por categoría
+```
+
+---
+
+## SECCIÓN 4: SISTEMA DE GAMIFICACIÓN
+
+### 4.1 Sistema de XP y Niveles
+
+```
+Cálculo de nivel:
+- Nivel = floor(XP / 1000) + 1
+- XP para siguiente nivel = 1000
+
+Recompensas de XP:
+- Completar lección: 100-250 XP (según duración)
+- Práctica de conversación: 30-100 XP
+- Check-in diario: 10 XP
+- Completar misión diaria: 20-50 XP
+- Desbloquear logro: 100-500 XP
+```
+
+### 4.2 Sistema de Rachas
+
+```
+Visualización:
+- Emoji de llama que crece con la racha
+- Contador de días
+- Indicador de riesgo cuando está cerca de perderse
+
+Misiones diarias:
+- Completar 1 lección
+- Practicar 5 minutos de conversación
+- Aprender 10 palabras nuevas
+- Mantener racha activa
+
+Protección de racha:
+- Streak freeze (comprable con XP)
+- Grace period de 1 día
+```
+
+### 4.3 Insignias y Logros
+
+```
+Insignias de racha:
+- 7 días: 🔥 (7-day streak)
+- 30 días: ⭐ (30-day streak)
+- 100 días: 🏆 (100-day streak)
+- 365 días: 👑 (Year streak)
+
+Insignias de vocabulario:
+- Primera Palabra
+- 100 palabras
+- 500 palabras
+- Maestro del Vocabulario
+
+Insignias especiales:
+- Noctámbulo (practicar después de 10pm)
+- Madrugador (practicar antes de 7am)
+- Primer Conversación
+- Explorador (usar 5 categorías)
+```
+
+### 4.4 Tabla de Posiciones
+
+```
+Top 3:
+- Diseño horizontal con avatars grandes
+- Medallas (🥇🥈🥉)
+- Posición central más alta
+
+Resto del ranking:
+- Lista con posición, avatar, nombre, streak, XP
+- Indicador visual para el usuario actual (borde púrpura)
+```
+
+---
+
+## SECCIÓN 5: PANEL DE ADMINISTRACIÓN WEB
+
+### 5.1 Estructura del Dashboard Admin
+
+Implementa AdminDashboard con sidebar y contenido principal:
+
+```
+Sidebar:
+- Logo EasyGo Academy
+- Menú de navegación:
+  - Resumen (overview)
+  - Usuarios (users)
+  - Lecciones (lessons)
+  - Análisis (analytics)
+  - Comunidad (community)
+  - Configuración (settings)
+```
+
+### 5.2 Sección: Resumen
+
+```
+Cards de estadísticas:
+- Total Usuarios (12,847)
+- Activos Hoy (3,456)
+- Lecciones Completadas (89,432)
+- Racha Promedio (12 días)
+
+Gráficos:
+- Actividad Semanal (AreaChart con datos de usuarios)
+- XP Generados (BarChart)
+
+Tabla:
+- Mejores Aprendedores con avatar, nombre, nivel, streak, XP
+```
+
+### 5.3 Sección: Gestión de Usuarios
+
+```
+Header:
+- Título "Gestión de Usuarios"
+- Botón "Exportar CSV"
+- Botón "Agregar Usuario"
+
+Filtros:
+- Campo de búsqueda
+- Selector de nivel (Todos, Principiante, Intermedio, Avanzado)
+- Botón de filtros adicionales
+
+Tabla de usuarios:
+- Avatar y nombre
+- Nivel (badge)
+- XP total
+- Racha (🔥)
+- Última actividad
+- Acciones (ver, editar, eliminar)
+
+Paginación:
+- 10 usuarios por página
+- Navegación entre páginas
+```
+
+### 5.4 Sección: Gestión de Lecciones
+
+```
+Header:
+- Título "Gestión de Lecciones"
+- Botón "Nueva Lección"
+
+Grid de lecciones:
+- Card con título, categoría, nivel, duración, XP
+- Badge de nivel (color según nivel)
+- Botones de editar/eliminar
+- Rating de la lección
+- Número de completaciones
+
+Categorías disponibles:
+- daily-conversations
+- pronunciation-mastery
+- vocabulary-building
+- grammar-essentials
+- cultural-immersion
+- phonetics
+```
+
+### 5.5 Sección: Análisis Detallado
+
+```
+Métricas de engagement:
+- Tasa de Retención (78%)
+- Minutos Promedio/Sesión (12.5)
+- Lecciones/Semana (4.7)
+- Completaron Tutorial (85%)
+
+Gráficos:
+- Retención de usuarios (LineChart)
+- Distribución de niveles (PieChart)
+
+Exportación:
+- Botón para descargar reportes
+```
+
+### 5.6 Sección: Gestión Comunitaria
+
+```
+Reportes recientes:
+- Lista de reportes pendientes
+- Usuario, razón, fecha, estado
+- Botones: Ignorar, Revisar
+
+Estadísticas de contenido:
+- Posts Totales (8,234)
+- Comentarios (23,456)
+- Reportes Resueltos (156)
+- Usuarios Suspendidos (8)
+```
+
+### 5.7 Sección: Configuración
+
+```
+Configuración general:
+- Modo Mantenimiento (toggle)
+- Registro de Nuevos Usuarios (toggle)
+- Notificaciones Push (toggle)
+
+Respaldos:
+- Botón "Respaldar Base de Datos"
+- Botón "Sincronizar Datos"
+```
+
+---
+
+## SECCIÓN 6: COMPONENTES UI REUTILIZABLES
+
+### 6.1 Button
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  isLoading?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+}
+
+// Variantes:
+// primary: gradiente púrpura-naranja, texto blanco
+// secondary: fondo blanco, borde púrpura
+// outline: borde púrpura, fondo transparente
+// ghost: texto púrpura, fondo transparente hover
+// danger: fondo rojo para acciones destructivas
+```
+
+### 6.2 Card
+
+```typescript
+interface CardProps {
+  children: ReactNode;
+  className?: string;
+  gradient?: boolean; // Si true, usa gradiente de marca
+  onClick?: () => void;
+}
+
+// Estilos:
+// - Fondo blanco
+// - Border radius lg (16px)
+// - Shadow suave
+// - Padding de 24px
+// - Hover effect con shadow más grande si onClick
+```
+
+### 6.3 Badge
+
+```typescript
+interface BadgeProps {
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'gradient' | 'info';
+  className?: string;
+  children: ReactNode;
+}
+
+// Variantes de color para diferentes estados
+```
+
+### 6.4 ProgressBar
+
+```typescript
+interface ProgressBarProps {
+  progress: number; // 0-100
+  className?: string;
+  showLabel?: boolean;
+  color?: string; // Personalizar color
+}
+```
+
+### 6.5 Modal
+
+```typescript
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: ReactNode;
+}
+
+// Overlay oscuro con blur
+// Centrado verticalmente
+// Max-width 448px
+// Border radius lg
+// Botón de cerrar en header
+```
+
+### 6.6 Avatar
+
+```typescript
+interface AvatarProps {
+  src?: string;
+  name: string; // Para generar iniciales
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+}
+
+// Muestra imagen si src existe
+// Sinon muestra iniciales con gradiente de marca
+```
+
+### 6.7 Input
+
+```typescript
+interface InputProps {
+  label?: string;
+  error?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  className?: string;
+  placeholder?: string;
+  type?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent) => void;
+}
+```
+
+---
+
+## SECCIÓN 7: FUNCIONALIDADES DE VOZ Y TRADUCCIÓN
+
+### 7.1 Reconocimiento de Voz
+
+```
+Utiliza Web Speech API para:
+- Voice to text input
+- Pronunciación en tiempo real
+- Feedback de puntuación
+
+Implementa:
+- SpeechRecognition con idioma en-US
+- Interim results para feedback rápido
+- Fallback para navegadores sin soporte
+```
+
+### 7.2 Speech Synthesis
+
+```
+Utiliza SpeechSynthesis para:
+- Reproducir pronunciación de palabras
+- Escuchar modelos de audio
+- Reproducir respuestas de IA
+
+Configuración:
+- Idioma: en-US
+- Rate: normal
+- Pitch: normal
+```
+
+### 7.3 Corrección Gramatical
+
+```
+Muestra correcciones en tiempo real durante práctica oral:
+- Errores de gramática detectados
+- Sugerencias de corrección
+- Explicaciones breves
+
+Componente GrammarChecker:
+- Resalta errores en texto
+- Muestra versión corregida
+- Proporciona explicación
+```
+
+---
+
+## SECCIÓN 8: CLASES FONÉTICAS
+
+### 8.1 Sección de Fonética
+
+```
+Crea categoría especial para fonética:
+- Icono: 🔊
+- Descripción: "Clases para aprender sonidos del inglés"
+
+Contenido fonético:
+- Sonidos TH (voiced /θ/ y unvoiced /ð/)
+- Sonido R en inglés americano
+- Diferencia entre V y B
+- Diftongos comunes
+- Silent letters
+```
+
+### 8.2 Lecciones de Fonética
+
+```
+Estructura de lección fonética:
+- Descripción del sonido
+- Ejemplos de palabras
+- Representación fonética IPA
+- Audio de pronunciación
+- Ejercicios de práctica
+- Comparación con sonidos del español
+```
+
+---
+
+## SECCIÓN 9: FUNCIONALIDAD OFFLINE
+
+### 9.1 Progressive Web App
+
+```
+Configura PWA con:
+- Service Worker para caching
+- Manifest para instalación
+- Iconos de app
+- Pantalla de splash
+
+Recursos a cachear:
+- HTML, CSS, JS principal
+- Fonts (Inter, Poppins, Dancing Script)
+- Imágenes de UI
+- Datos de lecciones predefinidas
+```
+
+### 9.2 Sincronización
+
+```
+Estrategia de sync:
+- Datos se guardan localmente primero
+- Sincronización automática cuando online
+- Indicador de estado de sync (synced/pending/error)
+
+Conflictos:
+- Última escritura gana
+- Timestamp para resolución
+```
+
+---
+
+## SECCIÓN 10: AUTENTICACIÓN Y SEGURIDAD
+
+### 10.1 Login y Registro
+
+```
+Funcionalidades de auth:
+- Pantalla de onboarding (solo primera vez)
+- Inicialización de usuario demo con isAdmin=true
+- Persistencia de sesión en localStorage
+
+Datos de usuario demo:
+- id: '1'
+- email: 'admin@easygo.com'
+- displayName: 'Admin User'
+- isAdmin: true
+- totalXp: 25000
+- currentStreak: 45
+```
+
+### 10.2 Protección de Datos
+
+```
+Medidas de seguridad:
+- Datos almacenados solo localmente (para demo)
+- Sin información sensible expuesta
+- Autenticación simulada para demo
+
+(En producción usar Supabase Auth con)
+- Encriptación TLS 1.3
+- JWT tokens
+- Refresh tokens automáticos
+```
+
+---
+
+## SECCIÓN 11: CONFIGURACIÓN DE CAPACITOR
+
+### 11.1 Configuración Android
+
+```javascript
+// capacitor.config.ts
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'com.easygo.academy',
+  appName: 'EasyGo Academy',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https'
+  },
+  plugins: {
+    Camera: {
+      /* configuración de cámara */
+    }
+  }
+};
+
+export default config;
+```
+
+### 11.2 Iconos y Splash
+
+```
+Genera iconos para:
+- App icon (1024x1024)
+- Splash screen
+- Notification icon
+
+Coloca en:
+- android/app/src/main/res/drawable
+- android/app/src/main/res/mipmap
+```
+
+---
+
+## SECCIÓN 12: CONSTRUCCIÓN Y DESPLIEGUE
+
+### 12.1 Build para Web
+
+```bash
+# Construir la aplicación web
+npm run build
+
+# El output estará en /dist
+```
+
+### 12.2 Sincronizar con Android
+
+```bash
+# Sincronizar web build con proyecto Android
+npx cap sync android
+
+# Abrir Android Studio
+npx cap open android
+```
+
+### 12.3 Compilar APK
+
+```bash
+# En Android Studio:
+# Build > Build Bundle(s) / APK(s) > Build APK(s)
+
+# O desde línea de comandos:
+cd android
+./gradlew assembleDebug
+```
+
+---
+
+## SECCIÓN 13: FUNCIONALIDADES ESPECIALES
+
+### 13.1 Navegación
+
+```
+Bottom Navigation (solo en móvil):
+- Inicio (casa)
+- Lecciones (libro)
+- Práctica (mensaje)
+- Comunidad (usuarios)
+- Progreso (gráfico)
+
+Parámetros de navegación:
+- activeTab: string
+- onTabChange: (tab: string) => void
+```
+
+### 13.2 Admin Mode
+
+```
+Acceso al panel admin:
+- Botón en header o settings
+- Cambia isAdminMode a true
+- Renderiza AdminDashboard completo
+
+AdminDashboard:
+- Layout con sidebar (64px de ancho)
+- Navegación por secciones
+- Contenido principal (flex-1)
+```
+
+---
+
+## NOTAS IMPORTANTES PARA LA IMPLEMENTACIÓN
+
+### Requisitos de estilo:
+- Sigue exactamente los colores de marca (gradiente púrpura-naranja)
+- Usa tipografía Inter para texto, Poppins para logo, Dancing Script para "Academy"
+- Implementa border-radius consistente (8px-24px según componente)
+- Mantén espaciado consistente con múltiplos de 8px
+
+### Responsividad:
+- Max-width de 448px (lg breakpoint) para contenido móvil
+- Diseño responsive que funcione en móvil y desktop
+- Admin dashboard optimizado para desktop
+
+### Performance:
+- Lazy loading para componentes pesados
+- Code splitting por rutas
+- Imágenes optimizadas
+- CSS minificado en producción
+
+### Accesibilidad:
+- Contraste de colores WCAG AA
+- Tamaño de targets mínimo 44px
+- Navegación por teclado
+- Texto alternativo en imágenes
+
+---
+
+## PROMPT FINAL DE IMPLEMENTACIÓN
+
+Construye esta aplicación completa siguiendo todas las especificaciones anteriores. El resultado debe ser:
+
+1. Una aplicación React funcional con todas las páginas y componentes
+2. Sistema de navegación completo (móvil + admin)
+3. Panel de administración web completo con todas las secciones
+4. Integración de Capacitor para compilación Android
+5. Estilos consistentes con la marca EasyGo Academy
+6. Funcionalidad offline con persistencia local
+7. Gamificación completa (XP, streak, badges, leaderboards)
+8. Escáner de objetos con simulación de cámara
+9. Práctica de conversación con feedback en tiempo real
+10. Comunidad y foros integrados
+
+La aplicación debe estar lista para construir y probar en dispositivos Android.

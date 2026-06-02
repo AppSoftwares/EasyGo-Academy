@@ -1,0 +1,1012 @@
+╔══════════════════════════════════════════════════════════════════════════════════════╗
+║              PROMPT MAESTRO — EASYGO ACADEMY (v2.0 PRODUCTION-READY)               ║
+║         Aplicación Móvil de Inglés para Hispanohablantes en EE.UU.                 ║
+╚══════════════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTRUCCIÓN GENERAL PARA LA IA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Eres un desarrollador senior full-stack experto en aplicaciones móviles educativas.
+Construye EasyGo Academy EXACTAMENTE según estas especificaciones. No improvises
+fuera de lo indicado. Si algo no está claro, pregunta antes de implementar. Cada
+decisión técnica debe justificarse contra los requisitos de rendimiento, seguridad
+y experiencia de usuario descritos aquí.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 0 — IDENTIDAD DE MARCA (REFERENCIA VISUAL OFICIAL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+El logo oficial muestra:
+  • Isotipo: Squircle (cuadrado con esquinas muy redondeadas, ~30% del ancho)
+    con fondo en gradiente naranja (#FF5E36 → #8B5CF6), y las letras "E" y "G"
+    entrelazadas en trazo continuo blanco.
+  • Logotipo: "EasyGo" en Poppins Bold blanco + "Academy" debajo en
+    Poppins Light/Italic blanco.
+  • Fondo de marca: Gradiente fluido diagonal naranja coral → púrpura violeta.
+
+PALETA DE COLORES OFICIAL (usar ESTOS códigos, no otros):
+┌─────────────────────────────────────────────────────────────┐
+│ PRIMARIO (Energía/Acción)      #FF5E36  Naranja Coral       │
+│ SECUNDARIO (Confianza)         #5D26C1  Morado Eléctrico    │
+│ GRADIENTE PRINCIPAL            #FF5E36 → #8B5CF6 (135°)    │
+│ FONDO OSCURO (modo dark)       #120E2E  Azul Noche Profundo │
+│ FONDO CLARO (modo light)       #FFFFFF  Blanco Puro         │
+│ FONDO SECUNDARIO CLARO         #F4F5F9  Gris Suave          │
+│ TEXTO SOBRE GRADIENTE          #FFFFFF  Blanco              │
+│ TEXTO PRINCIPAL CLARO          #1A1A2E  Azul Oscuro         │
+│ TEXTO MUTED                    #6B7280  Gris                │
+│ ÉXITO / RACHAS ACTIVAS         #00E676  Verde Brillante     │
+│ ADVERTENCIA / MISIONES         #F59E0B  Ámbar               │
+│ ERROR / ALERTA                 #EF4444  Rojo                │
+│ INFO                           #3B82F6  Azul                │
+│ ORO (Insignias top)            #FFD700  Dorado              │
+│ PLATA                          #C0C0C0  Plateado            │
+│ BRONCE                         #CD7F32  Bronce              │
+└─────────────────────────────────────────────────────────────┘
+
+TIPOGRAFÍA:
+  • Títulos y encabezados:  Plus Jakarta Sans Bold / SemiBold
+  • Logo "EasyGo":          Poppins Bold
+  • Logo "Academy":         Poppins Light Italic (o Dancing Script SemiBold)
+  • Cuerpo y botones:       Inter Regular/Medium
+  • Fallback:               system-ui, -apple-system, sans-serif
+  • Importar desde Google Fonts:
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Poppins:ital,wght@0,700;1,300&family=Inter:wght@400;500;600&display=swap');
+
+ESCALA TIPOGRÁFICA:
+  h1: 2.5rem / 700 / line-height 1.2
+  h2: 2rem   / 600 / line-height 1.3
+  h3: 1.5rem / 600 / line-height 1.4
+  body: 1rem / 400 / line-height 1.5
+  small: 0.875rem / 400
+  caption: 0.75rem / 500
+
+ESPACIADO (base 8px):
+  xs:4px  sm:8px  md:16px  lg:24px  xl:32px  2xl:48px  3xl:64px
+
+BORDER RADIUS:
+  sm:8px  md:12px  lg:16px  xl:24px  full:9999px  squircle:28px
+
+EFECTOS VISUALES:
+  • Glassmorphism en tarjetas: backdrop-filter: blur(12px); background: rgba(255,255,255,0.08);
+  • Sombras suaves: box-shadow: 0 4px 24px rgba(93,38,193,0.15);
+  • Animaciones Lottie para: fuego de racha, insignias, cofres de recompensa
+  • Micro-animaciones CSS para: botones (scale 1.02), tarjetas (translateY -2px)
+  • Botones touch mínimo 48dp/px para accesibilidad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 1 — STACK TECNOLÓGICO (OBLIGATORIO, NO CAMBIAR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Framework principal:    React 18+ con TypeScript (strict mode)
+Build system:           Vite 6.0
+CSS framework:          Tailwind CSS 3.4 (config extendido con tokens de marca)
+Estado global:          Zustand con persist + createJSONStorage(localStorage)
+BD local offline:       IndexedDB vía idb (librería idb de Jake Archibald)
+Backend cloud:          Supabase (PostgreSQL + Auth + Storage + Realtime)
+Autenticación:          Supabase Auth (email, Google, Apple, 2FA)
+Compilación Android:    Capacitor 8.3
+PWA:                    Vite PWA plugin + Service Workers
+UI Icons:               Lucide React
+Animaciones:            Framer Motion + Lottie React
+Gráficos:               Recharts
+i18n:                   i18next + react-i18next
+Pagos:                  Stripe + Mercado Pago
+Email:                  Resend (transaccional) o SendGrid
+Cache queries:          TanStack Query (React Query v5) — ver tabla de staleTime
+Auditoría:              Supabase Audit Logs + tabla audit_logs custom
+Errores:                Sentry (error tracking en producción)
+Notificaciones push:    Firebase Cloud Messaging (FCM)
+Detección objetos:      TensorFlow.js MobileNet (offline-capable)
+Voz:                    Web Speech API (SpeechRecognition + SpeechSynthesis)
+Traducción:             DeepL API (cloud) + cache local para frases comunes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 2 — ARQUITECTURA DE DATOS (80% LOCAL / 20% NUBE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRINCIPIO FUNDAMENTAL:
+  • 80% de la lógica corre en el dispositivo (IndexedDB + Zustand)
+  • 20% requiere nube (sync, AI, community, pagos)
+  • El usuario NUNCA pierde progreso por falta de conexión
+  • Al recuperar conexión: sync automático silencioso
+
+ESQUEMA IndexedDB (stores locales):
+┌──────────────────┬──────────────────────────────────────────────────────┐
+│ Store            │ Campos clave                                          │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ lessons          │ id, level, category, title, content(JSON),           │
+│                  │ audioUrl, durationMinutes, xpReward, isDownloaded,   │
+│                  │ lastSynced(UTC ISO string)                            │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ vocabulary       │ id, word, translation, phonetic, category,           │
+│                  │ difficulty(easy/medium/hard), masteryLevel(0-5),     │
+│                  │ lastReviewed(UTC), nextReview(UTC),                  │
+│                  │ timesCorrect, timesIncorrect                         │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ user_progress    │ lessonId, completed, score, timeSpentSeconds,        │
+│                  │ completedAt(UTC), syncedAt(UTC)                      │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ daily_progress   │ date(YYYY-MM-DD), lessonsCompleted, xpEarned,       │
+│                  │ minutesPracticed, missionsCompleted, wordsLearned    │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ streak           │ currentStreak, longestStreak, lastActivityDate,      │
+│                  │ freezesAvailable, graceUsed                          │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ pending_sync     │ id, type, payload(JSON), createdAt(UTC), retries    │
+└──────────────────┴──────────────────────────────────────────────────────┘
+
+REGLA DE ORO PARA FECHAS Y ZONAS HORARIAS:
+  • SIEMPRE guardar en UTC en la base de datos (campo timestamp WITH TIME ZONE)
+  • NUNCA guardar offsets como "UTC-5" o "UTC+1"
+  • La zona horaria del usuario se guarda en su perfil como IANA string:
+    Ejemplos CORRECTOS: "America/New_York", "America/Los_Angeles", "Europe/Madrid"
+    Ejemplos INCORRECTOS: "-05:00", "EST", "UTC-5"
+  • Convertir a zona local SOLO en la capa de presentación (UI)
+  • Usar la librería date-fns-tz o Temporal API para conversiones
+
+TABLA DE CONFIGURACIÓN DE CACHE (TanStack Query):
+┌─────────────────────┬───────────────┬──────────────────┬─────────────────┬────────────────────────────────────┐
+│ Tipo de dato        │ staleTime     │ refetchOnFocus   │ refetchInterval │ Por qué                            │
+├─────────────────────┼───────────────┼──────────────────┼─────────────────┼────────────────────────────────────┤
+│ ["roles"]           │ 5 min         │ false            │ -               │ Casi nunca cambian                 │
+│ ["lessons"]         │ 10 min        │ false            │ -               │ Contenido estable                  │
+│ ["user-profile"]    │ 5 min         │ false            │ -               │ Solo cambia cuando el usuario edita│
+│ ["subscriptions"]   │ 1 min         │ true             │ -               │ Cambian ocasionalmente             │
+│ ["leaderboard"]     │ 30s           │ true             │ 60s             │ Dinámica pero no crítica           │
+│ ["community-posts"] │ 0             │ true             │ 30s             │ Tiempo real                        │
+│ ["user-progress"]   │ 0             │ true             │ -               │ Registros críticos del usuario     │
+│ ["streak"]          │ 0             │ true             │ -               │ Dato crítico, no puede estar stale │
+└─────────────────────┴───────────────┴──────────────────┴─────────────────┴────────────────────────────────────┘
+
+ZUSTAND STORES (uno por dominio):
+  authStore:          user, session, isAdmin, isSuperAdmin, 2FA status
+  progressStore:      lessonProgress, dailyProgress, syncStatus
+  vocabularyStore:    words, masteryLevels, spacedRepetitionQueue
+  gamificationStore:  xp, level, streak, badges, missions, leaderboard
+  communityStore:     posts, comments, studyGroups
+  subscriptionStore:  plan, status, expiresAt, codes
+  appStore:           isOnline, theme, language, timezone (IANA), syncQueue
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 3 — ESTRUCTURA DE CARPETAS DEL PROYECTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+easygo-academy/
+├── src/
+│   ├── App.tsx                         # Router principal + providers
+│   ├── main.tsx                        # Entry point
+│   ├── index.css                       # Tailwind base + variables CSS
+│   ├── types/
+│   │   └── index.ts                    # Todos los tipos TypeScript
+│   ├── constants/
+│   │   └── brand.ts                    # Colores, gradientes, tokens de marca
+│   ├── lib/
+│   │   ├── supabase.ts                 # Cliente Supabase
+│   │   ├── indexeddb.ts                # Esquemas y helpers de IndexedDB
+│   │   ├── stripe.ts                   # Cliente Stripe
+│   │   ├── mercadopago.ts              # Cliente Mercado Pago
+│   │   ├── sentry.ts                   # Configuración Sentry
+│   │   └── i18n.ts                     # Config i18next
+│   ├── hooks/
+│   │   ├── useSync.ts                  # Sincronización offline→online
+│   │   ├── useStreak.ts                # Lógica de rachas
+│   │   ├── useSubscription.ts          # Estado de suscripción
+│   │   ├── useAudit.ts                 # Log de auditoría
+│   │   └── useTimezone.ts              # Conversiones de zona horaria
+│   ├── services/
+│   │   ├── sync.service.ts             # Sync bidireccional
+│   │   ├── ai.service.ts               # OpenAI / IA simulada
+│   │   ├── speech.service.ts           # Web Speech API
+│   │   ├── translation.service.ts      # DeepL + cache
+│   │   ├── notification.service.ts     # FCM + emails
+│   │   └── audit.service.ts            # Registro de auditoría
+│   ├── stores/                         # Zustand stores (ver sección 2)
+│   ├── components/
+│   │   ├── ui/                         # Button, Card, Modal, Badge, Progress,
+│   │   │                               # Toast, Avatar, Input, Skeleton, Toggle
+│   │   ├── layout/                     # Header, BottomNav, PageContainer,
+│   │   │                               # AdminSidebar, SectionHeader
+│   │   ├── lessons/                    # LessonCard, LessonList, Quiz,
+│   │   │                               # DailyProgressCard, VideoPlayer
+│   │   ├── practice/                   # ConversationChat, PronunciationFeedback,
+│   │   │                               # GrammarChecker, VoiceInput, WaveAnimation
+│   │   ├── gamification/               # XPBar, StreakDisplay, DailyMissions,
+│   │   │                               # AchievementsGrid, Leaderboard, RewardsStore
+│   │   ├── community/                  # CommunityFeed, PostCard, StudyGroupCard,
+│   │   │                               # CommentSection, CommunityStats
+│   │   ├── scanner/                    # ObjectScanner, ObjectLabel, VocabSave
+│   │   ├── progress/                   # StatsDashboard, VocabularyTracker,
+│   │   │                               # ActivityChart, SkillsRadar, HeatmapCalendar
+│   │   ├── subscription/               # PricingCard, PaymentForm, CodeRedemption
+│   │   └── admin/                      # AdminDashboard, AdminUsers, AdminLessons,
+│   │                                   # AdminAnalytics, AdminCommunity,
+│   │                                   # AdminSettings, AdminSubscriptions,
+│   │                                   # AdminAuditLog, AdminMetrics
+│   └── pages/
+│       ├── Onboarding.tsx
+│       ├── Login.tsx / Register.tsx
+│       ├── Home.tsx
+│       ├── Lessons.tsx
+│       ├── LessonDetail.tsx
+│       ├── Practice.tsx
+│       ├── Community.tsx
+│       ├── Scanner.tsx
+│       ├── Progress.tsx
+│       ├── Settings.tsx
+│       └── Admin.tsx
+├── android/                            # Capacitor Android project
+├── public/
+│   ├── manifest.json                   # PWA manifest
+│   ├── sw.js                           # Service Worker
+│   └── assets/                         # Imágenes, Lottie JSON, íconos
+├── capacitor.config.ts
+├── tailwind.config.js
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 4 — PANTALLAS PRINCIPALES (UI/UX DETALLADO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1 SPLASH SCREEN
+  • Logo animado (isotipo rota suavemente, Lottie)
+  • Gradiente fondo: #FF5E36 → #5D26C1
+  • Duración: máximo 2 segundos
+  • Precarga: lecciones del nivel actual, configuración del usuario
+
+4.2 ONBOARDING (4 slides, solo primera vez)
+  Slide 1: 🌟 "Bienvenido a EasyGo Academy" — Tu inglés para la vida real en EE.UU.
+  Slide 2: 💬 "Conversaciones Reales" — Practica escenarios del día a día
+  Slide 3: 🔥 "Mantén tu Racha" — Aprende un poquito cada día
+  Slide 4: 👥 "Aprende en Comunidad" — Con miles de hispanos como tú
+  • Dots de progreso animados
+  • Botón "Siguiente" + opción "Saltar"
+  • Transición suave (slide + fade)
+  • Fondo: gradiente morado → naranja
+
+4.3 HOME / DASHBOARD
+  HEADER:
+    • Logo EasyGo (isotipo pequeño) a la izquierda
+    • Centro: nombre de usuario ("Hola, Alejandro 👋")
+    • Derecha: [ícono 🔥 + número de días de racha] [XP badge] [Avatar]
+  
+  SECCIÓN A — DailyProgressCard (tarjeta glassmorphism):
+    • Barra de progreso circular: minutos practicados hoy / meta diaria
+    • Texto motivacional que cambia según el progreso
+    • Color de barra: gradiente marca
+
+  SECCIÓN B — QuickActionButtons (4 botones circulares con gradiente):
+    • 🎤 Hablar    • 📷 Escanear    • 📚 Lecciones    • 👥 Comunidad
+
+  SECCIÓN C — MisionesDelDía:
+    • Tarjeta con 3 misiones diarias
+    • Cada misión: icono + texto + progreso (0/1) + XP reward
+    • Checkbox animado al completar (Lottie confetti)
+
+  SECCIÓN D — ContinúeAprendiendo:
+    • Lista horizontal scrollable de lecciones en progreso
+    • LessonCard compacta con barra de progreso
+
+  SECCIÓN E — LeaderboardPreview:
+    • Top 5 usuarios con avatar, nombre y XP semanal
+    • Borde dorado/plateado/bronce para top 3
+
+  BOTTOM NAV (móvil solamente):
+    • Inicio 🏠 | Lecciones 📚 | Práctica 💬 | Comunidad 👥 | Progreso 📊
+
+4.4 LECCIONES
+  FILTRO HORIZONTAL (scroll):
+    Todos 📚 | Conversaciones 💬 | Pronunciación 🎤 | Vocabulario 📖
+    Gramática 📝 | Cultura 🌎 | Fonética 🔊
+
+  ROADMAP VERTICAL (estilo juego/camino):
+    • Camino curvo con bloques de hitos de vida real en EE.UU.:
+      Bloque 1: "En el Supermercado y la Caja"
+      Bloque 2: "Hablando con el Maestro de tus Hijos"
+      Bloque 3: "Entrevista de Trabajo"
+      Bloque 4: "Emergencias y Trámites (911 / Servicios)"
+      Bloque 5: "Citas Médicas y Farmacia"
+      Bloque 6: "En el Banco y Trámites Oficiales"
+    • Nodos desbloqueados: color marca | Bloqueados: gris + candado
+    • Clic en nodo → LessonCard expandida
+
+  LessonCard:
+    • Icono categoría | Título | Descripción breve
+    • Duración (⏱ X min) | XP reward (⭐ X XP) | Nivel badge
+    • Barra de progreso | Estado (nuevo / en progreso / completado ✓)
+    • Hover/press: sombra elevada + scale 1.02
+
+4.5 PRÁCTICA DE CONVERSACIÓN
+  SELECTOR DE ESCENARIOS (grid 2 columnas):
+    🍽️ Restaurante | 🛍️ Tienda | 💼 Entrevista de Trabajo
+    🏥 Cita Médica | 💬 Conversación Diaria | 🚨 Emergencias
+    👨‍👩‍👧 Familia en Escuela | 🏦 Banco y Trámites
+
+  INTERFAZ DE CHAT:
+    • Pantalla oscura (#120E2E) con gradiente suave en bordes
+    • Mensajes de IA a la izquierda (bubble morado translúcido)
+    • Mensajes del usuario a la derecha (bubble gradiente marca)
+    • Input de texto + botón micrófono (FAB circular gradiente)
+
+  BOTÓN MICRÓFONO ACTIVO:
+    • Animación de ondas de audio fluidas (Framer Motion)
+    • Colores de onda: #FF5E36 y #5D26C1 alternados
+    • "Escuchando..." pulsante
+
+  RETROALIMENTACIÓN EN TIEMPO REAL (al soltar micrófono):
+    • Palabras correctas: iluminadas en #00E676 (verde)
+    • Errores gramaticales: subrayado en #FF5E36 + tarjeta popup
+    • Errores de pronunciación: subrayado punteado + popup fonético
+    • Popup amigable: "Dijiste 'coffee' con sonido de 'o' española.
+      Intenta abrir más la boca: /ˈkɒfi/"
+
+  PronunciationFeedback:
+    • Palabra objetivo grande centrada
+    • Representación IPA debajo
+    • Círculo de progreso (score 0-100%)
+    • Botón 🔊 "Escuchar modelo" | Botón 🔄 "Reintentar"
+
+4.6 ESCÁNER DE OBJETOS (CÁMARA)
+  • Vista de cámara completa (CameraX / Capacitor Camera)
+  • Retícula de enfoque con esquinas en gradiente marca
+  • Al detectar objeto (TensorFlow.js MobileNet + datos demo):
+    ┌─────────────────────────────┐
+    │  CHAIR (grande, blanco)     │
+    │  Silla (pequeño, gris)      │
+    │  /tʃer/ (fonética)          │
+    │  [🔊 Pronunciar] [+ Guardar]│
+    └─────────────────────────────┘
+  • Objetos demo predefinidos:
+    apple/manzana/ˈæpəl | book/libro/bʊk | chair/silla/tʃer
+    water/agua/ˈwɔːtər | phone/teléfono/foʊn | computer/computadora/kəmˈpjuːtər
+    fork/tenedor/fɔːrk | door/puerta/dɔːr | window/ventana/ˈwɪndoʊ
+  • Historial de escaneos (últimos 20, guardados en IndexedDB)
+  • Botón "Guardar al vocabulario" → feedback toast ✓
+
+4.7 FONÉTICA (SECCIÓN ESPECIAL)
+  • Icono: 🔊 | Fondo oscuro con visualización de ondas
+  • Diagrama 2D animado de boca/lengua para cada sonido
+  • Contenido:
+    - Sonido TH voiced /ð/ (there, this, them)
+    - Sonido TH unvoiced /θ/ (think, three, throat)
+    - Sonido R americano vs R española
+    - Diferencia V vs B (/v/ de "very" vs /b/ de "boy")
+    - Sonido /æ/ de "cat" (no existe en español)
+    - Diptongos: /eɪ/ "day", /oʊ/ "go", /aɪ/ "my"
+    - Silent letters: knife, know, write, hour
+  • Para cada sonido:
+    1. Animación de posición de boca/labios
+    2. Audio ejemplo (velocidad normal + lenta)
+    3. Comparación con español
+    4. 3 palabras de práctica
+    5. Score de pronunciación del usuario
+
+4.8 COMUNIDAD
+  ESTADÍSTICAS (cards pequeñas):
+    Posts Totales | Usuarios Activos | Preguntas Respondidas
+
+  FEED (filtros: Todos | Tips | Historias | Preguntas | Retos):
+    PostCard:
+      • Avatar + Nombre + @handle + Tiempo relativo (timezone usuario)
+      • Contenido del post
+      • [❤️ X Likes] [💬 X Comentarios] [🔖 Guardar]
+      • Botón like con animación (escala + color)
+
+  GRUPOS DE ESTUDIO (cards horizontales):
+    • Principiantes (B) | Intermedio (I) | Avanzado (A)
+    • Por región: New York, Texas, Florida, California, Chicago
+    • Badge "Únete" con gradiente marca
+
+  DESAFÍOS COMUNITARIOS:
+    • "Desafío de la semana: Graba 15s saludando en inglés"
+    • Contador de participantes
+
+4.9 PROGRESO
+  XP Y NIVEL:
+    • Nivel actual con corona 👑
+    • Barra XP lineal con gradiente
+    • "X XP para el siguiente nivel"
+    • Cálculo: Nivel = Math.floor(totalXP / 1000) + 1
+
+  RACHAS:
+    • Llama animada (Lottie) que crece con el número de días
+    • Racha actual vs Mejor racha
+    • "⚠️ ¡En riesgo!" si no ha practicado hoy (warning color)
+    • Streak Freeze (comprable con XP): muestra cuántos disponibles
+
+  INSIGNIAS (grid 4 columnas):
+    Desbloqueadas: color completo + brillo
+    Bloqueadas: grayscale + candado semitransparente
+    Set completo:
+      🔥 7 días | ⭐ 30 días | 🏆 100 días | 👑 365 días
+      📖 Primera Palabra | 📚 100 Palabras | 🧠 500 Palabras
+      💬 Primera Conversación | 🌙 Noctámbulo | 🌅 Madrugador
+      🗺️ Explorador | 🤝 Mentor | 🏅 Top 10 Semanal
+
+  ESTADÍSTICAS DETALLADAS:
+    • Cards: Racha actual | XP Total | Lecciones completadas | Palabras aprendidas
+    • Gráfico barras: actividad últimos 7 días (Recharts BarChart gradiente)
+    • Radar chart: Speaking / Listening / Reading / Writing / Pronunciation
+    • Heatmap calendario: últimos 3 meses de actividad
+    • Pie chart: distribución de vocabulario por categoría
+
+  VOCABULARIO (VocabularyTracker):
+    • Lista con búsqueda y filtro por categoría
+    • Cada palabra: texto inglés | IPA | español | barra de mastery (0-5)
+    • Botón 🔊 SpeechSynthesis (en-US)
+    • Botón 🗑️ remover (con confirmación)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 5 — SISTEMA DE GAMIFICACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+XP Y NIVELES:
+  Fórmula: nivel = Math.floor(totalXP / 1000) + 1
+  Completar lección (principiante):    100 XP
+  Completar lección (intermedio):      150 XP
+  Completar lección (avanzado):        250 XP
+  Práctica conversación:               30-100 XP según duración
+  Check-in diario:                     10 XP
+  Completar misión diaria:             20-50 XP
+  Desbloquear logro:                   100-500 XP
+  Racha bonus (multiplicador):         Racha 7d = x1.2 | 30d = x1.5 | 100d = x2.0
+
+MISIONES DIARIAS (rotan cada 24h UTC, mostrar en TZ del usuario):
+  • Completa 1 lección (20 XP)
+  • Practica 5 minutos de conversación (30 XP)
+  • Aprende 10 palabras nuevas (20 XP)
+  • Mantén tu racha activa (10 XP)
+  • Escanea 1 objeto nuevo (15 XP)
+
+RACHAS:
+  • currentStreak: días consecutivos con al menos 1 actividad
+  • graceUsed: boolean — si se usó el día de gracia esta semana
+  • freezesAvailable: número (comprable 1 freeze por 100 XP)
+  • Al llegar a medianoche UTC (convertir a TZ del usuario): verificar actividad
+
+LEADERBOARD:
+  Top 3: display horizontal, avatars grandes, medallas 🥇🥈🥉
+  4-20: lista vertical con posición, avatar, nombre, racha, XP
+  Usuario actual: borde morado (#5D26C1) siempre visible
+  Períodos: Semanal | Mensual | Histórico
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 6 — BASE DE DATOS (SUPABASE / POSTGRESQL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REGLAS DE PERFORMANCE EN BD:
+  1. ÍNDICES OBLIGATORIOS en todos los campos de búsqueda y filtro
+  2. Sin consultas sin índice (usar EXPLAIN ANALYZE para verificar)
+  3. Sin procesos que bloqueen la BD (usar transacciones cortas)
+  4. Paginación siempre con LIMIT + OFFSET o cursor-based
+  5. Soft delete: columna deleted_at TIMESTAMP (no DELETE físico)
+
+CREATE TABLE users (
+  id UUID PRIMARY KEY REFERENCES auth.users(id),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  display_name VARCHAR(100),
+  avatar_url TEXT,
+  level VARCHAR(20) DEFAULT 'beginner',       -- beginner/intermediate/advanced
+  total_xp INTEGER DEFAULT 0,
+  current_streak INTEGER DEFAULT 0,
+  longest_streak INTEGER DEFAULT 0,
+  streak_freeze_count INTEGER DEFAULT 0,
+  timezone VARCHAR(60) DEFAULT 'America/New_York', -- IANA timezone string
+  is_admin BOOLEAN DEFAULT FALSE,
+  is_super_admin BOOLEAN DEFAULT FALSE,
+  two_factor_enabled BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),        -- siempre UTC
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  deleted_at TIMESTAMPTZ                       -- soft delete
+);
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_level ON users(level);
+
+CREATE TABLE subscriptions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  plan VARCHAR(20) NOT NULL,                  -- monthly/quarterly/semiannual
+  status VARCHAR(20) NOT NULL,                -- active/cancelled/expired/trial
+  provider VARCHAR(20) NOT NULL,              -- stripe/mercadopago/code
+  provider_subscription_id VARCHAR(255),
+  current_period_start TIMESTAMPTZ NOT NULL,
+  current_period_end TIMESTAMPTZ NOT NULL,
+  redemption_code_id UUID REFERENCES subscription_codes(id),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  cancelled_at TIMESTAMPTZ
+);
+CREATE INDEX idx_subscriptions_user_id ON subscriptions(user_id);
+CREATE INDEX idx_subscriptions_status ON subscriptions(status);
+CREATE INDEX idx_subscriptions_period_end ON subscriptions(current_period_end);
+
+CREATE TABLE subscription_codes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  code VARCHAR(30) UNIQUE NOT NULL,
+  plan VARCHAR(20) NOT NULL,                  -- monthly/quarterly/semiannual
+  duration_months INTEGER NOT NULL,
+  max_uses INTEGER DEFAULT 1,
+  uses_count INTEGER DEFAULT 0,
+  created_by UUID REFERENCES users(id),       -- debe ser admin/superadmin
+  expires_at TIMESTAMPTZ,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_codes_code ON subscription_codes(code);
+CREATE INDEX idx_codes_active ON subscription_codes(is_active);
+
+CREATE TABLE lessons (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  level VARCHAR(20) NOT NULL,
+  category VARCHAR(50) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  content JSONB NOT NULL,
+  duration_minutes INTEGER,
+  xp_reward INTEGER DEFAULT 100,
+  order_index INTEGER,
+  is_published BOOLEAN DEFAULT FALSE,
+  created_by UUID REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  deleted_at TIMESTAMPTZ
+);
+CREATE INDEX idx_lessons_level ON lessons(level);
+CREATE INDEX idx_lessons_category ON lessons(category);
+CREATE INDEX idx_lessons_published ON lessons(is_published);
+
+CREATE TABLE user_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  lesson_id UUID REFERENCES lessons(id) NOT NULL,
+  completed BOOLEAN DEFAULT FALSE,
+  score INTEGER,
+  time_spent_seconds INTEGER,
+  completed_at TIMESTAMPTZ,
+  synced_at TIMESTAMPTZ,
+  UNIQUE(user_id, lesson_id)
+);
+CREATE INDEX idx_progress_user_id ON user_progress(user_id);
+CREATE INDEX idx_progress_lesson_id ON user_progress(lesson_id);
+
+CREATE TABLE vocabulary (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  word VARCHAR(255) NOT NULL,
+  translation TEXT NOT NULL,
+  phonetic VARCHAR(255),
+  audio_url TEXT,
+  category VARCHAR(50),
+  difficulty VARCHAR(20),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_vocabulary_category ON vocabulary(category);
+CREATE INDEX idx_vocabulary_word ON vocabulary(word);
+
+CREATE TABLE user_vocabulary (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  vocabulary_id UUID REFERENCES vocabulary(id) NOT NULL,
+  mastery_level INTEGER DEFAULT 0,           -- 0=nuevo, 1-4=aprendiendo, 5=dominado
+  last_reviewed TIMESTAMPTZ,
+  next_review TIMESTAMPTZ,
+  times_correct INTEGER DEFAULT 0,
+  times_incorrect INTEGER DEFAULT 0,
+  UNIQUE(user_id, vocabulary_id)
+);
+CREATE INDEX idx_user_vocab_user_id ON user_vocabulary(user_id);
+CREATE INDEX idx_user_vocab_next_review ON user_vocabulary(next_review);
+
+CREATE TABLE user_daily_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  date DATE NOT NULL,                         -- fecha en TZ del usuario, comparar con cuidado
+  lessons_completed INTEGER DEFAULT 0,
+  xp_earned INTEGER DEFAULT 0,
+  minutes_practiced INTEGER DEFAULT 0,
+  missions_completed INTEGER DEFAULT 0,
+  words_learned INTEGER DEFAULT 0,
+  UNIQUE(user_id, date)
+);
+CREATE INDEX idx_daily_progress_user_date ON user_daily_progress(user_id, date);
+
+CREATE TABLE achievements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  icon_name VARCHAR(50),
+  xp_reward INTEGER DEFAULT 100,
+  criteria JSONB NOT NULL
+);
+
+CREATE TABLE user_achievements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  achievement_id UUID REFERENCES achievements(id) NOT NULL,
+  unlocked_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, achievement_id)
+);
+CREATE INDEX idx_user_achievements_user_id ON user_achievements(user_id);
+
+CREATE TABLE community_posts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) NOT NULL,
+  title VARCHAR(255),
+  content TEXT NOT NULL,
+  category VARCHAR(50),
+  likes_count INTEGER DEFAULT 0,
+  comments_count INTEGER DEFAULT 0,
+  is_reported BOOLEAN DEFAULT FALSE,
+  is_hidden BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  deleted_at TIMESTAMPTZ
+);
+CREATE INDEX idx_posts_user_id ON community_posts(user_id);
+CREATE INDEX idx_posts_category ON community_posts(category);
+CREATE INDEX idx_posts_created_at ON community_posts(created_at DESC);
+
+CREATE TABLE audit_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  action VARCHAR(100) NOT NULL,              -- ej: "user.login", "subscription.created"
+  table_name VARCHAR(100),
+  record_id UUID,
+  old_values JSONB,
+  new_values JSONB,
+  ip_address INET,
+  user_agent TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_audit_logs_user_id ON audit_logs(user_id);
+CREATE INDEX idx_audit_logs_action ON audit_logs(action);
+CREATE INDEX idx_audit_logs_created_at ON audit_logs(created_at DESC);
+
+-- Trigger para auditoría automática en tablas críticas
+CREATE OR REPLACE FUNCTION log_audit_change()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO audit_logs(action, table_name, record_id, old_values, new_values)
+  VALUES (TG_OP, TG_TABLE_NAME, NEW.id,
+          row_to_json(OLD)::JSONB, row_to_json(NEW)::JSONB);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Aplicar trigger en tablas críticas:
+-- users, subscriptions, subscription_codes, lessons, community_posts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 7 — PAGOS Y SUSCRIPCIONES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PLANES DISPONIBLES:
+  • Mensual:     $9.99/mes
+  • Trimestral:  $24.99/3 meses (~$8.33/mes) — "Más Popular"
+  • Semestral:   $44.99/6 meses (~$7.50/mes) — "Mejor Valor"
+  • Free tier:   5 lecciones/mes, sin práctica de conversación IA
+
+PASARELAS DE PAGO:
+  • Stripe: para usuarios con tarjetas USA (Visa, Mastercard, Amex)
+  • Mercado Pago: para usuarios latinoamericanos
+  • Ambas deben soportar los 3 planes con facturación recurrente
+
+CÓDIGOS DE SUSCRIPCIÓN (Panel Admin):
+  • SuperAdmin puede generar códigos únicos (alfanumérico 12 chars)
+  • Cada código: plan (monthly/quarterly/semiannual) + usos máximos + vencimiento
+  • Usuario ingresa código en Settings → "Canjear Código"
+  • Validación: activo + no vencido + usos disponibles
+  • Registro en audit_logs al canjear
+
+FLUJO DE PAGO:
+  1. Usuario elige plan en PricingCard
+  2. Selecciona pasarela (Stripe / Mercado Pago)
+  3. Redirige a checkout seguro (Stripe Checkout o MP Checkout Pro)
+  4. Webhook en API confirma pago → actualiza subscriptions
+  5. Email de confirmación automático
+  6. En Settings: puede ver plan, fecha de renovación, cancelar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 8 — EMAILS AUTOMÁTICOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Usar Resend (o SendGrid) con plantillas HTML de marca.
+Los correos se procesan en la zona horaria del usuario.
+
+EMAILS AL USUARIO:
+  1. Bienvenida (trigger: registro completado)
+     • Saludo con nombre
+     • Resumen de qué puede hacer
+     • Botón "Comenzar mi primera lección"
+     • Racha inicial: 0 días — ¡empieza hoy!
+
+  2. Recordatorio de vencimiento de suscripción
+     • 7 días antes: "Tu suscripción vence el [fecha en TZ usuario]"
+     • 3 días antes: recordatorio urgente
+     • 1 día antes: último aviso
+     • Botón "Renovar ahora"
+
+  3. Racha en riesgo (si no ha practicado en el día)
+     • "¡Tu racha de X días está en peligro! 🔥"
+     • Enviar a las 8pm en TZ del usuario si no hay actividad
+
+  4. Logro desbloqueado
+     • Celebración con imagen de la insignia
+     • "¡Felicidades! Desbloqueaste [nombre de insignia]"
+
+EMAILS AL SUPERADMINISTRADOR (semanal, lunes 9am UTC):
+  Métricas clave del reporte:
+  • MRR (Monthly Recurring Revenue): total ingresos recurrentes
+  • Churn Rate: % de usuarios que cancelaron este mes
+  • Clientes Activos: suscripciones con status='active'
+  • Nuevos Registros: usuarios creados en los últimos 7 días
+  • Usuarios Activos Diarios (DAU): promedio últimos 7 días
+  • Racha Promedio de usuarios activos
+  • Top 5 lecciones más completadas
+  • Tasa de conversión free → paid
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 9 — PANEL DE ADMINISTRACIÓN WEB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Acceso: solo usuarios con is_admin=TRUE o is_super_admin=TRUE
+Proteger con: middleware de rol en Supabase RLS + verificación en frontend
+Requiere 2FA activo para acceder al panel admin.
+
+SIDEBAR (escritorio, colapsable en móvil):
+  Logo EasyGo | Menú:
+  📊 Resumen | 👥 Usuarios | 📚 Lecciones | 📈 Análisis
+  💬 Comunidad | 💳 Suscripciones | 🎟️ Códigos | 📋 Auditoría | ⚙️ Configuración
+
+SECCIÓN RESUMEN:
+  Cards: Total Usuarios | Activos Hoy | Lecciones Completadas | MRR
+  Gráficos: Actividad Semanal (AreaChart) | Ingresos por Plan (BarChart)
+  Tabla: Mejores Aprendedores (avatar, nombre, nivel, racha, XP)
+
+SECCIÓN USUARIOS:
+  • Búsqueda + filtros (nivel, plan, estado)
+  • Tabla: avatar, nombre, email, nivel, XP, racha, plan, última actividad
+  • Acciones: Ver detalle | Editar | Suspender | Eliminar (soft delete)
+  • Exportar CSV (con audit log de la exportación)
+  • Paginación cursor-based (10 por página)
+
+SECCIÓN LECCIONES:
+  • Botón "Nueva Lección" → formulario completo
+  • Filtros por categoría y nivel
+  • Grid de LessonCards con: editar, publicar/despublicar, eliminar
+  • Editor de contenido de lección (JSON estructurado)
+
+SECCIÓN ANÁLISIS:
+  • Tasa de Retención (D1, D7, D30)
+  • Minutos Promedio/Sesión
+  • Lecciones/Semana promedio
+  • % que completó el onboarding
+  • Gráfico de retención (LineChart)
+  • Distribución de niveles (PieChart)
+  • Funnel: Registro → Onboarding → Primera lección → Suscripción
+
+SECCIÓN SUSCRIPCIONES:
+  • Lista de todas las suscripciones con status
+  • Filtros: activas, vencidas, canceladas, por proveedor
+  • Ver detalles de pago por usuario
+  • Cancelar manualmente (con audit log)
+
+SECCIÓN CÓDIGOS:
+  • Generar nuevo código: elegir plan + usos máx + vencimiento
+  • Lista de códigos: código, plan, usos/total, vencimiento, creador
+  • Deshabilitar código activo
+  • Exportar lista de códigos
+
+SECCIÓN AUDITORÍA (solo SuperAdmin):
+  • Log completo: usuario, acción, tabla, valores antes/después, IP, fecha/hora
+  • Filtros: por usuario, por acción, por rango de fechas
+  • No editable, no borrable
+  • Exportar con formato seguro
+
+SECCIÓN CONFIGURACIÓN:
+  • Modo Mantenimiento (toggle): bloquea acceso a usuarios regulares
+  • Registro de Nuevos Usuarios (toggle)
+  • Notificaciones Push (toggle global)
+  • Gestión de 2FA requerido para admins
+  • Trigger de "Respaldar Base de Datos" (export)
+  • Trigger de "Sincronizar Datos"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 10 — SEGURIDAD Y AUDITORÍA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AUTENTICACIÓN:
+  • Supabase Auth: email+password, Google OAuth, Apple OAuth
+  • 2FA (TOTP): obligatorio para administradores, opcional para usuarios
+  • JWT con refresh tokens automáticos
+  • Session management: logout en todos los dispositivos disponible
+
+ROW LEVEL SECURITY (RLS en Supabase):
+  • Usuarios solo ven/modifican sus propios datos
+  • Admins pueden ver todos los usuarios (sin contraseñas)
+  • SuperAdmins tienen acceso completo incluyendo audit logs
+  • Lessons: lectura pública si is_published=TRUE
+
+MANEJO DE ERRORES (regla crítica):
+  • NUNCA mostrar stack traces o errores técnicos al usuario
+  • SIEMPRE mostrar mensaje claro: "Qué pasó + Por qué + Qué hacer"
+  • Ejemplos de mensajes amigables:
+    - "No pudimos conectar con el servidor. Verifica tu internet e intenta de nuevo."
+    - "Tu sesión expiró por seguridad. Por favor, inicia sesión nuevamente."
+    - "Este código ya fue usado o ha vencido. Contacta al soporte si crees que es un error."
+  • Logging: todos los errores se registran en Sentry con contexto
+  • Errores de BD: capturar, loggear en Sentry, mostrar mensaje genérico al usuario
+
+PROTECCIÓN DE DATOS:
+  • TLS 1.3 en tránsito
+  • Encriptación en reposo (Supabase)
+  • No almacenar datos de tarjeta (Stripe/MP los manejan)
+  • GDPR/CCPA: botón "Eliminar mi cuenta y datos" en Settings
+  • Soft delete en BD, hard delete después de 30 días
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 11 — PWA Y OFFLINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SERVICE WORKER (vite-plugin-pwa):
+  • CacheFirst: Google Fonts, imágenes UI, iconos
+  • NetworkFirst: contenido de lecciones (7 días TTL)
+  • StaleWhileRevalidate: datos de usuario
+  • Contenido offline pre-cacheado: ≤50MB
+
+MANIFEST PWA:
+  name: "EasyGo Academy"
+  short_name: "EasyGo"
+  theme_color: "#5D26C1"
+  background_color: "#120E2E"
+  display: "standalone"
+  orientation: "portrait"
+  icons: [48, 72, 96, 144, 192, 512]px
+
+SYNC OFFLINE→ONLINE:
+  1. Acción del usuario → guardar en IndexedDB (pending_sync store)
+  2. Si hay conexión: intentar sync inmediato
+  3. Si no hay conexión: mostrar indicator "Sin conexión — guardado localmente"
+  4. Al recuperar conexión: sync automático silencioso
+  5. Conflictos: last-write-wins por timestamp
+  6. Máximo 3 reintentos con backoff exponencial
+
+INDICADOR DE ESTADO:
+  🟢 Sincronizado | 🟡 Pendiente (X cambios) | 🔴 Error de sync
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 12 — CAPACITOR Y ANDROID
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// capacitor.config.ts
+const config = {
+  appId: 'com.easygo.academy',
+  appName: 'EasyGo Academy',
+  webDir: 'dist',
+  server: { androidScheme: 'https' },
+  plugins: {
+    Camera: { resultType: 'uri', saveToGallery: false },
+    SpeechRecognition: { language: 'en-US' },
+    PushNotifications: { presentationOptions: ['badge', 'sound', 'alert'] }
+  }
+};
+
+COMANDOS DE BUILD:
+  npm run build              # Build web
+  npx cap sync android       # Sync a Android
+  npx cap open android       # Abrir Android Studio
+  cd android && ./gradlew assembleDebug   # Generar APK
+
+PERMISOS ANDROID (AndroidManifest.xml):
+  CAMERA | RECORD_AUDIO | INTERNET | VIBRATE | RECEIVE_BOOT_COMPLETED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 13 — PERFORMANCE Y CALIDAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TARGETS DE PERFORMANCE:
+  First Contentful Paint: < 1.5s
+  Time to Interactive:    < 3.0s
+  Lighthouse Score:       > 90 (Performance, Accessibility, PWA)
+  Bundle inicial:         < 250KB (gzip)
+  Cache offline:          < 50MB
+
+OPTIMIZACIONES OBLIGATORIAS:
+  • Code splitting por ruta (React.lazy + Suspense)
+  • Imágenes en WebP + lazy loading
+  • Fuentes con font-display: swap
+  • TensorFlow.js: cargar solo cuando se abre el scanner
+  • Virtualización para listas largas (+50 items): react-virtual
+  • Consultas BD siempre con índices (ver EXPLAIN ANALYZE)
+
+ACCESIBILIDAD:
+  • WCAG 2.1 Level AA
+  • Touch targets mínimo 48dp
+  • Contraste de colores verificado
+  • aria-label en todos los elementos interactivos
+  • Tamaños de texto en rem/sp (no px fijos)
+  • Soporte teclado completo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 14 — VARIABLES DE ENTORNO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# .env.local (nunca subir al repo)
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+VITE_STRIPE_PUBLIC_KEY=
+VITE_MP_PUBLIC_KEY=
+VITE_SENTRY_DSN=
+VITE_FCM_VAPID_KEY=
+VITE_APP_URL=
+
+# .env.server (solo backend/edge functions)
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+MP_ACCESS_TOKEN=
+RESEND_API_KEY=
+OPENAI_API_KEY=
+DEEPL_API_KEY=
+SENTRY_AUTH_TOKEN=
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN 15 — INSTRUCCIONES FINALES PARA LA IA DESARROLLADORA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ORDEN DE IMPLEMENTACIÓN RECOMENDADO:
+  Fase 1: Fundación
+    □ Setup proyecto (Vite + React + TS + Tailwind)
+    □ tokens de marca en tailwind.config.js y CSS variables
+    □ Estructura de carpetas completa
+    □ Supabase: conexión, RLS, tablas con índices
+    □ Zustand stores con persistencia
+    □ IndexedDB esquema e helpers
+    □ Sistema de autenticación (login, registro, 2FA)
+
+  Fase 2: Core UX
+    □ Onboarding (4 slides)
+    □ Home / Dashboard completo
+    □ Lecciones (roadmap + LessonCard + Quiz)
+    □ Navegación (BottomNav + Header)
+
+  Fase 3: Funcionalidades Clave
+    □ Práctica de conversación + feedback IA
+    □ Fonética con animaciones de boca
+    □ Escáner de objetos (TensorFlow.js)
+    □ Comunidad (feed + grupos)
+    □ Progreso (dashboard + gráficos)
+
+  Fase 4: Gamificación y Monetización
+    □ Sistema XP + niveles + rachas
+    □ Insignias y logros
+    □ Leaderboard
+    □ Misiones diarias
+    □ Stripe + Mercado Pago
+    □ Códigos de suscripción
+    □ Emails automáticos
+
+  Fase 5: Admin y Producción
+    □ Panel de administración completo
+    □ Auditoría y logs
+    □ Sync offline→online robusto
+    □ PWA + Service Worker
+    □ Capacitor Android build
+    □ Sentry + monitoreo
+
+CHECKLIST DE CALIDAD ANTES DE ENTREGAR CADA COMPONENTE:
+  □ Usa los colores de marca exactos (#FF5E36, #5D26C1)
+  □ Fuentes correctas (Plus Jakarta Sans, Poppins, Inter)
+  □ Touch targets ≥ 48px
+  □ Mensajes de error amigables y descriptivos
+  □ Fecha/hora en UTC en BD, convertida en UI con IANA timezone
+  □ Índice en cada campo de búsqueda o filtro nuevo en BD
+  □ Audit log en acciones críticas (pagos, roles, suspensiones)
+  □ Loading states para todas las operaciones asíncronas
+  □ Empty states con ilustración y CTA cuando no hay datos
+  □ Funciona offline (o muestra mensaje claro si requiere conexión)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIN DEL PROMPT — EASYGO ACADEMY v2.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
