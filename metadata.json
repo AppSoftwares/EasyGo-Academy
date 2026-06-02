@@ -1,0 +1,6 @@
+{
+  "name": "MetaConnect Web3 Sandbox",
+  "description": "An interactive Web3 diagnostic companion, simulated MetaMask emulator, and DApp integration sandbox. Creado por Jesús Pirela.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
