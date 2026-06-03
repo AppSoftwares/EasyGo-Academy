@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthStore } from '../../stores';
 import { Avatar } from '../ui';
-import { Home, BookOpen, MessageCircle, Users, Camera, BarChart3, Settings, LogOut } from 'lucide-react';
+import { Home, BookOpen, MessageCircle, Users, Camera, BarChart3, Star, Settings, LogOut } from 'lucide-react';
 
 interface HeaderProps {
   title?: string;
@@ -53,6 +53,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, onTabChange }) 
     { id: 'practice', icon: MessageCircle, label: 'Práctica' },
     { id: 'community', icon: Users, label: 'Comunidad' },
     { id: 'progress', icon: BarChart3, label: 'Progreso' },
+    { id: 'plans', icon: Star, label: 'Planes' },
   ];
 
   return (

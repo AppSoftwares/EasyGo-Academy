@@ -10,11 +10,10 @@ import { StatsDashboard, VocabularyTracker } from './components/progress';
 import { XPAndLevel, StreakDisplay, AchievementsGrid, LeaderboardPreview } from './components/gamification';
 import { SettingsPage } from './components/settings';
 import { useAuthStore, useVocabularyStore } from './stores';
-import { GRADIENT_CSS } from './utils/colors';
 import {
-  Mic, Camera, BookOpen, MessageCircle, Users, Settings as SettingsIcon, ChevronRight,
+  Mic, Camera, BookOpen, MessageCircle, Users, Settings as SettingsIcon,
   Play, Clock, Star, BarChart3, TrendingUp, Users as UsersIcon, BookIcon,
-  Plus, MessageSquare, AlertTriangle, Download, RefreshCw, Search, Filter
+  Plus, MessageSquare, Download, RefreshCw
 } from 'lucide-react';
 
 // Sample data
@@ -31,6 +30,46 @@ const sampleVocabulary = [
   { id: '3', word: 'Please', translation: 'Por favor', phonetic: 'pliːz', masteryLevel: 3 },
 ];
 
+const pricingPlans = [
+  {
+    id: 'basic',
+    name: 'Plan Básico',
+    price: '$0',
+    cycle: '/ mes',
+    features: ['5 lecciones al mes', 'Acceso a vocabulario básico'],
+    lockedFeatures: ['Sin práctica de IA', 'Sin misiones avanzadas'],
+    badge: 'Gratis',
+    variant: 'outline',
+  },
+  {
+    id: 'monthly',
+    name: 'Plan Mensual',
+    price: '$150.00',
+    cycle: '/ mes',
+    features: ['Acceso ilimitado a lecciones', 'Conversación con IA ilimitada', 'Misiones y gamificación', 'Reconocimiento de voz avanzado'],
+    badge: 'Recomendado',
+    variant: 'primary',
+  },
+  {
+    id: 'quarterly',
+    name: 'Plan Trimestral',
+    price: '$420.00',
+    cycle: '/ 3 meses',
+    features: ['Todo lo del plan Mensual', 'Soporte prioritario 24/7', 'Certificados de finalización'],
+    badge: 'Más Popular',
+    variant: 'highlight',
+  },
+  {
+    id: 'semiannual',
+    name: 'Plan Semestral',
+    price: '$780.00',
+    cycle: '/ 6 meses',
+    features: ['Todo lo del plan Trimestral', 'Masterclasses en vivo', 'Kit de bienvenida digital'],
+    badge: 'Mejor Valor',
+    variant: 'secondary',
+  },
+];
+
 const scenarios = [
   { id: '1', title: 'En el Restaurante', description: 'Ordena comida y resuelve problemas', icon: '🍽️', context: 'Practica pedir comida, hacer preguntas sobre el menú.' },
   { id: '2', title: 'En la Tienda', description: 'Compra ropa y accesorios', icon: '🛍️', context: 'Practica describir tallas, colores y presupuestos.' },
@@ -41,86 +80,98 @@ const scenarios = [
 // Home Page Component
 const HomePage: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate }) => {
   const { user } = useAuthStore();
+  const missions = [
+    { id: '1', title: 'Practica 5 frases de voz', reward: '50 XP', icon: '🎙️', completed: false },
+    { id: '2', title: 'Completa 2 lecciones', reward: '100 XP', icon: '✅', completed: true },
+    { id: '3', title: 'Comparte un logro', reward: '30 XP', icon: '🏆', completed: false },
+  ];
 
   return (
     <PageContainer>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <p className="text-white/60 text-sm">¡Hola,</p>
-          <h2 className="text-2xl font-bold text-white">{user?.displayName || 'Aprendedor'}! 👋</h2>
+      <div className="mb-6">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-white/60 uppercase tracking-[0.28em] text-[10px]">Bienvenido de nuevo</p>
+            <h2 className="mt-2 text-3xl font-black text-white leading-tight">¡Hola, {user?.displayName || 'Aprendedor'} 👋</h2>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-[32px] px-4 py-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF5E36] to-[#5D26C1] flex items-center justify-center text-white text-lg font-black">E</div>
+            <div>
+              <p className="text-xs text-white/50">Tu racha</p>
+              <p className="text-lg font-bold text-white">{user?.currentStreak || 0} días</p>
+            </div>
+          </div>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => onNavigate('settings')}>
-          <SettingsIcon size={20} />
-        </Button>
       </div>
 
       <DailyProgressCard />
 
-      <SectionHeader title="Acciones Rápidas" />
-      <div className="grid grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
         <QuickActionButton icon={<Mic size={24} />} label="Hablar" onClick={() => onNavigate('practice')} color="bg-purple-100" />
         <QuickActionButton icon={<Camera size={24} />} label="Escanear" onClick={() => onNavigate('scanner')} color="bg-orange-100" />
         <QuickActionButton icon={<BookOpen size={24} />} label="Lecciones" onClick={() => onNavigate('lessons')} color="bg-blue-100" />
         <QuickActionButton icon={<Users size={24} />} label="Comunidad" onClick={() => onNavigate('community')} color="bg-green-100" />
+        <QuickActionButton icon={<Star size={24} />} label="Planes" onClick={() => onNavigate('plans')} color="bg-red-100" />
       </div>
 
-      <SectionHeader title="Misiones Diarias" action={{ label: 'Ver todas', onClick: () => {} }} />
-      <Card className="bg-gradient-to-r from-purple-500 to-orange-500 text-white mb-6">
-        <div className="flex items-center gap-4">
-          <div className="text-4xl">🎯</div>
-          <div className="flex-1">
-            <h3 className="font-bold text-lg">Continúa tu racha</h3>
-            <p className="text-white/80 text-sm">Completa una lección para mantener tu racha de {user?.currentStreak || 0} días</p>
+      <Card className="mb-6 bg-[#1B0D2E] border border-white/10 shadow-[0_20px_40px_rgba(255,94,54,0.15)] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF5E36]/10 to-transparent pointer-events-none" />
+        <div className="relative flex flex-col gap-4 p-6">
+          <div>
+            <p className="text-sm text-white/60 uppercase tracking-[0.24em]">Mejora tu experiencia</p>
+            <h3 className="text-2xl font-black text-white">Planes Premium</h3>
           </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold">{user?.currentStreak || 0}</p>
-            <p className="text-xs text-white/60">días</p>
+          <p className="text-sm text-white/60 max-w-xl">Accede a ejercicios ilimitados, práctica con IA, misiones avanzadas y soporte prioritario desde un plan diseñado para tus metas.</p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.28em] text-[#FFB39A]">Desde</p>
+              <p className="text-3xl font-black text-white">$150<small className="text-sm text-white/60">/ mes</small></p>
+            </div>
+            <Button className="w-full sm:w-auto bg-gradient-to-r from-[#FF5E36] to-[#5D26C1] text-white" onClick={() => onNavigate('plans')}>Ver Planes</Button>
           </div>
         </div>
-        <Button className="w-full mt-4 bg-[#FF5E36]/20 hover:bg-[#FF5E36]/30 text-white">
-          Continuar Aprendiendo
-        </Button>
       </Card>
 
-      <SectionHeader title="Continuar Aprendiendo" />
-      <div className="space-y-4">
-        {sampleLessons.filter(l => !l.completed).slice(0, 2).map((lesson) => (
-          <Card key={lesson.id} className="cursor-pointer hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center text-2xl">
-                💬
+      <SectionHeader title="Continúa Aprendiendo" action={{ label: 'Ver todo', onClick: () => onNavigate('lessons') }} />
+      <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar mb-6">
+        {sampleLessons.filter((lesson) => !lesson.completed).slice(0, 2).map((lesson) => (
+          <Card key={lesson.id} className="min-w-[240px] shrink-0 p-4" variant="flat">
+            <div className="h-36 rounded-3xl overflow-hidden mb-4 bg-white/5 border border-white/10">
+              <div className="h-full w-full bg-gradient-to-br from-[#FF5E36]/20 to-[#5D26C1]/10 flex items-end p-4">
+                <span className="text-4xl">📘</span>
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-white">{lesson.title}</h3>
-                <p className="text-sm text-white/60">{lesson.description}</p>
-                <div className="flex items-center gap-4 mt-2">
-                  <span className="text-xs text-white/50 flex items-center gap-1"><Clock size={14} /> {lesson.durationMinutes} min</span>
-                  <span className="text-xs text-purple-600 flex items-center gap-1"><Star size={14} /> +{lesson.xpReward} XP</span>
-                </div>
-              </div>
-              <Button size="sm"><Play size={16} /></Button>
+            </div>
+            <h3 className="font-semibold text-white mb-1">{lesson.title}</h3>
+            <p className="text-sm text-white/60 mb-4">{lesson.description}</p>
+            <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-3">
+              <div className="h-full bg-gradient-to-r from-[#FF5E36] to-[#5D26C1]" style={{ width: `${lesson.progress}%` }} />
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-white/50">
+              <span>{lesson.durationMinutes} min</span>
+              <span>+{lesson.xpReward} XP</span>
             </div>
           </Card>
         ))}
       </div>
 
-      <SectionHeader title="Mi Vocabulario" />
-      <Card className="mb-6">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-2xl">📚</div>
-          <div>
-            <p className="text-2xl font-bold text-white">{sampleVocabulary.length}</p>
-            <p className="text-sm text-white/60">palabras aprendidas</p>
+      <SectionHeader title="Misiones del Día" action={{ label: 'Ver todas', onClick: () => {} }} />
+      <div className="space-y-3 mb-6">
+        {missions.map((mission) => (
+          <div key={mission.id} className={`flex items-center gap-4 p-4 rounded-3xl border ${mission.completed ? 'border-[#00E676]/30 bg-[#00E676]/10' : 'border-white/10 bg-white/5'}`}>
+            <div className="w-12 h-12 rounded-3xl bg-white/10 flex items-center justify-center text-xl text-[#FF5E36]">
+              {mission.icon}
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-white">{mission.title}</p>
+              <p className="text-[12px] text-white/50">Recompensa: {mission.reward}</p>
+            </div>
+            {mission.completed ? <span className="text-[#00E676] font-bold">Hecho</span> : <Button variant="ghost" size="sm">IR</Button>}
           </div>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {sampleVocabulary.map((word) => (
-            <Badge key={word.id} variant="gradient">{word.word}</Badge>
-          ))}
-        </div>
-      </Card>
+        ))}
+      </div>
 
-      <LeaderboardPreview onViewAll={() => onNavigate('leaderboard')} />
+      <SectionHeader title="Liga Diamante" />
+      <LeaderboardPreview onViewAll={() => onNavigate('progress')} />
     </PageContainer>
   );
 };
@@ -226,54 +277,116 @@ const PracticePage: React.FC = () => {
 
       {!isPracticing ? (
         <>
-          <Card className="bg-gradient-to-r from-purple-500 to-orange-500 text-white mb-6">
-            <div className="flex items-center gap-4">
-              <div className="text-5xl">🎤</div>
-              <div>
-                <h3 className="font-bold text-xl">Práctica con IA</h3>
-                <p className="text-white/80 text-sm">Conversa con un asistente virtual que te corrige en tiempo real</p>
-              </div>
-            </div>
-          </Card>
-
-          <h3 className="font-semibold text-white mb-4">Escoge un Escenario</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 mb-6">
             {scenarios.map((scenario) => (
-              <Card key={scenario.id} className="cursor-pointer hover:shadow-lg transition-all text-center" onClick={() => { setSelectedScenario(scenario); setIsPracticing(true); }}>
-                <div className="text-4xl mb-3">{scenario.icon}</div>
-                <h4 className="font-semibold text-white">{scenario.title}</h4>
-                <p className="text-xs text-white/60 mt-1">{scenario.description}</p>
-              </Card>
+              <button
+                key={scenario.id}
+                onClick={() => { setSelectedScenario(scenario); setIsPracticing(true); }}
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 text-left transition-all hover:border-[#FF5E36]/40 hover:bg-white/10"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-[#120E2E] to-transparent opacity-20" />
+                <div className="relative z-10 flex items-start gap-3">
+                  <div className="w-12 h-12 rounded-3xl bg-[#FF5E36]/10 flex items-center justify-center text-white text-2xl shadow-sm">{scenario.icon}</div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.22em] text-white/50">Escenario</p>
+                    <h4 className="text-white font-semibold">{scenario.title}</h4>
+                    <p className="text-[11px] text-white/50 mt-1">{scenario.description}</p>
+                  </div>
+                </div>
+              </button>
             ))}
           </div>
 
-          <div className="mt-8">
-            <h3 className="font-semibold text-white mb-4">Pronunciación</h3>
-            <Card onClick={() => setShowPronunciation(true)} className="cursor-pointer hover:shadow-lg">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center text-3xl">🔊</div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-white">Practica Pronunciación</h4>
-                  <p className="text-sm text-white/60">Recibe retroalimentación en tiempo real</p>
-                </div>
-                <ChevronRight size={24} className="text-white/50" />
-              </div>
-            </Card>
-          </div>
+          <Card className="p-4 mb-6 bg-white/5 border border-white/10">
+            <h3 className="font-bold text-white text-lg mb-2">Retroalimentación instantánea</h3>
+            <p className="text-sm text-white/60">Practica pronunciación, frases comunes y revisa tus respuestas para mejorar palabra por palabra.</p>
+          </Card>
+
+          <button
+            onClick={() => setShowPronunciation(true)}
+            className="w-full rounded-3xl bg-[#FF5E36] px-4 py-4 text-white font-bold uppercase tracking-[0.18em] transition-all hover:bg-[#ff7a55]"
+          >
+            Practica Pronunciación
+          </button>
         </>
       ) : (
-        <div>
+        <div className="relative">
           <div className="flex items-center justify-between mb-4">
             <Button variant="ghost" onClick={() => setIsPracticing(false)}>← Volver</Button>
             {selectedScenario && <Badge variant="gradient">{selectedScenario.title}</Badge>}
           </div>
-          <ConversationPractice scenario={selectedScenario || undefined} onComplete={(score) => console.log('Score:', score)} />
+          <div className="rounded-[32px] overflow-hidden border border-white/10 bg-[#0F0B2C] shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+            <ConversationPractice scenario={selectedScenario || undefined} onComplete={(score) => console.log('Score:', score)} />
+          </div>
         </div>
       )}
 
       <Modal isOpen={showPronunciation} onClose={() => setShowPronunciation(false)} title="Practica Pronunciación">
         <PronunciationFeedback targetWord="Thursday" phonetic="ˈθɜːrzdeɪ" userAttempt="" onRetry={() => {}} />
       </Modal>
+    </PageContainer>
+  );
+};
+
+// Plans Page
+const PlansPage: React.FC = () => {
+  return (
+    <PageContainer>
+      <div className="mb-6">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-white/60 uppercase tracking-[0.28em] text-[10px]">Planes de Suscripción</p>
+            <h2 className="mt-2 text-3xl font-black text-white leading-tight">Invierte en tu futuro</h2>
+          </div>
+          <div className="px-3 py-2 rounded-3xl bg-white/5 border border-white/10 text-sm text-white/70">Sin contratos</div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        {pricingPlans.map((plan) => (
+          <div
+            key={plan.id}
+            className={`relative overflow-hidden rounded-[32px] border p-6 ${plan.variant === 'highlight' ? 'border-[#6C39D0] bg-[#1F0F43] shadow-[0_20px_60px_rgba(93,38,193,0.25)]' : 'border-white/10 bg-white/5'}`}
+          >
+            {plan.badge && (
+              <div className={`absolute top-4 right-4 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] ${plan.variant === 'highlight' ? 'bg-[#6C39D0] text-white' : 'bg-white/10 text-white/70'}`}>
+                {plan.badge}
+              </div>
+            )}
+            <div className="mb-6">
+              <h3 className={`text-xl font-bold ${plan.variant === 'highlight' ? 'text-[#FFFFFF]' : 'text-white'}`}>{plan.name}</h3>
+              <div className="flex items-end gap-2 mt-3">
+                <span className={`text-4xl font-black ${plan.variant === 'highlight' ? 'text-white' : 'text-white'}`}>{plan.price}</span>
+                <span className="text-sm text-white/50">{plan.cycle}</span>
+              </div>
+            </div>
+            <ul className="space-y-3 mb-8">
+              {plan.features.map((feature) => (
+                <li key={feature} className="flex items-center gap-3 text-white/80 text-sm">
+                  <span className="text-[#00E676]">✓</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+              {plan.lockedFeatures?.map((feature) => (
+                <li key={feature} className="flex items-center gap-3 text-white/40 text-sm opacity-50">
+                  <span className="text-white/40">🔒</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button
+              className={`w-full ${plan.variant === 'outline' ? 'bg-transparent border border-white/10 text-white' : ''} ${plan.variant === 'highlight' ? 'bg-gradient-to-r from-[#FF5E36] to-[#5D26C1] text-white border-none shadow-xl shadow-[#5D26C1]/20 hover:brightness-105' : ''}`}
+              variant={plan.variant === 'outline' ? 'ghost' : 'primary'}
+            >
+              {plan.variant === 'outline' ? 'Continuar Gratis' : plan.variant === 'highlight' ? 'Elegir Plan Popular' : 'Comenzar Ahora'}
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 text-center text-sm text-white/50">
+        <p>Cancela en cualquier momento desde la app. Sin contratos obligatorios.</p>
+      </div>
     </PageContainer>
   );
 };
@@ -644,6 +757,7 @@ const App: React.FC = () => {
         {activeTab === 'community' && <CommunityPage />}
         {activeTab === 'progress' && <ProgressPage />}
         {activeTab === 'scanner' && <ScannerPage />}
+        {activeTab === 'plans' && <PlansPage />}
         {activeTab === 'settings' && <Settings />}
       </div>
       <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
