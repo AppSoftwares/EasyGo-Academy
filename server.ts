@@ -19,7 +19,7 @@ try {
   console.warn('Stripe routes not mounted (file missing or require failed):', e?.message || e);
 }
 
-const PORT = 3000;
+const PORT = parseInt(process.env.PORT || '3000', 10);
 
 // Initialize Gemini SDK with named parameter and safety User-Agent
 const geminiKey = process.env.GEMINI_API_KEY;
@@ -213,7 +213,13 @@ async function initializeApp() {
   if (process.env.NODE_ENV !== "production") {
     console.log("Configuring Vite Development Middleware...");
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: {
+          port: parseInt(process.env.HMR_PORT || '24679', 10),
+          host: 'localhost',
+        },
+      },
       appType: "spa",
     });
     app.use(vite.middlewares);

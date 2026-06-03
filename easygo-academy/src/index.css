@@ -1,38 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+    --color-brand-orange: #FF5E36;
+    --color-brand-coral: #FF5E36;
+    --color-brand-purple: #5D26C1;
+    --color-brand-violet: #5D26C1;
+    --color-brand-dark: #120E2E;
+    --color-brand-surface: rgba(20, 14, 44, 0.72);
+    --color-brand-surface-strong: rgba(18, 13, 42, 0.95);
+    --radius: 1.5rem;
   }
 
-  .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top right, rgba(93, 38, 193, 0.16), transparent 30%),
+      radial-gradient(circle at bottom left, rgba(255, 94, 54, 0.16), transparent 28%),
+      var(--color-brand-dark);
+    color: #f8fafc;
+    font-family: 'Inter', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  img {
+    object-position: top;
   }
 }
 
-
-
-img {
-  object-position: top;
+.brand-gradient {
+  background: linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-purple) 100%);
 }
 
-.fixed {
-  position: fixed;
+.glass {
+  background: rgba(18, 14, 46, 0.74);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.45);
+}
+
+.glass-soft {
+  background: rgba(34, 23, 63, 0.62);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.45s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

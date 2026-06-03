@@ -16,7 +16,7 @@ export const XPAndLevel: React.FC<XPAndLevelProps> = () => {
 
   return (
     <Card className="bg-gradient-to-br from-[#FF5E36] to-[#5D26C1] text-white border-none relative overflow-hidden">
-      <div className="absolute top-[-20%] right-[-10%] w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+      <div className="hidden md:block absolute top-[-20%] right-[-10%] w-32 h-32 bg-white/10 rounded-full blur-2xl" />
 
       <div className="flex items-center gap-4 relative z-10">
         <div className="w-16 h-16 rounded-[1.5rem] bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-xl">

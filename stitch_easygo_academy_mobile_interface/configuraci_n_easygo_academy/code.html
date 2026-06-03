@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuración | EasyGo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#8f7069",
+                    "background": "#fcf8ff",
+                    "on-tertiary-container": "#003416",
+                    "on-tertiary-fixed-variant": "#005226",
+                    "surface-container-low": "#f6f1ff",
+                    "on-primary-fixed": "#3c0700",
+                    "surface-dim": "#dcd5ff",
+                    "surface": "#fcf8ff",
+                    "inverse-primary": "#ffb4a2",
+                    "primary-container": "#ff5e36",
+                    "secondary-fixed": "#eaddff",
+                    "on-secondary-fixed-variant": "#561aba",
+                    "on-primary-container": "#5b1000",
+                    "on-tertiary-fixed": "#00210b",
+                    "tertiary-fixed-dim": "#00e475",
+                    "on-background": "#1b1737",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#00aa55",
+                    "primary-fixed-dim": "#ffb4a2",
+                    "secondary-fixed-dim": "#d1bcff",
+                    "on-primary-fixed-variant": "#8a1d00",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e4dfff",
+                    "inverse-on-surface": "#f3eeff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffdad2",
+                    "on-surface-variant": "#5a413a",
+                    "on-secondary-container": "#fffbff",
+                    "secondary": "#6c39d0",
+                    "surface-container-high": "#eae5ff",
+                    "surface-container": "#f0ebff",
+                    "surface-bright": "#fcf8ff",
+                    "on-surface": "#1b1737",
+                    "tertiary-fixed": "#62ff96",
+                    "tertiary": "#006d35",
+                    "surface-tint": "#b42901",
+                    "inverse-surface": "#302c4d",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary": "#b42901",
+                    "surface-variant": "#e4dfff",
+                    "outline-variant": "#e3beb6",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#24005b",
+                    "secondary-container": "#8556eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "container-padding": "20px",
+                    "gutter": "16px",
+                    "touch-target-min": "48px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h1": ["Plus Jakarta Sans"],
+                    "h2": ["Plus Jakarta Sans"],
+                    "h1-mobile": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Plus Jakarta Sans"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h1-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-item {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+        .glass-item:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .electric-glow {
+            box-shadow: 0 4px 24px rgba(93, 38, 193, 0.15);
+        }
+        body {
+            background-color: #fcf8ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-background selection:bg-secondary-fixed">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-touch-target-min bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-sm border-b border-white/10 dark:border-white/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="school">school</span>
+<h1 class="font-h1-mobile text-h1-mobile font-bold text-primary dark:text-primary-fixed-dim">¡Hola, Estudiante!</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-white">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional high-quality 3D avatar of a friendly male student with short dark hair and modern glasses, wearing a stylish navy blue polo shirt. The character is set against a clean, minimalist pastel blue background with soft studio lighting that emphasizes depth and high-end digital art finish. The overall mood is approachable, academic, and modern, fitting a premium educational app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYS9aEkDWUHmCbENe38Jj1H3dreAMn8H4LhS3hd1NcspW2s8qS3UwsuU1zfR6kBFMd34uOD5UrbzoztdCP8PJhqmh_SStI-KLBn-CtL68raXT5-xXFCub3zaYtH-djELiMhGK5NWbfpHdI81PcxQRtkUySXjoFCslTR3z-hlexiyz1tgMJripsVkGaCR81dHFMRlnYsAp9MgSpB8rBgh97BO17SdMzbfKXFHsHK7HM3Ipedoqtl3tSC2vvqk1sFPXW0oNxMDYCxFU"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-padding max-w-md mx-auto min-h-screen">
+<!-- Profile Header -->
+<section class="flex flex-col items-center mb-stack-lg">
+<div class="relative">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white electric-glow">
+<img class="w-full h-full object-cover" data-alt="A detailed, vibrant close-up of a digital avatar portrait representing a confident young professional student. The character has an optimistic expression, set within a crisp circular frame. The artistic style is a blend of corporate modern and 3D illustration, using a bright and energetic color palette of soft purples and clean whites. High-key lighting creates a soft, polished look that conveys trust and motivation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrhYwL3WbVBZ-YDeK-UL5-KR5QO2r64xEJdBNK2CYkX2wduBalMr2nRJ5XIIfJ_6pp3zzH4kiYKjs2X5nX7fzWiHVyO5I2lmC5p0xBAJPAUxBqAzYwwcoxmWgD61AmUtM0Tn9SHGpNctX83SrRNoHBMPEl_j7LJ7hwUXN7vMUGBWQZ-rbTOZHfg0d9vhHRdL-q0YlAm--1nWYkv2hJX9Ft4oUspxpZQX897u_xSLNeXPySMnylTdxf4KeBVz8rOfHhGNH9PNMfS3g"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-primary-container text-white p-2 rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+<h2 class="mt-stack-md font-h2 text-h2 font-bold text-on-background">Alejandro Ramírez</h2>
+<p class="font-body-sm text-on-surface-variant">Estudiante Platinum • Nivel B2</p>
+</section>
+<!-- Settings List 1 -->
+<section class="mb-stack-lg space-y-stack-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-stack-sm px-2">CUENTA Y SISTEMA</h3>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Cuenta</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Privacidad y seguridad</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="bell">doorbell</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Notificaciones y sonido</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="moon">moon_stars</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Apariencia</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Idioma</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="text-body-sm">Español</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Settings List 2 -->
+<section class="mb-stack-lg space-y-stack-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-stack-sm px-2">SOPORTE Y ACCIÓN</h3>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Ayuda, Comentario y reclamos</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="flex-1 font-body-md font-medium">Invitar amigo</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="glass-item rounded-xl p-4 flex items-center gap-4 cursor-pointer active:bg-error-container/20 group">
+<div class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center text-error group-active:bg-error group-active:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+</div>
+<span class="flex-1 font-body-md font-bold text-error">Cerrar Sesión</span>
+</div>
+</section>
+<!-- Follow Us Section -->
+<section class="flex flex-col items-center mb-stack-lg">
+<h3 class="font-h3 text-h3 font-semibold mb-stack-md text-on-surface">Síguenos</h3>
+<div class="flex gap-6">
+<a class="w-12 h-12 glass-item rounded-full flex items-center justify-center hover:scale-110 transition-transform active:scale-90 text-secondary" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="w-12 h-12 glass-item rounded-full flex items-center justify-center hover:scale-110 transition-transform active:scale-90 text-secondary" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"></path></svg>
+</a>
+<a class="w-12 h-12 glass-item rounded-full flex items-center justify-center hover:scale-110 transition-transform active:scale-90 text-secondary" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="w-12 h-12 glass-item rounded-full flex items-center justify-center hover:scale-110 transition-transform active:scale-90 text-secondary" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.01 3.64.01 7.29.02 10.93.03l.01 3.91c0 1.31-.01 2.61-.01 3.91l-.02-3.91c.01 4.38.01 8.76.02 13.14l-3.91.01c-1.31 0-2.61.01-3.91.01l3.91-.02c-.01 3.64-.02 7.29-.03 10.93l-3.91.01c-1.31 0-2.61.01-3.91.01l3.91-.02c-4.38.01-8.76.01-13.14.02l-.01-3.91c0-1.31.01-2.61.01-3.91l.02 3.91c-.01-4.38-.01-8.76-.02-13.14l3.91-.01c1.31 0 2.61-.01 3.91-.01l-3.91.02c.01-3.64.02-7.29.03-10.93l3.91-.01c1.31 0 2.61-.01 3.91-.01l-3.91.02zM9.06 12.9h2.27v7.24h3.01v-7.24h2.27l.31-2.85h-2.58v-1.83c0-.82.23-1.38 1.4-1.38h1.49v-2.55c-.26-.03-1.14-.11-2.17-.11-2.15 0-3.62 1.31-3.62 3.73v2.09h-2.38v2.85z"></path></svg>
+</a>
+</div>
+<p class="mt-stack-lg text-body-sm text-outline-variant">Versión 2.4.0 (2024)</p>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-[0_-4px_24px_rgba(93,38,193,0.15)] rounded-t-xl border-t border-white/10">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined transition-transform duration-150 active:scale-90" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps mt-1">Inicio</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined transition-transform duration-150 active:scale-90" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps mt-1">Lecciones</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined transition-transform duration-150 active:scale-90" data-icon="exercise">exercise</span>
+<span class="font-label-caps text-label-caps mt-1">Práctica</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined transition-transform duration-150 active:scale-90" data-icon="group">group</span>
+<span class="font-label-caps text-label-caps mt-1">Comunidad</span>
+</div>
+<!-- Active Tab: Progreso (Settings lives under profile/progress ecosystem) -->
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-90 duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps mt-1">Progreso</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for list items
+        document.querySelectorAll('.glass-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const label = item.querySelector('span:not(.material-symbols-outlined)').innerText;
+                console.log(`Navegando a: ${label}`);
+            });
+        });
+
+        // Add haptic-like effect on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => btn.classList.add('scale-95'));
+            btn.addEventListener('touchend', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

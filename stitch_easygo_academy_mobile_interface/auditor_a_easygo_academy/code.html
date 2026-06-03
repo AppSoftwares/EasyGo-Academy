@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Auditoría de Sistema - EasyGo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e4dfff",
+                    "on-tertiary-container": "#003416",
+                    "on-secondary-fixed-variant": "#561aba",
+                    "inverse-on-surface": "#f3eeff",
+                    "on-primary-container": "#5b1000",
+                    "secondary-container": "#8556eb",
+                    "tertiary-fixed": "#62ff96",
+                    "surface-bright": "#fcf8ff",
+                    "surface": "#fcf8ff",
+                    "primary-container": "#ff5e36",
+                    "surface-container-low": "#f6f1ff",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#b42901",
+                    "primary-fixed": "#ffdad2",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#8a1d00",
+                    "on-secondary-container": "#fffbff",
+                    "outline": "#8f7069",
+                    "tertiary-fixed-dim": "#00e475",
+                    "on-primary-fixed": "#3c0700",
+                    "on-surface": "#1b1737",
+                    "secondary-fixed-dim": "#d1bcff",
+                    "outline-variant": "#e3beb6",
+                    "secondary": "#6c39d0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1b1737",
+                    "on-secondary-fixed": "#24005b",
+                    "tertiary-container": "#00aa55",
+                    "inverse-primary": "#ffb4a2",
+                    "on-tertiary-fixed": "#00210b",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#005226",
+                    "primary": "#b42901",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#eae5ff",
+                    "secondary-fixed": "#eaddff",
+                    "primary-fixed-dim": "#ffb4a2",
+                    "inverse-surface": "#302c4d",
+                    "surface-container": "#f0ebff",
+                    "surface-container-highest": "#e4dfff",
+                    "on-surface-variant": "#5a413a",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf8ff",
+                    "tertiary": "#006d35",
+                    "surface-dim": "#dcd5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "touch-target-min": "48px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "container-padding": "20px",
+                    "stack-lg": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "h2": ["Plus Jakarta Sans"],
+                    "h1-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "h1": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "h3": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h1-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 24px rgba(93, 38, 193, 0.08);
+        }
+        .audit-gradient {
+            background: linear-gradient(135deg, #6c39d0 0%, #b42901 100%);
+        }
+        .status-secure {
+            color: #006d35;
+            background: rgba(0, 109, 53, 0.1);
+        }
+        .action-green { border-left: 4px solid #00aa55; }
+        .action-orange { border-left: 4px solid #ff5e36; }
+        .action-purple { border-left: 4px solid #6c39d0; }
+        
+        body {
+            background-color: #fcf8ff;
+            color: #1b1737;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-24">
+<!-- Top Navigation Anchor (Shared Component Mapping) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-touch-target-min bg-surface/80 backdrop-blur-md border-b border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary font-h2-mobile text-h2-mobile" data-icon="shield">shield</span>
+<h1 class="font-h1-mobile text-h1-mobile font-bold text-primary">Auditoría de Sistema</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="Admin Profile" data-alt="A professional close-up portrait of a high-ranking system administrator in a modern office environment. The person has a focused, confident expression, symbolizing trust and technical expertise. The background is softly blurred with subtle tech elements and cool-toned LED lighting, maintaining the clean, vibrant corporate aesthetic of the EasyGo Academy platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAEWQ1TuFXL14BTnwwDvixSmpGP5wdsXiNDeRWqQ371CNZhI-_kIH9XNT6qf-8xoIi-F2GNzCCFrABRXQW_JWUHg4551c3j7iS98u9GVHCL7zbx6hw2tSZCyysdotYIh4R9_AFAzcEH4ZOrrdx85GjLW7XNKThKyQTyfk3dofFMEcW_CEeX_V0LOfNqFoE4kqHYgLAOXNijChGfRqt1WLIWqBhhHcrKsQHwNPWhqMoZw_LLy2s6zc8QN1QK8rMEELLggTanJSQIvw"/>
+</div>
+</header>
+<main class="pt-24 px-container-padding max-w-4xl mx-auto">
+<!-- Header Info -->
+<section class="mb-stack-lg">
+<h2 class="font-h3 text-h3 text-on-surface mb-unit">Solo SuperAdmin - Registro Completo</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Monitoreo inmutable de actividad y cambios estructurales.</p>
+</section>
+<!-- Search & Filters -->
+<section class="mb-stack-lg space-y-stack-md">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-white border-2 border-surface-container rounded-xl focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all font-body-md outline-none" placeholder="Filtrar por usuario o acción..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex items-center gap-1 px-4 py-2 bg-secondary text-white rounded-full font-label-caps text-label-caps shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+                    Fecha
+                </button>
+<button class="flex items-center gap-1 px-4 py-2 bg-white text-on-surface-variant border border-surface-container-high rounded-full font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="settings_ethernet">settings_ethernet</span>
+                    Acción
+                </button>
+<button class="flex items-center gap-1 px-4 py-2 bg-white text-on-surface-variant border border-surface-container-high rounded-full font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="table_chart">table_chart</span>
+                    Tabla
+                </button>
+<button class="flex items-center gap-1 px-4 py-2 bg-white text-on-surface-variant border border-surface-container-high rounded-full font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span>
+                    Más
+                </button>
+</div>
+</section>
+<!-- Audit Log Feed -->
+<div class="space-y-stack-md">
+<!-- Log Card 1: Login -->
+<div class="glass-card rounded-xl p-4 action-green relative overflow-hidden group">
+<div class="flex items-start justify-between mb-stack-sm">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full" data-alt="A small circular avatar of a young professional student with a smiling face, set against a neutral, high-quality studio background. The lighting is soft and natural, emphasizing a friendly and trustworthy appearance. This avatar represents a user of the educational platform, maintaining a consistent, clean, and vibrant visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPSvAsHtsQZeE74W0YZrCX4FHKxpi0Xk_s8ZYJYNxxvNd6uVxZ0GXvoC-t57zrQUs6o99QVkp2NPQfH5ehl7zKhqJbyuHOkMCE-v3oeXu1h8azJteiWY2D-5TSOgT7L93m9h7x79WZf3XnVhDJjBwCVwe-QenzQb75MD3dc3DXp8HNvx7rmcvU2PRJEhbfKnAK21BEu-jMpOFnOdAdX6LzA97weiM6QIwvsmEC2x1dJFts5PG5EIPDd5CSyr09MWE9odim_6yFw8Q"/>
+<div>
+<p class="font-h3 text-body-md text-on-surface font-bold">Alejandro Ruiz</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">aruiz@easygo.edu</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps px-2 py-1 rounded bg-tertiary-fixed/20 text-tertiary font-bold mb-1">user.login</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-caps text-[10px] tracking-widest uppercase">Verified</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-stack-md py-2 border-y border-on-surface-variant/5">
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Tabla Afectada</p>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface">users</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">IP &amp; Timestamp</p>
+<p class="font-body-sm text-body-sm text-on-surface">192.168.1.45 • 14:32:01 UTC</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-container text-secondary font-label-caps text-label-caps hover:bg-surface-container-high transition-all active:scale-95" onclick="toggleDetails('details-1')">
+                    Ver Detalles
+                    <span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+<div class="hidden mt-4 p-3 bg-on-surface rounded-lg font-mono text-[12px] text-tertiary-fixed leading-relaxed" id="details-1">
+                    { "action": "login", "method": "OAuth2", "provider": "google", "device": "iPhone 15 Pro", "location": "Miami, FL" }
+                </div>
+</div>
+<!-- Log Card 2: Subscription Created -->
+<div class="glass-card rounded-xl p-4 action-purple relative overflow-hidden group">
+<div class="flex items-start justify-between mb-stack-sm">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full" data-alt="A small circular avatar of a professional woman with a confident smile, wearing business-casual attire. The image is set against a clean, softly lit white and purple gradient background, ensuring a high-end educational platform feel that radiates positivity and achievement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoQZCNsFAEffJ1xEcNW0WiUB7uWEMhFNwYwthBtusTLnt1Z3ghBGSBSUuic-QbnrmzoaGmwCDHWtVLY02-_KJqo7i48m8NYavpvPSMFR_ax3briu-6HWBOT65_Swbk8PVcSz6ZdNoBw4NlYCTBwD3dcoS9Fz9-0XaNYHqAGo0FVtjV6kLLKu-mJ_5LB__xCtDssNyVduFtgL7COznnsYP4CpdWM8Choincwpe2zEfzdDvgDugjWqzheJ-lywmZ1ZWq_TpV2yMPtEg"/>
+<div>
+<p class="font-h3 text-body-md text-on-surface font-bold">Elena Castillo</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">e.castillo@mail.com</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps px-2 py-1 rounded bg-secondary-fixed/20 text-secondary font-bold mb-1">subscription.created</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-caps text-[10px] tracking-widest uppercase">Secure</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-stack-md py-2 border-y border-on-surface-variant/5">
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Tabla Afectada</p>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface">subscriptions</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">IP &amp; Timestamp</p>
+<p class="font-body-sm text-body-sm text-on-surface">45.78.22.10 • 12:15:44 UTC</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-container text-secondary font-label-caps text-label-caps hover:bg-surface-container-high transition-all active:scale-95" onclick="toggleDetails('details-2')">
+                    Ver Detalles
+                    <span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+<div class="hidden mt-4 p-3 bg-on-surface rounded-lg font-mono text-[12px] text-secondary-fixed-dim leading-relaxed" id="details-2">
+                    { "plan": "Premium_Annual", "amount": 149.99, "currency": "USD", "before": "null", "after": "active" }
+                </div>
+</div>
+<!-- Log Card 3: Lesson Deleted -->
+<div class="glass-card rounded-xl p-4 action-orange relative overflow-hidden group">
+<div class="flex items-start justify-between mb-stack-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div>
+<p class="font-h3 text-body-md text-on-surface font-bold">System Admin (Auto)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">system@easygo.edu</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps px-2 py-1 rounded bg-primary-container/20 text-primary font-bold mb-1">lesson.deleted</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-caps text-[10px] tracking-widest uppercase">Verified</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-stack-md py-2 border-y border-on-surface-variant/5">
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Tabla Afectada</p>
+<p class="font-body-sm text-body-sm font-semibold text-on-surface">lessons</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">IP &amp; Timestamp</p>
+<p class="font-body-sm text-body-sm text-on-surface">System-Internal • 10:05:12 UTC</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-surface-container text-secondary font-label-caps text-label-caps hover:bg-surface-container-high transition-all active:scale-95" onclick="toggleDetails('details-3')">
+                    Ver Detalles
+                    <span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+<div class="hidden mt-4 p-3 bg-on-surface rounded-lg font-mono text-[12px] text-primary-fixed-dim leading-relaxed" id="details-3">
+                    { "lesson_id": "LX-9902", "reason": "content_obsolete", "archived": true, "trigger": "lifecycle_cron" }
+                </div>
+</div>
+</div>
+</main>
+<!-- Footer Action -->
+<div class="fixed bottom-0 left-0 w-full px-container-padding pb-6 pt-4 bg-gradient-to-t from-background via-background/90 to-transparent">
+<button class="w-full audit-gradient text-white py-4 rounded-xl flex items-center justify-center gap-3 shadow-[0_4px_24px_rgba(93,38,193,0.3)] active:scale-[0.98] transition-all font-h3">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+            Exportar Reporte Seguro
+        </button>
+</div>
+<!-- Bottom Nav Suppression Check: Since this is a SuperAdmin Task-Focused Screen, 
+         we maintain minimal navigation or a specialized back button if needed, 
+         but here we'll prioritize the Audit Feed as requested. -->
+<script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            const isHidden = el.classList.contains('hidden');
+            
+            // Close others (optional)
+            document.querySelectorAll('[id^="details-"]').forEach(d => d.classList.add('hidden'));
+            
+            if (isHidden) {
+                el.classList.remove('hidden');
+                el.classList.add('animate-in', 'fade-in', 'slide-in-from-top-2', 'duration-300');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Add a subtle entrance animation to cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease-out';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body></html>

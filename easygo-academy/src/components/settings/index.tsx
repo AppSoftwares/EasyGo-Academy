@@ -1,252 +1,170 @@
-import { useState } from 'react';
-import { Card, Button, Badge } from '../ui';
-import { PageContainer, SectionHeader } from '../layout';
+import { useCallback, useState } from 'react';
+import { Button } from '../ui';
+import { PageContainer } from '../layout';
+import type { LucideIcon } from 'lucide-react';
 import {
-  Settings,
-  Moon,
-  Sun,
-  Shield,
-  FileText,
-  Mail,
-  LogOut,
-  User,
+  Pencil,
+  Trash2,
+  Key,
   Lock,
-  ChevronRight,
   Bell,
+  Moon,
   Globe,
   HelpCircle,
-  Info,
-  Check
+  Heart,
+  LogOut,
+  Instagram,
+  Facebook,
+  Twitter,
+  Music,
+  ChevronRight
 } from 'lucide-react';
 
+type MenuItem = {
+  readonly icon: LucideIcon;
+  readonly title: string;
+  readonly subtitle?: string;
+  readonly danger?: boolean;
+};
+
+type SocialItem = {
+  readonly icon: LucideIcon;
+  readonly label: string;
+  readonly color: string;
+};
+
+const primaryMenu: readonly MenuItem[] = [
+  { icon: Key, title: 'Cuenta', subtitle: 'Administrar acceso y datos' },
+  { icon: Lock, title: 'Privacidad y seguridad', subtitle: 'Controla tus permisos' },
+  { icon: Bell, title: 'Notificaciones y sonido', subtitle: 'Alertas y tonos' },
+  { icon: Moon, title: 'Apariencia', subtitle: 'Tema claro/oscuro' },
+  { icon: Globe, title: 'Idioma', subtitle: 'Selecciona tu idioma' }
+];
+
+const secondaryMenu: readonly MenuItem[] = [
+  { icon: HelpCircle, title: 'Ayuda, Comentario y reclamos' },
+  { icon: Heart, title: 'Invitar amigo' },
+  { icon: LogOut, title: 'Cerrar Sesión', danger: true }
+];
+
+const socialIcons: readonly SocialItem[] = [
+  { icon: Instagram, label: 'Instagram', color: 'bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#dc2743]' },
+  { icon: Facebook, label: 'Facebook', color: 'bg-[#1877F2]' },
+  { icon: Twitter, label: 'Twitter', color: 'bg-[#1DA1F2]' },
+  { icon: Music, label: 'TikTok', color: 'bg-[#000000]' }
+];
+
+function AvatarActionButton({ isEditing, onToggle }: { isEditing: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      className="absolute right-0 bottom-0 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0B0B16] shadow-lg border border-white/20 transition hover:bg-[#FF5E36] hover:text-white"
+      onClick={onToggle}
+      aria-label="Editar avatar"
+    >
+      {isEditing ? <Trash2 className="w-5 h-5" /> : <Pencil className="w-5 h-5" />}
+    </button>
+  );
+}
+
+function MenuItemButton({ item }: { item: MenuItem }) {
+  return (
+    <button
+      type="button"
+      className={`w-full rounded-[1.75rem] px-4 py-4 text-left transition border border-white/10 ${
+        item.danger ? 'bg-[#FF3F4E]/10 text-[#FF6F85] hover:bg-[#FF3F4E]/15' : 'bg-white/5 hover:bg-white/10'
+      }`}
+    >
+      <div className="flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#FF5E36] shadow-inner">
+          <item.icon className="w-5 h-5" />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-white">{item.title}</p>
+          {item.subtitle ? <p className="text-[13px] text-white/50">{item.subtitle}</p> : null}
+        </div>
+        <ChevronRight className="w-5 h-5 text-white/30" />
+      </div>
+    </button>
+  );
+}
+
+function SocialButton({ item }: { item: SocialItem }) {
+  return (
+    <button
+      type="button"
+      className={`${item.color} flex h-11 w-11 items-center justify-center rounded-2xl shadow-lg shadow-black/30 transition hover:scale-105`}
+      aria-label={item.label}
+    >
+      <item.icon className="w-5 h-5 text-white" />
+    </button>
+  );
+}
+
 export function SettingsPage() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notifications, setNotifications] = useState(true);
+  const [isAvatarEditing, setIsAvatarEditing] = useState(false);
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark');
-  };
-
-  const menuItems = [
-    {
-      icon: User,
-      title: 'Perfil de Usuario',
-      subtitle: 'Ver y editar información personal',
-      action: 'profile',
-      color: 'text-[#FF5E36]'
-    },
-    {
-      icon: Lock,
-      title: 'Cambiar Contraseña',
-      subtitle: 'Actualiza tu contraseña de seguridad',
-      action: 'password',
-      color: 'text-[#FFD700]'
-    },
-    {
-      icon: Bell,
-      title: 'Notificaciones',
-      subtitle: notifications ? 'Activadas' : 'Desactivadas',
-      action: 'notifications',
-      color: 'text-[#5D26C1]'
-    },
-    {
-      icon: Globe,
-      title: 'Idioma',
-      subtitle: 'Español (predeterminado)',
-      action: 'language',
-      color: 'text-[#00E676]'
-    },
-    {
-      icon: Moon,
-      title: 'Tema Oscuro',
-      subtitle: darkMode ? 'Activado' : 'Desactivado',
-      action: 'theme',
-      color: 'text-[#FF5E36]',
-      toggle: true
-    }
-  ];
-
-  const legalItems = [
-    {
-      icon: Shield,
-      title: 'Privacidad',
-      subtitle: 'Política de protección de datos',
-      color: 'text-[#00E676]'
-    },
-    {
-      icon: FileText,
-      title: 'Términos de Uso',
-      subtitle: 'Condiciones de la aplicación',
-      color: 'text-[#FF5E36]'
-    },
-    {
-      icon: Info,
-      title: 'Acerca de EasyGo',
-      subtitle: 'Versión 1.0.0',
-      color: 'text-[#5D26C1]'
-    },
-    {
-      icon: HelpCircle,
-      title: 'Centro de Ayuda',
-      subtitle: 'FAQ y soporte técnico',
-      color: 'text-[#FFD700]'
-    }
-  ];
-
-  const supportItems = [
-    {
-      icon: Mail,
-      title: 'Buzón de Sugerencias',
-      subtitle: 'Envíanos tus ideas',
-      color: 'text-[#5D26C1]'
-    },
-    {
-      icon: Mail,
-      title: 'Reclamos',
-      subtitle: 'Reporta problemas',
-      color: 'text-[#FF5E36]'
-    }
-  ];
+  const toggleAvatarEdit = useCallback(() => {
+    setIsAvatarEditing((current) => !current);
+  }, []);
 
   return (
     <PageContainer className="p-0">
-      <div className="min-h-screen bg-[#120E2E] pb-24">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#FF5E36] to-[#5D26C1] px-6 py-10 rounded-b-[3rem] shadow-xl">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md">
-              <Settings className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-black text-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Ajustes</h1>
-              <p className="text-white/60 text-xs font-bold uppercase tracking-widest">Configura tu experiencia</p>
+      <div className="min-h-screen bg-[#0B0B16] text-white flex items-end justify-center pb-6">
+        <div className="w-full max-w-[520px] aspect-square rounded-[3rem] bg-[radial-gradient(circle_at_top,_rgba(255,94,54,0.25),_transparent_35%),linear-gradient(180deg,#100D23_0%,#0B0B16_100%)] shadow-[0_35px_90px_rgba(0,0,0,0.35)] border border-white/10 overflow-hidden relative">
+          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#FF5E36]/20 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#07070d]/70 to-transparent" />
+
+          <div className="relative h-full flex flex-col justify-end">
+            <div className="px-6 pb-6">
+              <div className="mx-auto w-full max-w-[420px] rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.25)] overflow-hidden">
+                <div className="bg-[#130F26] px-6 pt-6 pb-4">
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="relative">
+                      <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[#FF5E36] via-[#FF9E54] to-[#5D26C1] shadow-xl flex items-center justify-center text-4xl font-black text-white">
+                        <span>AG</span>
+                      </div>
+                      <AvatarActionButton isEditing={isAvatarEditing} onToggle={toggleAvatarEdit} />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm uppercase tracking-[0.35em] text-white/40">Perfil</p>
+                      <h1 className="text-2xl font-extrabold tracking-tight">Alex González</h1>
+                      <p className="text-sm text-white/60">Diseñador UX · México</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3 px-4 py-5">
+                  {primaryMenu.map((item) => (
+                    <MenuItemButton key={item.title} item={item} />
+                  ))}
+                </div>
+
+                <div className="border-t border-white/10 px-4 py-4">
+                  <p className="mb-4 text-xs uppercase tracking-[0.35em] text-white/40">Más opciones</p>
+                  <div className="space-y-3">
+                    {secondaryMenu.map((item) => (
+                      <MenuItemButton key={item.title} item={item} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-5 rounded-[2rem] bg-[#12101F]/80 p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-white">Síguenos</p>
+                      <p className="mt-1 text-[13px] text-white/50">Conéctate con nuestras redes</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      {socialIcons.map((item) => (
+                        <SocialButton key={item.label} item={item} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* User Profile Card */}
-        <div className="px-6 -mt-8">
-          <Card variant="elevated" className="bg-[#1A153D] border border-white/10 shadow-2xl">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#FF5E36] to-[#5D26C1] flex items-center justify-center border border-white/20 shadow-lg">
-                <span className="text-2xl font-black text-white">MA</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-white text-lg leading-tight">María García</h3>
-                <p className="text-xs text-white/40 font-medium">maria.garcia@email.com</p>
-                <Badge className="mt-2 bg-[#00E676]/20 text-[#00E676] border-none font-black text-[10px]">PRO NIVEL 5</Badge>
-              </div>
-              <ChevronRight className="w-5 h-5 text-white/20" />
-            </div>
-          </Card>
-        </div>
-
-        {/* Account Settings */}
-        <div className="px-6 mt-10">
-          <SectionHeader title="Cuenta" />
-          <Card variant="flat" className="divide-y divide-white/5 overflow-hidden">
-            {menuItems.map((item, index) => (
-              <div
-                key={index}
-                className="p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-all"
-                onClick={() => item.action === 'theme' && toggleTheme()}
-              >
-                <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5`}>
-                  <item.icon className={`w-5 h-5 ${item.color}`} />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                  <p className="text-[10px] text-white/40 uppercase font-bold tracking-tight">{item.subtitle}</p>
-                </div>
-                {item.toggle ? (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleTheme();
-                    }}
-                    className={`relative w-12 h-6 rounded-full transition-all ${
-                      darkMode ? 'bg-[#FF5E36]' : 'bg-white/10'
-                    }`}
-                  >
-                    <div
-                      className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-lg transition-transform ${
-                        darkMode ? 'left-7' : 'left-1'
-                      }`}
-                    />
-                  </button>
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-white/20" />
-                )}
-              </div>
-            ))}
-          </Card>
-        </div>
-
-        {/* Legal */}
-        <div className="px-6 mt-10">
-          <SectionHeader title="Legal" />
-          <Card variant="flat" className="divide-y divide-white/5 overflow-hidden">
-            {legalItems.map((item, index) => (
-              <div
-                key={index}
-                className="p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-all"
-              >
-                <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5`}>
-                  <item.icon className={`w-5 h-5 ${item.color}`} />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                  <p className="text-[10px] text-white/40 uppercase font-bold tracking-tight">{item.subtitle}</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-white/20" />
-              </div>
-            ))}
-          </Card>
-        </div>
-
-        {/* Support */}
-        <div className="px-6 mt-10">
-          <SectionHeader title="Soporte" />
-          <Card variant="flat" className="divide-y divide-white/5 overflow-hidden">
-            {supportItems.map((item, index) => (
-              <div
-                key={index}
-                className="p-4 flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-all"
-              >
-                <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5`}>
-                  <item.icon className={`w-5 h-5 ${item.color}`} />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                  <p className="text-[10px] text-white/40 uppercase font-bold tracking-tight">{item.subtitle}</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-white/20" />
-              </div>
-            ))}
-          </Card>
-        </div>
-
-        {/* Logout */}
-        <div className="px-6 mt-12">
-          <Button
-            variant="danger"
-            className="w-full h-14 shadow-[0_10px_25px_rgba(239,68,68,0.2)]"
-            onClick={() => {
-              if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                window.location.href = '/';
-              }
-            }}
-          >
-            <LogOut className="w-5 h-5 mr-2" />
-            CERRAR SESIÓN
-          </Button>
-        </div>
-
-        {/* Version */}
-        <div className="px-6 mt-10 text-center pb-12">
-          <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">EasyGo Academy v1.0.0</p>
-          <p className="text-[8px] font-bold text-white/10 uppercase tracking-widest mt-2">© 2024 Todos los derechos reservados</p>
         </div>
       </div>
     </PageContainer>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EasyGo Academy - Planes de Suscripción</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#eaddff",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "tertiary": "#006d35",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f6f1ff",
+                    "on-background": "#1b1737",
+                    "tertiary-container": "#00aa55",
+                    "on-secondary-fixed-variant": "#561aba",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005226",
+                    "tertiary-fixed-dim": "#00e475",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#fffbff",
+                    "surface-tint": "#b42901",
+                    "surface-dim": "#dcd5ff",
+                    "primary-fixed": "#ffdad2",
+                    "on-primary-fixed-variant": "#8a1d00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#00210b",
+                    "surface-variant": "#e4dfff",
+                    "on-tertiary-container": "#003416",
+                    "outline-variant": "#e3beb6",
+                    "inverse-surface": "#302c4d",
+                    "surface-container": "#f0ebff",
+                    "outline": "#8f7069",
+                    "surface-container-highest": "#e4dfff",
+                    "background": "#fcf8ff",
+                    "surface-bright": "#fcf8ff",
+                    "inverse-on-surface": "#f3eeff",
+                    "tertiary-fixed": "#62ff96",
+                    "secondary-container": "#8556eb",
+                    "primary-container": "#ff5e36",
+                    "on-primary-fixed": "#3c0700",
+                    "surface": "#fcf8ff",
+                    "secondary-fixed-dim": "#d1bcff",
+                    "on-surface": "#1b1737",
+                    "inverse-primary": "#ffb4a2",
+                    "surface-container-high": "#eae5ff",
+                    "secondary": "#6c39d0",
+                    "on-secondary-fixed": "#24005b",
+                    "on-primary-container": "#5b1000",
+                    "primary-fixed-dim": "#ffb4a2",
+                    "on-surface-variant": "#5a413a",
+                    "primary": "#b42901",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "container-padding": "20px",
+                    "touch-target-min": "48px",
+                    "stack-lg": "24px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter", "sans-serif"],
+                    "label-caps": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "h3": ["Plus Jakarta Sans", "sans-serif"],
+                    "h1": ["Plus Jakarta Sans", "sans-serif"],
+                    "h2": ["Plus Jakarta Sans", "sans-serif"],
+                    "h1-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h1-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </style>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-shadow {
+            box-shadow: 0 4px 24px rgba(93, 38, 193, 0.15);
+        }
+        .glass-header {
+            background: rgba(252, 248, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .brand-gradient-bg {
+            background: linear-gradient(135deg, #FF5E36 0%, #5D26C1 100%);
+        }
+        .brand-gradient-text {
+            background: linear-gradient(135deg, #FF5E36 0%, #5D26C1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Top AppBar (Injected Styles Execution) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-touch-target-min glass-header border-b border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<img alt="EasyGo Academy" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLuM50B875XsO6XjA22fbKobgzyjKrlb99VKHv0Dx_t9UM0IHuSGkXAIzYZ5y9bbovGNkD8R-P2sSLmOiB8VFShzDcIDnFnn-YaVhCy4_mfWFrdy3m4wexqNBvU-OhM8yRCUSCBhAfyFlrCGEvFy-qhTbvZPbqYoomAPUWkWKZm8rZjPTav20Ghr1LOq7vejpTnTaZr1U8te-DydK761BFID5FDqS_76WvJrwE_Hk-gd-FhT-i_1bTkGFw"/>
+<span class="font-h1-mobile text-h1-mobile font-bold text-primary">EasyGo</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-secondary">person</span>
+</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-container-padding max-w-md mx-auto">
+<!-- Header Section -->
+<header class="text-center mb-stack-lg animate-in fade-in slide-in-from-top-4 duration-700">
+<h1 class="font-h1-mobile text-h1-mobile font-extrabold text-on-background leading-tight mb-2">
+                Invierte en tu futuro: <br/><span class="brand-gradient-text">Elige tu plan</span>
+</h1>
+<p class="font-body-md text-on-surface-variant px-4">
+                Desbloquea el acceso ilimitado a lecciones interactivas, misiones diarias y práctica de conversación con IA.
+            </p>
+</header>
+<!-- Pricing Cards Container -->
+<div class="flex flex-col gap-gutter">
+<!-- Plan 1: Plan Básico -->
+<article class="bg-surface-container-lowest p-gutter rounded-3xl border border-outline-variant transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="font-h3 text-h3 text-on-surface">Plan Básico</h2>
+<div class="mt-1">
+<span class="font-h1-mobile text-h1-mobile font-black text-on-background">$0</span>
+<span class="font-label-caps text-on-surface-variant">/ mes</span>
+</div>
+</div>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">5 lecciones al mes</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Acceso a vocabulario básico</span>
+</li>
+<li class="flex items-center gap-3 opacity-50">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">lock</span>
+<span class="font-body-md text-on-surface-variant">Sin práctica de IA</span>
+</li>
+<li class="flex items-center gap-3 opacity-50">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">lock</span>
+<span class="font-body-md text-on-surface-variant">Sin misiones avanzadas</span>
+</li>
+</ul>
+<button class="w-full py-3.5 px-6 rounded-2xl border-2 border-secondary text-secondary font-bold font-body-md hover:bg-secondary/5 transition-colors touch-target-min">
+                    Continuar Gratis
+                </button>
+</article>
+<!-- Plan 2: Plan Mensual -->
+<article class="bg-surface-container-lowest p-gutter rounded-3xl border border-outline-variant premium-shadow transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<div class="mb-4">
+<h2 class="font-h3 text-h3 text-on-surface">Plan Mensual</h2>
+<div class="mt-1">
+<span class="font-h1-mobile text-h1-mobile font-black text-on-background">$150.00</span>
+<span class="font-label-caps text-on-surface-variant">/ mes</span>
+</div>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Acceso ilimitado a lecciones</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Conversación con IA ilimitada</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Misiones y gamificación</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Reconocimiento de voz avanzado</span>
+</li>
+</ul>
+<button class="w-full py-3.5 px-6 rounded-2xl bg-primary-container text-white font-bold font-body-md shadow-lg shadow-primary-container/20 hover:opacity-90 transition-opacity touch-target-min">
+                    Comenzar Ahora
+                </button>
+</article>
+<!-- Plan 3: Plan Trimestral (HIGHLIGHTED) -->
+<article class="relative bg-surface-container-lowest p-gutter rounded-[32px] border-2 border-secondary premium-shadow overflow-hidden transition-transform hover:scale-[1.05] active:scale-[0.98] ring-4 ring-secondary/5">
+<div class="absolute top-0 right-0">
+<div class="bg-secondary text-white font-label-caps text-[10px] px-4 py-1.5 rounded-bl-2xl shadow-md uppercase tracking-widest font-bold">
+                        MÁS POPULAR
+                    </div>
+</div>
+<div class="mb-4">
+<h2 class="font-h3 text-h3 text-secondary font-bold">Plan Trimestral</h2>
+<div class="mt-1 flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-h1-mobile text-h1-mobile font-black text-on-background">$420.00</span>
+<span class="font-label-caps text-on-surface-variant">/ 3 meses</span>
+</div>
+<span class="font-label-caps text-tertiary font-bold mt-1 bg-tertiary/10 self-start px-2 py-0.5 rounded-full">
+                            $140.00 / mes (¡Ahorra $30!)
+                        </span>
+</div>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-body-md text-on-surface">Todo lo del plan Mensual</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Soporte prioritario 24/7</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Certificados de finalización</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-2xl brand-gradient-bg text-white font-bold font-body-md shadow-xl shadow-secondary/30 hover:brightness-110 transition-all touch-target-min">
+                    Elegir Plan Popular
+                </button>
+</article>
+<!-- Plan 4: Plan Semestral -->
+<article class="bg-surface-container-lowest p-gutter rounded-3xl border border-outline-variant transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<div class="mb-4">
+<div class="flex justify-between items-center mb-1">
+<h2 class="font-h3 text-h3 text-on-surface">Plan Semestral</h2>
+<span class="font-label-caps text-primary bg-primary/10 px-3 py-1 rounded-full font-bold">MEJOR VALOR</span>
+</div>
+<div class="mt-1 flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-h1-mobile text-h1-mobile font-black text-on-background">$780.00</span>
+<span class="font-label-caps text-on-surface-variant">/ 6 meses</span>
+</div>
+<span class="font-label-caps text-tertiary font-bold mt-1">
+                            $130.00 / mes (¡Ahorra $120!)
+                        </span>
+</div>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Todo lo del plan Trimestral</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Masterclasses en vivo</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-on-surface">Kit de bienvenida digital</span>
+</li>
+</ul>
+<button class="w-full py-3.5 px-6 rounded-2xl bg-primary-container text-white font-bold font-body-md shadow-lg shadow-primary-container/20 hover:opacity-90 transition-opacity touch-target-min">
+                    Obtener Mejor Valor
+                </button>
+</article>
+</div>
+<!-- Trust Indicator -->
+<section class="mt-stack-lg flex flex-col items-center justify-center space-y-4">
+<div class="flex -space-x-3 overflow-hidden">
+<img class="inline-block h-10 w-10 rounded-full ring-2 ring-background" data-alt="A portrait photo of a smiling diverse student in a modern workspace, natural daylight, soft focus background, high-quality professional mobile photography aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnuH4J2QCZ_-SdBQ6NeyQ2Oa6SQgpFsYPjqZ3pw4pwTiy50VFrK5b9MKafsHHP9DQx7y84QeDND5lHFVWrJOJjHJ2REiB6lekhAMWgtYM4_-c8WTRIxv1NdlO5yklTgbJLWW6gdu1wJLIGpf6RT7z9ER4b9kIyZfSi6KxPNQAonvxnWrLnKpJyxsV6ntMbFpAcrahkuYdxqOTEhruKnmS2vPuECGoitOy0do4jvAc4wBADtE2SSTay1xuohxDx1sNkDELE1yW3nLg"/>
+<img class="inline-block h-10 w-10 rounded-full ring-2 ring-background" data-alt="A portrait of a cheerful young woman wearing headphones in a bright cafe, vibrant orange accents, professional lighting, modern academic vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1vfk2iGAXnqYqyQb8UuSzveHyIjzZKtVqMDgP_XdzvMJTCKmq92nQmCEjuaMH0bv1oByUjvg8dcCXK6JFjl4BHnqaFBev9uC4dMxVoir9QbKfmxfCOrCGF0seJYmpsYdILwPKV4ROZ_hyD1r1ZHmgovdfKSpua1yao7hWKd1zq_pYMeFaIYzXV_dDEPe3Ta6B_I_zYTOBM3PdcULVuTsuKjw9JhdmXRi1I9yQeCG41KRIRMYPmw9IixSyl1i42cUiYzo6wTZ-lE"/>
+<img class="inline-block h-10 w-10 rounded-full ring-2 ring-background" data-alt="A smiling man looking at his smartphone in a futuristic university library, cool blue and purple ambient lighting, high-contrast professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIa48fM_fjiDbaDESElNTc98_OmPkss_4GKenvf-dlOzarzazM2K2zsnNr6TdUemY8n-TeWkGFoujno59Imut6YTJz20XADnPGQWK6O10SAZfTrkQF3cWDQeu5hpDKSaNRZ32niV8MZtcg5FEOVT3EOgiqBsXn_kU-mDwIoGEYZvVgk-_771E5SqqMUmrzz0y5uXtRYvV2LfOC6zfTBt9b6Ugl-w0Yr7bM4wMXlhT4JZei8mTApD-jC1gAoh6lhJwv60F6J95GDTU"/>
+</div>
+<p class="font-body-sm text-on-surface-variant text-center">
+                Únete a más de <span class="text-secondary font-bold">50,000+ estudiantes</span> mejorando su futuro hoy.
+            </p>
+</section>
+<!-- Footer -->
+<footer class="mt-stack-lg mb-12 text-center">
+<p class="font-label-caps text-on-surface-variant opacity-70 px-8">
+                Cancela en cualquier momento desde la app. Sin contratos obligatorios. <br/> Términos y condiciones aplicables.
+            </p>
+</footer>
+</main>
+<!-- Bottom Nav Bar (Injected Styles Execution) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md border-t border-white/10 shadow-[0_-4px_24px_rgba(93,38,193,0.15)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps">Lecciones</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="exercise">exercise</span>
+<span class="font-label-caps text-label-caps">Práctica</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-caps text-label-caps">Comunidad</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">Progreso</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.classList.add('scale-[0.98]');
+            });
+            card.addEventListener('touchend', () => {
+                card.classList.remove('scale-[0.98]');
+            });
+        });
+
+        // Simple scroll observer for header transparency
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

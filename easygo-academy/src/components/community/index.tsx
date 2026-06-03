@@ -153,19 +153,19 @@ interface StudyGroupCardProps {
 }
 
 export const StudyGroupCard: React.FC<StudyGroupCardProps> = ({ group, onJoin }) => (
-  <Card>
+  <Card className="bg-[#1A153D] border border-white/10">
     <div className="flex items-center gap-3 mb-3">
       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center text-white text-xl">
         {group.level.charAt(0).toUpperCase()}
       </div>
       <div className="flex-1">
-        <h4 className="font-semibold text-gray-900">{group.name}</h4>
-        <p className="text-xs text-gray-500">Nivel: {group.level}</p>
+        <h4 className="font-semibold text-white">{group.name}</h4>
+        <p className="text-xs text-white/40">Nivel: {group.level}</p>
       </div>
     </div>
-    <p className="text-sm text-gray-600 mb-3">{group.description}</p>
+    <p className="text-sm text-white/50 mb-3">{group.description}</p>
     <div className="flex items-center justify-between">
-      <span className="text-xs text-gray-400 flex items-center gap-1">
+      <span className="text-xs text-white/40 flex items-center gap-1">
         <Users size={14} />
         {group.members} miembros
       </span>
@@ -195,7 +195,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({ users, current
   const medals = ['🥇', '🥈', '🥉'];
 
   return (
-    <Card variant="elevated">
+    <Card variant="elevated" className="bg-[#1A153D] border border-white/10">
       <h4 className="font-bold text-white mb-6 flex items-center gap-2 uppercase tracking-widest text-xs">
         <Award className="text-[#FFD700]" size={16} />
         Top Estudiantes
@@ -251,20 +251,20 @@ interface CommunityStatsProps {
 
 export const CommunityStats: React.FC<CommunityStatsProps> = ({ stats }) => (
   <div className="grid grid-cols-3 gap-4 mb-6">
-    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+    <div className="bg-[#1A153D] rounded-xl p-4 text-center shadow-sm border border-white/10">
       <div className="text-2xl mb-1">📝</div>
-      <p className="text-2xl font-bold text-gray-900">{stats.totalPosts}</p>
-      <p className="text-xs text-gray-500">Posts</p>
+      <p className="text-2xl font-bold text-white">{stats.totalPosts}</p>
+      <p className="text-xs text-white/40">Posts</p>
     </div>
-    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+    <div className="bg-[#1A153D] rounded-xl p-4 text-center shadow-sm border border-white/10">
       <div className="text-2xl mb-1">👥</div>
-      <p className="text-2xl font-bold text-gray-900">{stats.activeUsers}</p>
-      <p className="text-xs text-gray-500">Activos</p>
+      <p className="text-2xl font-bold text-white">{stats.activeUsers}</p>
+      <p className="text-xs text-white/40">Activos</p>
     </div>
-    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+    <div className="bg-[#1A153D] rounded-xl p-4 text-center shadow-sm border border-white/10">
       <div className="text-2xl mb-1">✅</div>
-      <p className="text-2xl font-bold text-gray-900">{stats.questionsAnswered}</p>
-      <p className="text-xs text-gray-500">Respondidas</p>
+      <p className="text-2xl font-bold text-white">{stats.questionsAnswered}</p>
+      <p className="text-xs text-white/40">Respondidas</p>
     </div>
   </div>
 );

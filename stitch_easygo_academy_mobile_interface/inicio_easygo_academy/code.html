@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .brand-gradient-text {
+            background: linear-gradient(135deg, #b42901 0%, #ff5e36 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-gradient-bg {
+            background: linear-gradient(135deg, #b42901 0%, #ff5e36 100%);
+        }
+        body {
+            background-color: #fcf8ff;
+            font-family: 'Inter', sans-serif;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#ffb4a2",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#f0ebff",
+                      "on-secondary-fixed": "#24005b",
+                      "surface-tint": "#b42901",
+                      "outline-variant": "#e3beb6",
+                      "secondary-fixed-dim": "#d1bcff",
+                      "on-tertiary-container": "#003416",
+                      "on-secondary-container": "#fffbff",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#005226",
+                      "on-primary-fixed-variant": "#8a1d00",
+                      "inverse-surface": "#302c4d",
+                      "secondary-container": "#8556eb",
+                      "on-tertiary-fixed": "#00210b",
+                      "on-surface-variant": "#5a413a",
+                      "tertiary-fixed-dim": "#00e475",
+                      "on-surface": "#1b1737",
+                      "on-background": "#1b1737",
+                      "surface-variant": "#e4dfff",
+                      "surface-container-low": "#f6f1ff",
+                      "primary": "#b42901",
+                      "background": "#fcf8ff",
+                      "on-secondary-fixed-variant": "#561aba",
+                      "on-primary-container": "#5b1000",
+                      "inverse-primary": "#ffb4a2",
+                      "inverse-on-surface": "#f3eeff",
+                      "on-primary-fixed": "#3c0700",
+                      "secondary": "#6c39d0",
+                      "outline": "#8f7069",
+                      "surface-container-high": "#eae5ff",
+                      "surface-bright": "#fcf8ff",
+                      "surface": "#fcf8ff",
+                      "primary-fixed": "#ffdad2",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#62ff96",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#00aa55",
+                      "secondary-fixed": "#eaddff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#dcd5ff",
+                      "tertiary": "#006d35",
+                      "error": "#ba1a1a",
+                      "primary-container": "#ff5e36",
+                      "surface-container-highest": "#e4dfff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "20px",
+                      "unit": "4px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "touch-target-min": "48px",
+                      "stack-lg": "24px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["Inter"],
+                      "h1": ["Plus Jakarta Sans"],
+                      "h2": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "h3": ["Plus Jakarta Sans"],
+                      "h1-mobile": ["Plus Jakarta Sans"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "h1-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-32">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm border-b border-white/10 dark:border-white/5 flex justify-between items-center px-container-padding h-touch-target-min">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary font-h1-mobile text-h1-mobile font-bold" data-icon="school">school</span>
+<h1 class="font-h1-mobile text-h1-mobile font-bold text-primary">EasyGo</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-caps text-label-caps text-on-surface">7</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-caps text-label-caps text-on-surface">1,240 XP</span>
+</div>
+<img alt="User avatar" class="w-8 h-8 rounded-full border-2 border-primary-container object-cover" data-alt="A close-up portrait of a young Latino man with a friendly expression and short dark hair, styled professionally. The image is set against a clean, bright minimalist background with soft lighting that emphasizes a modern, educational atmosphere. The visual aesthetic is polished and high-key, using a clean color palette that aligns with a premium digital learning platform's corporate modern identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0oQy8IbKjwzgh_558C-KbLYRFrPZ7_vlS0HzsECPxG5f6ppDcAnIf7TqAtMjBbnyxpjzlBFQsK7qS9TiqkoAEfLy8rbqRsXKnxSbjuNLWm-NKM8MSjCBlmru-AYliGyKsre9GM7pfK3H91lBFHf4haRqT8sMm097P5yhMQtiVVA5j6YKDBabMArQZayQFw3daJT4KJES8YLcV7_ntZkVv8o26E2Ij9KCey4wcocSrPorNdenhQ_ChE7ovhN3G26VIk9Gy2clTH1w"/>
+</div>
+</header>
+<main class="pt-20 px-container-padding max-w-md mx-auto space-y-stack-lg">
+<!-- Welcome Greeting -->
+<section class="animate-in slide-in-from-top duration-700">
+<h2 class="font-h2-mobile text-h2-mobile text-on-surface">¡Hola, Alejandro 👋</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">¿Qué aprenderemos hoy?</p>
+</section>
+<!-- Section A: DailyProgressCard (Bento Grid Style) -->
+<section class="grid grid-cols-1 gap-gutter">
+<div class="relative overflow-hidden brand-gradient-bg rounded-2xl p-6 shadow-[0_4px_24px_rgba(180,41,1,0.25)] text-white">
+<div class="flex justify-between items-center relative z-10">
+<div class="space-y-2">
+<h3 class="font-h3 text-h3">Progreso Diario</h3>
+<p class="text-white/80 font-body-sm text-body-sm">Casi llegas a tu meta de hoy</p>
+<div class="pt-2">
+<span class="font-label-caps text-label-caps bg-white/20 px-3 py-1 rounded-full">15/20 MIN</span>
+</div>
+</div>
+<div class="relative flex items-center justify-center">
+<svg class="w-24 h-24">
+<circle class="text-white/20" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-white progress-ring__circle" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute font-h3 text-h3">75%</span>
+</div>
+</div>
+<!-- Abstract patterns background -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Section B: Quick Actions (Asymmetric Grid) -->
+<section class="grid grid-cols-2 gap-stack-md">
+<button class="flex flex-col items-start p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant hover:scale-95 transition-transform text-left">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="forum">forum</span>
+</div>
+<span class="font-h3 text-[16px] text-on-surface">Hablar</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Practica con AI</span>
+</button>
+<button class="flex flex-col items-start p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant hover:scale-95 transition-transform text-left">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="document_scanner">document_scanner</span>
+</div>
+<span class="font-h3 text-[16px] text-on-surface">Escanear</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Traducir objetos</span>
+</button>
+<button class="flex flex-col items-start p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant hover:scale-95 transition-transform text-left">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="school">school</span>
+</div>
+<span class="font-h3 text-[16px] text-on-surface">Lecciones</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Curso guiado</span>
+</button>
+<button class="flex flex-col items-start p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant hover:scale-95 transition-transform text-left">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary-container" data-icon="groups">groups</span>
+</div>
+<span class="font-h3 text-[16px] text-on-surface">Comunidad</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Clubes sociales</span>
+</button>
+</section>
+<!-- Section D: Continúe Aprendiendo (Horizontal Scroll) -->
+<section class="space-y-stack-md -mx-container-padding px-container-padding overflow-hidden">
+<div class="flex justify-between items-center">
+<h2 class="font-h2-mobile text-[20px] text-on-surface">Continúe Aprendiendo</h2>
+<button class="text-primary font-label-caps text-label-caps">VER TODO</button>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-4 snap-x no-scrollbar">
+<!-- Card 1 -->
+<div class="min-w-[240px] snap-center bg-white rounded-2xl shadow-sm border border-surface-variant overflow-hidden group">
+<div class="h-32 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A dynamic group of diverse young adults collaborating around a table in a bright, modern co-working space with floor-to-ceiling windows. The scene is bathed in natural daylight, creating a vibrant and optimistic mood. The visual style is crisp and professional, using a clean color palette that emphasizes teamwork and professional growth within a high-end educational context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0DROSlF5JEfb_2ysu6JZDl1eQrxqyQ57LgV3IouPwwb38VRU3JdiSQzNgfxH6hS8JXb1H7t8rDK473798wuAEyaF-Z1GP1NDaHwTRdKuReH_FmHLmcJwQkh_dha6mcxLbisjIhGoAQT6Jv03WpC41iGS20NwCvEmFotpDRlxxolk0vwD4KLnOSypdSRgOqpDgYGaDFTrRKm6aTwwfnJVeKK9nyvedi1P3H9149cTACvDQefpoLDrWZtdky8_cwsz82ggd0sSJyt4"/>
+<div class="absolute inset-0 bg-black/20"></div>
+<div class="absolute top-2 right-2 bg-tertiary-container text-white text-[10px] px-2 py-1 rounded-full font-bold">INTERMEDIO</div>
+</div>
+<div class="p-4 space-y-2">
+<h4 class="font-h3 text-[16px] text-on-surface">Inglés de Negocios</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lección 12: Presentaciones</p>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="h-full brand-gradient-bg" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[240px] snap-center bg-white rounded-2xl shadow-sm border border-surface-variant overflow-hidden group">
+<div class="h-32 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist desk setup with a high-end laptop, a cup of artisanal coffee, and a notebook on a clean white surface. The lighting is soft and diffused, creating a calm and focused study environment. The overall aesthetic is sleek and corporate-modern, utilizing a bright light-mode palette that conveys clarity and efficiency in learning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK7vsJAQFw76F04rBh-H5NI5bG0hcwVKMaVZPll4NYrtj4FFrpUriXmNtrPyf1odR7WVrxR0Itq4xVDT8wvq6mQw1zKq5cE3HCzspUc1q07gnyskit8XRvbhABpFtYkV-pg_DyxZpuHGehKmGe3Uy0oy7DGJUAt6ZaLAU7AsiTFdxs3JXwzeYej0T4w1d_zDU8gBu5iwMqR5Pt1ebZlNhiEvbXpeixIfqys_B5GgZU925rznhIaTFvLLRebRQ23izdH9Y97WUrLQ0"/>
+<div class="absolute inset-0 bg-black/20"></div>
+<div class="absolute top-2 right-2 bg-primary-container text-white text-[10px] px-2 py-1 rounded-full font-bold">AVANZADO</div>
+</div>
+<div class="p-4 space-y-2">
+<h4 class="font-h3 text-[16px] text-on-surface">Gramática Maestra</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lección 4: Tiempos verbales</p>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="h-full brand-gradient-bg" style="width: 30%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section C: Misiones del Día -->
+<section class="space-y-stack-md">
+<h2 class="font-h2-mobile text-[20px] text-on-surface">Misiones del Día</h2>
+<div class="space-y-stack-sm">
+<!-- Mission 1 -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-surface-variant">
+<div class="w-12 h-12 flex-shrink-0 bg-primary/5 rounded-full flex items-center justify-center border border-primary/10">
+<span class="material-symbols-outlined text-primary" data-icon="record_voice_over" style="font-variation-settings: 'FILL' 1;">record_voice_over</span>
+</div>
+<div class="flex-grow">
+<h5 class="font-h3 text-[14px] text-on-surface">Practica 5 frases de voz</h5>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Recompensa: 50 XP</p>
+</div>
+<div class="text-primary font-bold text-[14px]">3/5</div>
+</div>
+<!-- Mission 2 -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-surface-variant">
+<div class="w-12 h-12 flex-shrink-0 bg-tertiary-container/5 rounded-full flex items-center justify-center border border-tertiary-container/10">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-grow">
+<h5 class="font-h3 text-[14px] text-on-surface">Completa 2 lecciones</h5>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Recompensa: 100 XP</p>
+</div>
+<div class="text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+</div>
+</div>
+<!-- Mission 3 -->
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-surface-variant">
+<div class="w-12 h-12 flex-shrink-0 bg-secondary/5 rounded-full flex items-center justify-center border border-secondary/10">
+<span class="material-symbols-outlined text-secondary" data-icon="share" style="font-variation-settings: 'FILL' 1;">share</span>
+</div>
+<div class="flex-grow">
+<h5 class="font-h3 text-[14px] text-on-surface">Comparte un logro</h5>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Recompensa: 30 XP</p>
+</div>
+<button class="bg-primary text-white font-label-caps text-[10px] px-3 py-1 rounded-full">IR</button>
+</div>
+</div>
+</section>
+<!-- Section E: LeaderboardPreview -->
+<section class="space-y-stack-md bg-white p-6 rounded-2xl border border-surface-variant shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-h2-mobile text-[20px] text-on-surface">Liga Diamante</h2>
+<span class="font-label-caps text-label-caps text-secondary">FINALIZA EN 2D</span>
+</div>
+<div class="space-y-3">
+<!-- User 1 -->
+<div class="flex items-center gap-3">
+<span class="w-6 font-bold text-on-surface-variant text-center">1</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A medium close-up portrait of a cheerful young woman with curly hair, set in a bright, modern studio. The lighting is high-key and professional, highlighting a clean and optimistic visual style. The color palette is neutral and sophisticated, perfectly fitting the premium, corporate-modern identity of a high-end educational tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByLwvzKAy7c0Wtcyx9-atSEPOkd0wpLE_PUg50C0iG1JhqCV9iOcLGuvO76qwIOjCyf_SB_6CLb0Esyhe0_1-bq1vY29ezMdSC-UixNbPsWpL54Pcfdb7LxC4qkmJnDxlHQ-vhWBzCgUX25kffe_zfByb6I5MxYnOf2xSjFeBHoyNtufQLeMARjec1Asd0ss94WF9J0m14UUosbKpOHRVhdJNUolZBzOkNpBsBC0bjrHhLkJ0CLYCi_dNF8i5euUmNfeCOp3iZ7A0"/>
+<span class="flex-grow font-body-md text-on-surface">Sofía García</span>
+<span class="font-label-caps text-primary">2,840 XP</span>
+</div>
+<!-- User 2 (Current User Highlight) -->
+<div class="flex items-center gap-3 bg-primary-container/10 -mx-4 px-4 py-2 rounded-lg">
+<span class="w-6 font-bold text-primary text-center">2</span>
+<img class="w-8 h-8 rounded-full object-cover border-2 border-primary" data-alt="User profile photo for a leaderboard, featuring a young man with a friendly and confident expression. The environment is clean and professional, using high-key studio lighting to maintain a bright, light-mode aesthetic. The color palette aligns with the overall energetic and reliable design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDATAaJht2qtKgC0K3gKtTKQ-4VKlfYPAr7NeS7HKrhZL8Hd_inHi8GaBKGrSItpQilcJ9uGJYHI2Ifg-ko_xxxwm4UCdCq1ITiZEeVXhGAOY_bEwKky3AI_h7nMcmxPqyerGL5yGFQ-nK3HVAZjzyIQCBGnqkwMsKIQvhGuuSaBorQ7BZd7M5N4cr8eO1F-Vr5jfXnK_ovahVxNQqXG5xVoVaG1cLkXv6QbYjG-YZQ4N5-jwxAheg-SXHWroHP4nEc4in5IzuFfiM"/>
+<span class="flex-grow font-body-md text-on-surface font-bold">Tú</span>
+<span class="font-label-caps text-primary">2,240 XP</span>
+</div>
+<!-- User 3 -->
+<div class="flex items-center gap-3">
+<span class="w-6 font-bold text-on-surface-variant text-center">3</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A portrait of a smiling middle-aged man with a clean, professional appearance. The background is a soft-focus office setting with bright natural light, conveying trust and reliability. The visual aesthetic is modern and clear, maintaining the high-performance educational tool theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOm7HKJn7n59qE4WstWempqIbEsi9A8ewJyTJ37y4HSUaeN_7q18jg5y1ibm4oFizQC17HKsatGFdHkANJ-8LW99OKllbqTVCETQURuGhVY6bbNP0hjiPA6_lxG2gdUo-vQHdOM6dJFm2lSz4iJ_pFyPvjrEMgRI_Vkom2Y4VtaF4FPrLN26ReBCgCs1DFWiLhZ_2H6jWgdcuPgi_90tBigOwLoVPzTNbjok9jcavev8h6I53IYq1d8UlV1-QnqLVpkxEzjysQqRY"/>
+<span class="flex-grow font-body-md text-on-surface">Carlos Ruiz</span>
+<span class="font-label-caps text-primary">1,950 XP</span>
+</div>
+<!-- User 4 -->
+<div class="flex items-center gap-3">
+<span class="w-6 font-bold text-on-surface-variant text-center">4</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional close-up of a young woman looking confidently into the camera. The setting is bright and airy with high-key lighting that creates a modern and clean atmosphere. The image style is polished, consistent with a premium and sophisticated digital product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAuyliRjscBkUpsd1oYtwwMfTkyLyvA2Hm4ZOjtUaww0cLwGqYZbc3iCTmrJv5JCjkDgJ1-GwUOMkCwUWVz8zHhY9F7lw3h4Ph3kGT02rhs9msF275LFHCBKD5QSMPUwcBW6k7UtdECqsqCl02_T2czyh3wr75Fs7ExV3_wBfYizQ7Q65S7bZkSUbZds4ZpivnFcXSoD55_ixBUkjh7Hv1wUsUXGytwgtxXPWYtrKRhWSGxMz-vLqtazrqebGILS0-x6AU1Bb35NU"/>
+<span class="flex-grow font-body-md text-on-surface">Elena M.</span>
+<span class="font-label-caps text-primary">1,820 XP</span>
+</div>
+<!-- User 5 -->
+<div class="flex items-center gap-3">
+<span class="w-6 font-bold text-on-surface-variant text-center">5</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A portrait of a cheerful man with glasses, looking approachable and smart. The background is a minimalist, modern room with plenty of white space and soft lighting. The visual style follows a high-performance educational platform's clean and vibrant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx5DRzVuqJkxXtA9seVhCJQybdM5Dq1ugC_QFp8S5PbyrKM6HPDDFc-JeyosKfxnH79tnFoSdT7ApSERWadxreolFKd60u0yIPQ9J_clfWqqMsOgtHWOBpdY7NcQAPPTIkW4WKvO6oKyGFDSyWjKW3a9BcOZ-yp5wfD5OhDPNlhGkFsrXglNqGEe6gSU6mo5_XRckej8O-OmD7NztqXELxD-g7w3FnA4ONj3_XhQEampscZJlplq_p92AVrMWUotOyQCZZ7WKzuF8"/>
+<span class="flex-grow font-body-md text-on-surface">Miguel P.</span>
+<span class="font-label-caps text-primary">1,700 XP</span>
+</div>
+</div>
+<button class="w-full py-3 mt-4 border-2 border-primary text-primary rounded-xl font-bold text-center hover:bg-primary/5 transition-colors">VER LIGA COMPLETA</button>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 backdrop-blur-md rounded-t-xl shadow-[0_-4px_24px_rgba(93,38,193,0.15)] border-t border-white/10">
+<!-- Item 1: Inicio (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-95 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-label-caps">Inicio</span>
+</a>
+<!-- Item 2 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps">Lecciones</span>
+</a>
+<!-- Item 3 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="exercise">exercise</span>
+<span class="font-label-caps text-label-caps">Práctica</span>
+</a>
+<!-- Item 4 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-caps text-label-caps">Comunidad</span>
+</a>
+<!-- Item 5 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">Progreso</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for mission completion
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple animation for the progress ring
+        window.addEventListener('load', () => {
+            const circle = document.querySelector('.progress-ring__circle');
+            if (circle) {
+                const radius = circle.r.baseVal.value;
+                const circumference = radius * 2 * Math.PI;
+                circle.style.strokeDasharray = `${circumference} ${circumference}`;
+                
+                const percent = 75;
+                const offset = circumference - (percent / 100) * circumference;
+                circle.style.strokeDashoffset = offset;
+            }
+        });
+    </script>
+</body></html>

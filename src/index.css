@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", "Poppins", sans-serif;
-  --font-academy: "Dancing Script", sans-serif;
+  --font-academy: "Plus Jakarta Sans", sans-serif;
   
-  /* Primary colors defined in brand strategy - vibrant neon theme */
-  --color-brand-orange: #FF4D17;
-  --color-brand-coral: #FF2A6D;
-  --color-brand-purple: #7928CA;
-  --color-brand-violet: #8B5CF6;
-  --color-brand-dark: #09051E;
-  --color-brand-bg-dark: #09051E;
-  --color-brand-success: #00F2FE;
+  /* EasyGo Academy brand colors */
+  --color-brand-orange: #FF5E36;
+  --color-brand-coral: #FF5E36;
+  --color-brand-purple: #5D26C1;
+  --color-brand-violet: #5D26C1;
+  --color-brand-dark: #120E2F;
+  --color-brand-bg-dark: #120E2F;
+  --color-brand-success: #00D68F;
   --color-brand-warning: #FFD700;
-  --color-brand-error: #FF0055;
-  --color-brand-info: #00D5FF;
+  --color-brand-error: #FF3B5C;
+  --color-brand-info: #6B46FF;
   
   /* Streak ratings */
   --color-streak-gold: #FFD700;
@@ -26,27 +26,27 @@
 
 /* Custom background animations & glass styles */
 .glass {
-  background: rgba(12, 8, 38, 0.7);
+  background: rgba(12, 8, 38, 0.72);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.12);
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.07);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .brand-gradient {
-  background: linear-gradient(135deg, #FF4D17 0%, #FF2A6D 50%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #FF5E36 0%, #5D26C1 100%);
 }
 
 .brand-bg-glow {
   background-image: 
-    radial-gradient(circle at top right, rgba(255, 42, 109, 0.18), transparent 55%),
-    radial-gradient(circle at bottom left, rgba(255, 77, 23, 0.16), transparent 55%);
+    radial-gradient(circle at top right, rgba(93, 38, 193, 0.2), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(255, 94, 54, 0.16), transparent 55%);
 }
 
 .animate-pulse-slow {
@@ -78,11 +78,17 @@
 
 /* Custom indicator glowing effect */
 .neon-indicator-orange {
-  box-shadow: 0 0 12px #FF4D17;
+  box-shadow: 0 0 14px rgba(255, 94, 54, 0.8);
 }
 
 .neon-indicator-purple {
-  box-shadow: 0 0 12px #8B5CF6;
+  box-shadow: 0 0 14px rgba(93, 38, 193, 0.8);
+}
+
+body {
+  background-color: #fcf8ff;
+  color: #1b1737;
+  font-family: var(--font-sans);
 }
 
 /* Clean up input zoom on mobile */

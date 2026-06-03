@@ -179,16 +179,16 @@ export const ObjectScanner: React.FC<ObjectScannerProps> = ({
       {/* History */}
       {scannedHistory.length > 0 && (
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
             <History size={20} />
             Historial de Escaneos
           </h4>
           <div className="space-y-2">
             {scannedHistory.map((item) => (
-              <Card key={item.id} className="flex items-center justify-between py-3">
+              <Card key={item.id} className="flex items-center justify-between py-3 bg-[#1A153D] border border-white/10">
                 <div>
-                  <p className="font-medium text-gray-900 capitalize">{item.name}</p>
-                  <p className="text-sm text-gray-500">{item.translation}</p>
+                  <p className="font-medium text-white capitalize">{item.name}</p>
+                  <p className="text-sm text-white/40">{item.translation}</p>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => {
                   const utterance = new SpeechSynthesisUtterance(item.name);

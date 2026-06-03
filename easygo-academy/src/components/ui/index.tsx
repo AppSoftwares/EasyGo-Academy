@@ -1,5 +1,5 @@
 import React from 'react';
-import { BRAND_COLORS, GRADIENT_CSS } from '../../utils/colors';
+import { GRADIENT_CSS } from '../../utils/colors';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';

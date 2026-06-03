@@ -133,9 +133,9 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = () => {
       </Card>
 
       {/* Vocabulary Mastery */}
-      <Card>
-        <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-          <Award className="text-purple-500" size={20} />
+      <Card className="bg-[#1A153D] border border-white/10">
+        <h4 className="font-semibold text-white mb-4 flex items-center gap-2">
+          <Award className="text-[#FFD700]" size={20} />
           Dominio de Vocabulario
         </h4>
         <div className="flex items-center justify-center gap-4 py-4">
@@ -147,7 +147,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = () => {
               >
                 {item.value}%
               </div>
-              <p className="text-xs text-gray-500 mt-2">{item.name}</p>
+              <p className="text-xs text-white/40 mt-2">{item.name}</p>
             </div>
           ))}
         </div>
@@ -182,8 +182,8 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = () => {
       </Card>
 
       {/* Level Progress */}
-      <Card>
-        <h4 className="font-semibold text-gray-900 mb-4">Tu Progreso</h4>
+      <Card className="bg-[#1A153D] border border-white/10">
+        <h4 className="font-semibold text-white mb-4">Tu Progreso</h4>
         <div className="space-y-4">
           {['beginner', 'intermediate', 'advanced'].map((level, index) => {
             const isCurrentLevel = user?.level === level;
@@ -191,14 +191,14 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = () => {
             return (
               <div key={level} className="flex items-center gap-4">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
-                  isCurrentLevel ? 'bg-purple-500 text-white' : progress === 100 ? 'bg-green-500 text-white' : 'bg-gray-200'
+                  isCurrentLevel ? 'bg-purple-500 text-white' : progress === 100 ? 'bg-green-500 text-white' : 'bg-white/10 text-white/50'
                 }`}>
                   {index + 1}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium text-gray-900 capitalize">{level}</span>
-                    <span className="text-sm text-gray-500">{progress}%</span>
+                    <span className="font-medium text-white capitalize">{level}</span>
+                    <span className="text-sm text-white/40">{progress}%</span>
                   </div>
                   <ProgressBar progress={progress} />
                 </div>
@@ -238,7 +238,7 @@ export const VocabularyTracker: React.FC<VocabularyTrackerProps> = ({ category }
       ) : (
         <div className="space-y-4">
           {filteredVocab.map((word) => (
-            <Card key={word.id} variant="flat" className="bg-white/5 border-white/5 hover:bg-white/10 transition-colors">
+            <Card key={word.id} variant="flat" className="bg-[#1A153D] border border-white/10 hover:bg-white/10 transition-colors">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-white text-lg leading-tight capitalize">{word.word}</h4>

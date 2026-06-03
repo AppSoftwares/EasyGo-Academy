@@ -46,8 +46,8 @@ const HomePage: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate 
     <PageContainer>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-gray-500 text-sm">¡Hola,</p>
-          <h2 className="text-2xl font-bold text-gray-900">{user?.displayName || 'Aprendedor'}! 👋</h2>
+          <p className="text-white/60 text-sm">¡Hola,</p>
+          <h2 className="text-2xl font-bold text-white">{user?.displayName || 'Aprendedor'}! 👋</h2>
         </div>
         <Button variant="ghost" size="sm" onClick={() => onNavigate('settings')}>
           <SettingsIcon size={20} />
@@ -77,7 +77,7 @@ const HomePage: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate 
             <p className="text-xs text-white/60">días</p>
           </div>
         </div>
-        <Button className="w-full mt-4 bg-white/20 hover:bg-white/30 text-white">
+        <Button className="w-full mt-4 bg-[#FF5E36]/20 hover:bg-[#FF5E36]/30 text-white">
           Continuar Aprendiendo
         </Button>
       </Card>
@@ -91,10 +91,10 @@ const HomePage: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate 
                 💬
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{lesson.title}</h3>
-                <p className="text-sm text-gray-500">{lesson.description}</p>
+                <h3 className="font-semibold text-white">{lesson.title}</h3>
+                <p className="text-sm text-white/60">{lesson.description}</p>
                 <div className="flex items-center gap-4 mt-2">
-                  <span className="text-xs text-gray-400 flex items-center gap-1"><Clock size={14} /> {lesson.durationMinutes} min</span>
+                  <span className="text-xs text-white/50 flex items-center gap-1"><Clock size={14} /> {lesson.durationMinutes} min</span>
                   <span className="text-xs text-purple-600 flex items-center gap-1"><Star size={14} /> +{lesson.xpReward} XP</span>
                 </div>
               </div>
@@ -109,8 +109,8 @@ const HomePage: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate 
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-2xl">📚</div>
           <div>
-            <p className="text-2xl font-bold text-gray-900">{sampleVocabulary.length}</p>
-            <p className="text-sm text-gray-500">palabras aprendidas</p>
+            <p className="text-2xl font-bold text-white">{sampleVocabulary.length}</p>
+            <p className="text-sm text-white/60">palabras aprendidas</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -143,22 +143,24 @@ const LessonsPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Plan de Estudios</h1>
-        <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
-          <button
-            onClick={() => setViewMode('roadmap')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${viewMode === 'roadmap' ? 'bg-[#FF5E36] text-white' : 'text-white/40'}`}
-          >
-            ROADMAP
-          </button>
-          <button
-            onClick={() => setViewMode('list')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${viewMode === 'list' ? 'bg-[#FF5E36] text-white' : 'text-white/40'}`}
-          >
-            LISTA
-          </button>
-        </div>
+      <SectionHeader
+        title="Plan de Estudios"
+        subtitle="Elige tu camino de aprendizaje paso a paso"
+      />
+
+      <div className="flex flex-wrap items-center gap-3 mb-6 bg-[#1A153D] border border-white/10 rounded-3xl p-2">
+        <button
+          onClick={() => setViewMode('roadmap')}
+          className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${viewMode === 'roadmap' ? 'bg-[#FF5E36] text-white' : 'text-white/50 hover:text-white'}`}
+        >
+          ROADMAP
+        </button>
+        <button
+          onClick={() => setViewMode('list')}
+          className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${viewMode === 'list' ? 'bg-[#FF5E36] text-white' : 'text-white/50 hover:text-white'}`}
+        >
+          LISTA
+        </button>
       </div>
 
       {viewMode === 'roadmap' ? (
@@ -172,8 +174,8 @@ const LessonsPage: React.FC = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border ${
                   selectedCategory === cat.id
-                    ? 'bg-[#FF5E36] border-[#FF5E36] text-white'
-                    : 'bg-white/5 border-white/10 text-white/60'
+                    ? 'bg-[#FF5E36] border-[#FF5E36] text-white shadow-[0_10px_30px_rgba(255,94,54,0.18)]'
+                    : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
                 }`}
               >
                 {cat.icon} {cat.label}
@@ -183,17 +185,21 @@ const LessonsPage: React.FC = () => {
 
           <div className="space-y-4">
             {filteredLessons.map((lesson) => (
-              <Card key={lesson.id} className="cursor-pointer group" variant="flat">
+              <Card key={lesson.id} className="cursor-pointer group bg-[#1A153D] border border-white/10" variant="flat">
                 <div className="flex items-center gap-4">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl ${lesson.completed ? 'bg-[#00E676]/20 text-[#00E676]' : 'bg-white/5 text-white/40'}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl ${lesson.completed ? 'bg-[#00E676]/20 text-[#00E676]' : 'bg-white/5 text-white/70'} transition-all group-hover:scale-[1.01]`}>
                     {lesson.completed ? '✓' : '💬'}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-white">{lesson.title}</h3>
+                      <h3 className="font-bold text-white text-lg">{lesson.title}</h3>
                       {lesson.completed && <Badge variant="success" className="bg-[#00E676]/20 text-[#00E676] border-none">HECHO</Badge>}
                     </div>
-                    <p className="text-sm text-white/40 mt-1">{lesson.description}</p>
+                    <p className="text-sm text-white/50 mt-1">{lesson.description}</p>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] bg-white/5 px-3 py-1 rounded-full border border-white/10">{lesson.category.replace('-', ' ')}</span>
+                      <span className="text-[10px] font-bold text-[#FF5E36] uppercase tracking-[0.2em] bg-[#FF5E36]/10 px-3 py-1 rounded-full border border-[#FF5E36]/10">+{lesson.xpReward} XP</span>
+                    </div>
                   </div>
                 </div>
               </Card>
@@ -213,7 +219,10 @@ const PracticePage: React.FC = () => {
 
   return (
     <PageContainer>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Práctica de Conversación</h1>
+      <SectionHeader
+        title="Práctica de Conversación"
+        subtitle="Habla con confianza usando escenarios reales"
+      />
 
       {!isPracticing ? (
         <>
@@ -227,27 +236,27 @@ const PracticePage: React.FC = () => {
             </div>
           </Card>
 
-          <h3 className="font-semibold text-gray-900 mb-4">Escoge un Escenario</h3>
+          <h3 className="font-semibold text-white mb-4">Escoge un Escenario</h3>
           <div className="grid grid-cols-2 gap-4">
             {scenarios.map((scenario) => (
               <Card key={scenario.id} className="cursor-pointer hover:shadow-lg transition-all text-center" onClick={() => { setSelectedScenario(scenario); setIsPracticing(true); }}>
                 <div className="text-4xl mb-3">{scenario.icon}</div>
-                <h4 className="font-semibold text-gray-900">{scenario.title}</h4>
-                <p className="text-xs text-gray-500 mt-1">{scenario.description}</p>
+                <h4 className="font-semibold text-white">{scenario.title}</h4>
+                <p className="text-xs text-white/60 mt-1">{scenario.description}</p>
               </Card>
             ))}
           </div>
 
           <div className="mt-8">
-            <h3 className="font-semibold text-gray-900 mb-4">Pronunciación</h3>
+            <h3 className="font-semibold text-white mb-4">Pronunciación</h3>
             <Card onClick={() => setShowPronunciation(true)} className="cursor-pointer hover:shadow-lg">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center text-3xl">🔊</div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900">Practica Pronunciación</h4>
-                  <p className="text-sm text-gray-500">Recibe retroalimentación en tiempo real</p>
+                  <h4 className="font-semibold text-white">Practica Pronunciación</h4>
+                  <p className="text-sm text-white/60">Recibe retroalimentación en tiempo real</p>
                 </div>
-                <ChevronRight size={24} className="text-gray-400" />
+                <ChevronRight size={24} className="text-white/50" />
               </div>
             </Card>
           </div>
@@ -273,23 +282,26 @@ const PracticePage: React.FC = () => {
 const CommunityPage: React.FC = () => {
   return (
     <PageContainer>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Comunidad</h1>
+      <SectionHeader
+        title="Comunidad"
+        subtitle="Conéctate con otros aprendices y comparte tus avances"
+      />
 
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+        <div className="bg-[#1A153D] rounded-3xl p-4 text-center shadow-[0_18px_40px_rgba(0,0,0,0.18)] border border-white/10">
           <div className="text-2xl mb-1">📝</div>
-          <p className="text-2xl font-bold text-gray-900">8,234</p>
-          <p className="text-xs text-gray-500">Posts</p>
+          <p className="text-2xl font-bold text-white">8,234</p>
+          <p className="text-xs text-white/50">Posts</p>
         </div>
-        <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+        <div className="bg-[#1A153D] rounded-3xl p-4 text-center shadow-[0_18px_40px_rgba(0,0,0,0.18)] border border-white/10">
           <div className="text-2xl mb-1">👥</div>
-          <p className="text-2xl font-bold text-gray-900">1,256</p>
-          <p className="text-xs text-gray-500">Activos</p>
+          <p className="text-2xl font-bold text-white">1,256</p>
+          <p className="text-xs text-white/50">Activos</p>
         </div>
-        <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+        <div className="bg-[#1A153D] rounded-3xl p-4 text-center shadow-[0_18px_40px_rgba(0,0,0,0.18)] border border-white/10">
           <div className="text-2xl mb-1">✅</div>
-          <p className="text-2xl font-bold text-gray-900">4,567</p>
-          <p className="text-xs text-gray-500">Respondidas</p>
+          <p className="text-2xl font-bold text-white">4,567</p>
+          <p className="text-xs text-white/50">Respondidas</p>
         </div>
       </div>
 
@@ -298,16 +310,16 @@ const CommunityPage: React.FC = () => {
       <div className="mt-6">
         <SectionHeader title="Grupos de Estudio" />
         <div className="grid grid-cols-2 gap-4">
-          <Card className="text-center cursor-pointer hover:shadow-lg">
+          <Card className="text-center cursor-pointer hover:shadow-lg bg-[#1A153D] border border-white/10">
             <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center text-3xl text-white mb-3">B</div>
-            <h4 className="font-semibold text-gray-900">Beginners</h4>
-            <p className="text-sm text-gray-500 mt-1">245 miembros</p>
+            <h4 className="font-semibold text-white">Beginners</h4>
+            <p className="text-sm text-white/50 mt-1">245 miembros</p>
             <Badge variant="success" className="mt-2">Unirse</Badge>
           </Card>
-          <Card className="text-center cursor-pointer hover:shadow-lg">
-            <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center text-3xl text-white mb-3">I</div>
-            <h4 className="font-semibold text-gray-900">Intermediate</h4>
-            <p className="text-sm text-gray-500 mt-1">189 miembros</p>
+          <Card className="text-center cursor-pointer hover:shadow-lg bg-[#1A153D] border border-white/10">
+            <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-[#5D26C1] to-[#FF5E36] flex items-center justify-center text-3xl text-white mb-3">I</div>
+            <h4 className="font-semibold text-white">Intermediate</h4>
+            <p className="text-sm text-white/50 mt-1">189 miembros</p>
             <Badge variant="secondary" className="mt-2">Unirse</Badge>
           </Card>
         </div>
@@ -320,7 +332,10 @@ const CommunityPage: React.FC = () => {
 const ProgressPage: React.FC = () => {
   return (
     <PageContainer>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Mi Progreso</h1>
+      <SectionHeader
+        title="Mi Progreso"
+        subtitle="Sigue tu crecimiento y celebra cada avance"
+      />
 
       <XPAndLevel />
       <div className="mt-6"><StreakDisplay /></div>
@@ -337,7 +352,10 @@ const ScannerPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Escáner de Objetos</h1>
+      <SectionHeader
+        title="Escáner de Objetos"
+        subtitle="Aprende nuevas palabras directamente desde el mundo real"
+      />
 
       <Card className="bg-gradient-to-r from-purple-500 to-orange-500 text-white mb-6">
         <div className="flex items-center gap-4">
@@ -369,16 +387,16 @@ const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen bg-[#120E2E] flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 p-4">
+      <aside className="w-64 bg-[#160F37] border-r border-white/10 p-4">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center">
             <span className="text-white font-bold text-lg">E</span>
           </div>
           <div>
-            <h1 className="font-bold text-gray-900">EasyGo</h1>
-            <p className="text-xs text-gray-500">Admin Panel</p>
+            <h1 className="font-bold text-white">EasyGo</h1>
+            <p className="text-xs text-white/60">Admin Panel</p>
           </div>
         </div>
 
@@ -388,7 +406,7 @@ const AdminDashboard: React.FC = () => {
               key={item.id}
               onClick={() => setActiveSection(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                activeSection === item.id ? 'bg-purple-500 text-white' : 'text-gray-600 hover:bg-gray-100'
+                activeSection === item.id ? 'bg-purple-500 text-white' : 'text-white/60 hover:bg-white/10'
               }`}
             >
               {item.icon}
@@ -402,7 +420,7 @@ const AdminDashboard: React.FC = () => {
       <main className="flex-1 p-8">
         {activeSection === 'overview' && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900">Resumen General</h2>
+            <h2 className="text-2xl font-bold text-white">Resumen General</h2>
             <div className="grid grid-cols-4 gap-4">
               <Card className="bg-purple-500 text-white"><p className="text-3xl font-bold">12,847</p><p className="text-white/80">Usuarios</p></Card>
               <Card className="bg-orange-500 text-white"><p className="text-3xl font-bold">3,456</p><p className="text-white/80">Activos Hoy</p></Card>
@@ -414,20 +432,20 @@ const AdminDashboard: React.FC = () => {
         {activeSection === 'users' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Gestión de Usuarios</h2>
+              <h2 className="text-2xl font-bold text-white">Gestión de Usuarios</h2>
               <Button><Plus size={18} className="mr-2" />Agregar Usuario</Button>
             </div>
             <Card>
               <div className="flex gap-4 mb-4">
                 <div className="flex-1 relative">
-                  <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input type="text" placeholder="Buscar usuarios..." className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200" />
+                  <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" />
+                  <input type="text" placeholder="Buscar usuarios..." className="w-full pl-10 pr-4 py-3 rounded-2xl border border-white/10 bg-[#120E2E] text-white placeholder:text-white/40" />
                 </div>
                 <Button variant="outline"><Filter size={18} /></Button>
               </div>
               <table className="w-full">
                 <thead>
-                  <tr className="text-left text-sm text-gray-500 border-b">
+                  <tr className="text-left text-sm text-white/60 border-b">
                     <th className="pb-3">Usuario</th>
                     <th className="pb-3">Nivel</th>
                     <th className="pb-3">XP</th>
@@ -446,30 +464,30 @@ const AdminDashboard: React.FC = () => {
         {activeSection === 'lessons' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Gestión de Lecciones</h2>
+              <h2 className="text-2xl font-bold text-white">Gestión de Lecciones</h2>
               <Button><Plus size={18} className="mr-2" />Nueva Lección</Button>
             </div>
             <div className="grid grid-cols-3 gap-4">
-              <Card><h4 className="font-semibold">Saludos Básicos</h4><p className="text-sm text-gray-500">Principiante • 15 min</p><p className="text-purple-600 font-bold mt-2">+100 XP</p></Card>
-              <Card><h4 className="font-semibold">En el Restaurante</h4><p className="text-sm text-gray-500">Principiante • 20 min</p><p className="text-purple-600 font-bold mt-2">+150 XP</p></Card>
-              <Card><h4 className="font-semibold">Pronunciación TH</h4><p className="text-sm text-gray-500">Intermedio • 25 min</p><p className="text-purple-600 font-bold mt-2">+200 XP</p></Card>
+              <Card><h4 className="font-semibold">Saludos Básicos</h4><p className="text-sm text-white/60">Principiante • 15 min</p><p className="text-purple-600 font-bold mt-2">+100 XP</p></Card>
+              <Card><h4 className="font-semibold">En el Restaurante</h4><p className="text-sm text-white/60">Principiante • 20 min</p><p className="text-purple-600 font-bold mt-2">+150 XP</p></Card>
+              <Card><h4 className="font-semibold">Pronunciación TH</h4><p className="text-sm text-white/60">Intermedio • 25 min</p><p className="text-purple-600 font-bold mt-2">+200 XP</p></Card>
             </div>
           </div>
         )}
         {activeSection === 'analytics' && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900">Análisis Detallado</h2>
-            <Card><p className="text-gray-500">Gráficos de engagement, retención y métricas...</p></Card>
+            <h2 className="text-2xl font-bold text-white">Análisis Detallado</h2>
+            <Card><p className="text-white/60">Gráficos de engagement, retención y métricas...</p></Card>
           </div>
         )}
         {activeSection === 'community' && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900">Gestión Comunitaria</h2>
+            <h2 className="text-2xl font-bold text-white">Gestión Comunitaria</h2>
             <Card>
               <h4 className="font-semibold mb-4">Reportes Recientes</h4>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                  <div><p className="font-medium">@Usuario123</p><p className="text-sm text-gray-500">Spam</p></div>
+                <div className="flex items-center justify-between p-3 bg-[#1B143B] rounded-3xl">
+                  <div><p className="font-medium text-white">@Usuario123</p><p className="text-sm text-white/60">Spam</p></div>
                   <div className="flex gap-2"><Button size="sm" variant="outline">Ignorar</Button><Button size="sm" variant="danger">Revisar</Button></div>
                 </div>
               </div>
@@ -478,7 +496,7 @@ const AdminDashboard: React.FC = () => {
         )}
         {activeSection === 'settings' && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900">Configuración del Sistema</h2>
+            <h2 className="text-2xl font-bold text-white">Configuración del Sistema</h2>
             <Card>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -536,10 +554,10 @@ const OnboardingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-[#120E2E]">
+    <div className="min-h-screen flex flex-col relative overflow-visible bg-[#120E2E]">
       {/* Animated Background Gradients */}
-      <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[40%] bg-[#FF5E36]/20 rounded-full blur-[100px] animate-pulse" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[80%] h-[40%] bg-[#5D26C1]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="hidden md:block absolute top-[-10%] right-[-10%] w-[80%] h-[40%] bg-[#FF5E36]/20 rounded-full blur-[100px] animate-pulse" />
+      <div className="hidden md:block absolute bottom-[-10%] left-[-10%] w-[80%] h-[40%] bg-[#5D26C1]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
 
       <div className="flex-1 flex flex-col items-center justify-center p-10 text-white relative z-10">
         <div className="text-9xl mb-12 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] animate-bounce-slow">
@@ -617,7 +635,7 @@ const App: React.FC = () => {
   if (isAdminMode) return <AdminDashboard />;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-[#120E2E] text-white">
       <Header />
       <div className="max-w-lg mx-auto">
         {activeTab === 'home' && <HomePage onNavigate={handleTabChange} />}

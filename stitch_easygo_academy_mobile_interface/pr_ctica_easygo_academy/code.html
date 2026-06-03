@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Práctica de Conversación | AI Tutor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-purple {
+            background: rgba(108, 57, 208, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .brand-gradient {
+            background: linear-gradient(135deg, #ff5e36 0%, #b42901 100%);
+        }
+        .audio-wave {
+            animation: wave 1.5s infinite ease-in-out;
+        }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1.5); }
+        }
+        .chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#120E2E] text-white min-h-screen font-body-md overflow-x-hidden">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-touch-target-min bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-sm border-b border-white/10">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">school</span>
+<h1 class="font-h2-mobile text-h2-mobile font-bold text-primary dark:text-primary-fixed-dim">¡Hola, Estudiante!</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional high-quality 3D avatar of a young student with a friendly expression. The avatar is rendered in a soft, modern Pixar-inspired style with warm directional lighting. The background is a clean, solid purple tone matching the educational app's professional yet vibrant color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0AoLCSy9VMGD5J0NI-Br-M0qxq4D3BrLI9_lOAwmKWfyXMXHxHHdn_SD6vdziA6eEq1Wjq2QSSuhGF1ypGiwfjGhc7W1NcX2NY1UxdyJg5gA-zjMjze7rMADmOVzWSmR9V7nP6vAEZGyYLST-ghqlXHaA0UgNNY57_Ec5Pz1IYTiM-G66xuXYtGLOq_vJAlT_FjjQ4IAv2qpLY0DxmdRDYahsNzYiimfYz46Qx6gtF0kbzm-BGbg6tREcKUxwTFlpSU0AHmqzjIU"/>
+</div>
+</header>
+<main class="pt-20 pb-32 px-container-padding">
+<!-- Scenario Selector (Bento Grid) -->
+<section class="mb-stack-lg">
+<h2 class="font-h3 text-h3 mb-stack-md text-white">Escoge tu escenario</h2>
+<div class="grid grid-cols-2 gap-4">
+<button class="relative group overflow-hidden rounded-xl h-40 flex flex-col justify-end p-4 border border-white/10 hover:border-primary/50 transition-all" onclick="selectScenario('Restaurante')">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-500" data-alt="A sophisticated upscale restaurant interior during the evening, featuring warm ambient lighting and elegant wooden furniture. The atmosphere is inviting and modern, reflecting a high-end dining experience. The visual style is crisp and professional, aligned with a premium educational application's aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3uBVqYg9ecOocqEfnU4sNHSV5IUsz6DLufkyW_V2Z8G6jn_kNJ0PaCLHaRN5DPBFt_9XT0q4tsLbcWqGhJt2afohPKQSQ4QViOM9brzPUL7SVIFtANbooZOOT4Yu6AiIP85Vm44CAhReWFgi4sZsJ4h9HwkBsopfrOPa2MWuclvoG-GylDF7HKG0HBGuCgK9tYmsyWXJ2lb2SIV6O2J1_L2HQahmKOtXySE1qFhHPZq5X2Fdt6s5hO3zC1d5iFkVJbZXAmjWcxS4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#120E2E] to-transparent"></div>
+<span class="relative z-10 font-label-caps text-label-caps text-white">RESTAURANTE</span>
+<p class="relative z-10 text-body-sm text-white/60">Practica pedir comida</p>
+</button>
+<div class="grid grid-rows-2 gap-4">
+<button class="relative group overflow-hidden rounded-xl flex items-center gap-3 p-3 border border-white/10 bg-white/5 hover:bg-white/10 transition-all" onclick="selectScenario('Tienda')">
+<span class="material-symbols-outlined text-secondary">shopping_bag</span>
+<div class="text-left">
+<span class="block font-label-caps text-label-caps">TIENDA</span>
+<span class="text-[10px] text-white/50">Compras y precios</span>
+</div>
+</button>
+<button class="relative group overflow-hidden rounded-xl flex items-center gap-3 p-3 border border-white/10 bg-white/5 hover:bg-white/10 transition-all" onclick="selectScenario('Cita Médica')">
+<span class="material-symbols-outlined text-tertiary">medical_services</span>
+<div class="text-left">
+<span class="block font-label-caps text-label-caps">CITA MÉDICA</span>
+<span class="text-[10px] text-white/50">Síntomas y recetas</span>
+</div>
+</button>
+</div>
+</div>
+</section>
+<!-- Chat Interface -->
+<section class="chat-container h-[400px] overflow-y-auto mb-stack-lg flex flex-col gap-4 pr-2">
+<!-- AI Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="glass-purple p-4 rounded-2xl rounded-tl-none text-body-md text-white/90">
+                    ¡Bienvenido al restaurante! ¿Tiene una reserva para esta noche?
+                </div>
+<span class="text-[10px] mt-1 text-white/40 ml-1">AI Tutor • 10:42 AM</span>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end self-end max-w-[85%]">
+<div class="brand-gradient p-4 rounded-2xl rounded-tr-none text-body-md font-semibold shadow-[0_4px_24px_rgba(255,94,54,0.3)]">
+                    Hola, sí tengo una reservación a nombre de Juan.
+                </div>
+<div class="flex items-center gap-2 mt-1 mr-1">
+<span class="text-[10px] text-white/40">Tú • 10:43 AM</span>
+<span class="material-symbols-outlined text-[12px] text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="glass-purple p-4 rounded-2xl rounded-tl-none text-body-md text-white/90">
+                    Excelente, pase por aquí. ¿Desea ver la carta de vinos primero?
+                </div>
+<span class="text-[10px] mt-1 text-white/40 ml-1">AI Tutor • 10:43 AM</span>
+</div>
+</section>
+<!-- Feedback Panel -->
+<section class="bg-surface-container-highest/10 border border-white/10 rounded-xl p-4 mb-20">
+<div class="flex items-center gap-2 mb-stack-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h3 class="font-label-caps text-label-caps text-white">RETROALIMENTACIÓN EN TIEMPO REAL</h3>
+</div>
+<div class="space-y-3">
+<div class="flex flex-wrap gap-2 text-body-sm">
+<span class="text-white/60">Dijiste:</span>
+<span class="text-tertiary-container font-semibold">Hola</span>
+<span class="text-tertiary-container font-semibold">sí</span>
+<span class="text-tertiary-container font-semibold">tengo</span>
+<span class="text-primary-container font-semibold border-b border-primary">una reservación</span>
+<span class="text-white/60">...</span>
+</div>
+<p class="text-[12px] text-white/50 italic">
+<span class="text-primary-container font-bold">Tip:</span> En este contexto, es más natural decir "tengo una reserva" en lugar de "reservación".
+                </p>
+</div>
+</section>
+<!-- Recording FAB -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-40">
+<div class="relative flex items-center justify-center">
+<!-- Pulse Rings -->
+<div class="absolute w-20 h-20 bg-primary/20 rounded-full animate-ping"></div>
+<div class="absolute w-16 h-16 bg-primary/40 rounded-full animate-pulse"></div>
+<!-- Main FAB -->
+<button class="brand-gradient w-16 h-16 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform" id="micBtn">
+<span class="material-symbols-outlined text-white text-3xl" id="micIcon">mic</span>
+</button>
+<!-- Audio Waves (Hidden by default) -->
+<div class="absolute -top-12 flex gap-1 opacity-0 transition-opacity" id="waves">
+<div class="w-1 h-6 bg-primary rounded-full audio-wave" style="animation-delay: 0.1s"></div>
+<div class="w-1 h-10 bg-primary rounded-full audio-wave" style="animation-delay: 0.3s"></div>
+<div class="w-1 h-14 bg-primary rounded-full audio-wave" style="animation-delay: 0.5s"></div>
+<div class="w-1 h-10 bg-primary rounded-full audio-wave" style="animation-delay: 0.2s"></div>
+<div class="w-1 h-6 bg-primary rounded-full audio-wave" style="animation-delay: 0.4s"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface/80 dark:bg-surface/80 backdrop-blur-md rounded-t-xl border-t border-white/10 shadow-[0_-4px_24px_rgba(93,38,193,0.15)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Inicio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps">Lecciones</span>
+</a>
+<!-- Active Tab: Práctica -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="exercise">exercise</span>
+<span class="font-label-caps text-label-caps">Práctica</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-caps text-label-caps">Comunidad</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">Progreso</span>
+</a>
+</nav>
+<script>
+        const micBtn = document.getElementById('micBtn');
+        const micIcon = document.getElementById('micIcon');
+        const waves = document.getElementById('waves');
+        let isRecording = false;
+
+        micBtn.addEventListener('click', () => {
+            isRecording = !isRecording;
+            if (isRecording) {
+                micIcon.textContent = 'stop';
+                waves.classList.remove('opacity-0');
+                waves.classList.add('opacity-100');
+                micBtn.classList.add('ring-4', 'ring-primary/30');
+            } else {
+                micIcon.textContent = 'mic';
+                waves.classList.add('opacity-0');
+                waves.classList.remove('opacity-100');
+                micBtn.classList.remove('ring-4', 'ring-primary/30');
+            }
+        });
+
+        function selectScenario(name) {
+            console.log("Cambiando a escenario:", name);
+            // Visual feedback for scenario selection
+            const buttons = document.querySelectorAll('button[onclick^="selectScenario"]');
+            buttons.forEach(btn => btn.classList.remove('ring-2', 'ring-primary'));
+            event.currentTarget.classList.add('ring-2', 'ring-primary');
+        }
+    </script>
+</body></html>

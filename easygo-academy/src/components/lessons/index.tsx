@@ -16,8 +16,8 @@ export const DailyProgressCard: React.FC<DailyProgressCardProps> = () => {
   return (
     <Card className="mb-6 overflow-hidden relative" variant="elevated">
       {/* Background Decor */}
-      <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FF5E36]/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#5D26C1]/10 rounded-full blur-3xl" />
+      <div className="hidden md:block absolute -top-10 -right-10 w-40 h-40 bg-[#FF5E36]/10 rounded-full blur-3xl" />
+      <div className="hidden md:block absolute -bottom-10 -left-10 w-40 h-40 bg-[#5D26C1]/10 rounded-full blur-3xl" />
 
       <div className="flex items-center gap-6 relative z-10">
         <CircularProgressIndicator progress={progressPercent} size={100} strokeWidth={8} />
@@ -99,13 +99,13 @@ export const AchievementCard: React.FC<AchievementCardProps> = ({ achievement })
   const isUnlocked = !!achievement.unlockedAt;
 
   return (
-    <div className={`p-4 rounded-xl ${isUnlocked ? 'bg-white' : 'bg-gray-100 opacity-60'}`}>
-      <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-purple-100 flex items-center justify-center text-3xl">
+    <div className={`p-4 rounded-xl ${isUnlocked ? 'bg-[#1A153D] border border-white/10' : 'bg-white/5 border border-white/10 opacity-90'}`}>
+      <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center text-3xl text-white shadow-lg shadow-[#FF5E36]/20">
         {achievement.iconUrl || '🏆'}
       </div>
-      <h4 className="font-semibold text-center text-gray-900">{achievement.name}</h4>
-      <p className="text-xs text-center text-gray-500 mt-1">{achievement.description}</p>
-      <p className="text-xs text-center text-purple-600 mt-2">+{achievement.xpReward} XP</p>
+      <h4 className="font-semibold text-center text-white">{achievement.name}</h4>
+      <p className="text-xs text-center text-white/50 mt-1">{achievement.description}</p>
+      <p className="text-xs text-center text-[#FF5E36] mt-2">+{achievement.xpReward} XP</p>
       {isUnlocked && (
         <Badge variant="success" className="mx-auto mt-2 block">Desbloqueado</Badge>
       )}
@@ -163,26 +163,26 @@ interface VocabularyWordCardProps {
 }
 
 export const VocabularyWordCard: React.FC<VocabularyWordCardProps> = ({ word, onPlayAudio }) => (
-  <Card className="mb-3">
+  <Card className="mb-3 bg-[#1A153D] border border-white/10">
     <div className="flex items-center justify-between">
       <div>
-        <h4 className="font-semibold text-gray-900">{word.word}</h4>
-        <p className="text-sm text-gray-500">{word.translation}</p>
-        <p className="text-xs text-purple-400 mt-1">/{word.phonetic}/</p>
+        <h4 className="font-semibold text-white">{word.word}</h4>
+        <p className="text-sm text-white/50">{word.translation}</p>
+        <p className="text-xs text-[#FF5E36] mt-1">/{word.phonetic}/</p>
       </div>
       <div className="flex items-center gap-3">
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((level) => (
             <div
               key={level}
-              className={`w-2 h-6 rounded-full ${level <= word.masteryLevel ? GRADIENT_CSS : 'bg-gray-200'}`}
+              className={`w-2 h-6 rounded-full ${level <= word.masteryLevel ? GRADIENT_CSS : 'bg-white/10'}`}
             />
           ))}
         </div>
         {onPlayAudio && (
           <button
             onClick={onPlayAudio}
-            className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:bg-purple-200"
+            className="w-10 h-10 rounded-full bg-[#FF5E36]/10 flex items-center justify-center text-[#FF5E36] hover:bg-[#FF5E36]/20 transition-all"
           >
             🔊
           </button>
@@ -207,19 +207,19 @@ export const LeaderboardItem: React.FC<LeaderboardItemProps> = ({ rank, user, is
   const medals = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
   return (
-    <div className={`flex items-center gap-4 p-4 rounded-xl ${isCurrentUser ? 'bg-purple-50 border-2 border-purple-400' : 'bg-white'}`}>
-      <div className="w-8 h-8 flex items-center justify-center font-bold text-lg">
+    <div className={`flex items-center gap-4 p-4 rounded-xl ${isCurrentUser ? 'bg-[#2D1E5A] border border-white/10' : 'bg-[#1A153D] border border-white/10'}`}>
+      <div className="w-8 h-8 flex items-center justify-center font-bold text-lg text-white">
         {medals[rank as keyof typeof medals] || rank}
       </div>
       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center text-white font-bold">
         {user.displayName.charAt(0).toUpperCase()}
       </div>
       <div className="flex-1">
-        <h4 className="font-semibold text-gray-900">{user.displayName}</h4>
-        <p className="text-xs text-gray-500">🔥 {user.currentStreak} días</p>
+        <h4 className="font-semibold text-white">{user.displayName}</h4>
+        <p className="text-xs text-white/40">🔥 {user.currentStreak} días</p>
       </div>
       <div className="text-right">
-        <p className="font-bold text-purple-600">{user.totalXp} XP</p>
+        <p className="font-bold text-[#FF5E36]">{user.totalXp} XP</p>
       </div>
     </div>
   );
