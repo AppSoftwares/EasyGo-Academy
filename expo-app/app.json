@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "EasyGo Academy",
+    "slug": "easygo-academy-expo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "platforms": ["ios", "android", "web"],
+    "sdkVersion": "49.0.0",
+    "jsEngine": "hermes",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#081623"
+      }
+    }
+  }
+}

@@ -6,16 +6,41 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/7168a4d4-758f-4415-b8dc-476c2c6a24fd
+View your app in AI Studio: https://ai.studio/apps/d242c809-67ac-4d0a-8f09-dbb632117230
 
 ## Run Locally
 
-**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
+**Prerequisites:**  Node.js
 
 
-1. Open Android Studio
-2. Select **Open** and choose the directory containing this project
-3. Allow Android Studio to fix any incompatibilities as it imports the project.
-4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
-5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
-6. Run the app on an emulator or physical device
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
+
+## Pruebas móviles y construcción de Android/iOS
+
+1. Instala dependencias:
+   `npm install`
+2. Construye la app web:
+   `npm run build`
+3. Sincroniza Capacitor:
+   `npm run cap:sync`
+4. Agrega Android e iOS una sola vez:
+   `npm run cap:add:android`
+   `npm run cap:add:ios`
+5. Abre el proyecto móvil:
+   `npm run cap:open:android`
+   `npm run cap:open:ios`
+
+> Para pruebas desde un teléfono en la misma red, ejecuta el servidor con host accesible:
+> `npm run dev:host`
+> Luego abre `http://<IP-del-PC>:3000` desde el navegador del teléfono.
+
+## Variables de entorno y seguridad
+
+- El archivo `.env` local debe contener solo valores secretos y nunca debe subirse al repositorio.
+- Para Supabase en el cliente, usa `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
+- No expongas `service_role` ni claves de administrador en el código del cliente.
+- Para el backend, usa variables del servidor que no lleguen al navegador.
