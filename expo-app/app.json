@@ -5,17 +5,20 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["ios", "android", "web"],
-    "sdkVersion": "49.0.0",
+    "sdkVersion": "54.0.0",
     "jsEngine": "hermes",
     "assetBundlePatterns": ["**/*"],
+    "icon": "./assets/icon.png",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./assets/icon.png"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081623"
-      }
+      },
+      "package": "com.easygo.academy"
     }
   }
 }

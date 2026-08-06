@@ -62,7 +62,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           <button 
             id="onboarding-skip-btn"
             onClick={() => setCurrentSlide(slides.length - 1)} 
-            className="text-xs text-slate-400 hover:text-white transition-colors"
+            className="text-xs text-slate-300 hover:text-white transition-colors"
           >
             Saltar
           </button>
@@ -135,7 +135,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               <span 
                 key={i} 
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? 'w-4 bg-brand-orange' : 'bg-white/20'
+                  i === currentSlide ? 'w-4 bg-brand-orange' : 'bg-white/40'
                 }`}
               />
             ))}

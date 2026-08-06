@@ -9,9 +9,10 @@ interface ProgressViewProps {
   onEarnXp: (xp: number) => void;
   userXp: number;
   userStreak: number;
+  isDarkMode: boolean;
 }
 
-export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStreak }: ProgressViewProps) {
+export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStreak, isDarkMode }: ProgressViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
   
@@ -108,13 +109,17 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
   // Derive simple statistics
   const masteredCount = localVocab.filter(v => v.masteryLevel >= 4).length;
 
+  const pageTextClass = isDarkMode ? 'text-white' : 'text-slate-900';
+  const pageBgClass = isDarkMode ? 'bg-brand-dark text-white' : 'bg-slate-100 text-slate-900';
+  const panelClass = isDarkMode ? 'bg-white/5 border border-white/5' : 'bg-white/95 border border-slate-200 shadow-sm';
+
   return (
-    <div id="progress-view-root" className="space-y-6">
+    <div id="progress-view-root" className={`space-y-6 ${pageBgClass}`}>
       {/* Title */}
       <div className="flex flex-col gap-1.5">
         <span className="font-academy text-brand-orange text-3xl font-semibold">Tus Logros</span>
-        <h1 className="font-display font-extrabold text-2xl text-white tracking-tight">Rendimiento y Memoria</h1>
-        <p className="text-slate-400 text-sm">Visualiza tus fortalezas analizadas por IA, repasa tu vocabulario guardado y asegura tu pase premium.</p>
+        <h1 className={`font-display font-extrabold text-2xl tracking-tight ${pageTextClass}`}>Rendimiento y Memoria</h1>
+        <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Visualiza tus fortalezas analizadas por IA, repasa tu vocabulario guardado y asegura tu pase premium.</p>
       </div>
 
       {/* Grid: Overview level cards */}
@@ -123,7 +128,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
           <Trophy className="w-8 h-8 text-brand-orange shrink-0" />
           <div>
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Puntos XP</span>
-            <span className="text-lg font-bold font-mono text-white mt-0.5 block">{userXp}</span>
+            <span className={`text-lg font-bold font-mono mt-0.5 block ${pageTextClass}`}>{userXp}</span>
           </div>
         </div>
 
@@ -131,7 +136,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
           <Flame className="w-8 h-8 text-brand-orange shrink-0 animate-pulse-slow" />
           <div>
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Racha Activa</span>
-            <span className="text-lg font-bold font-mono text-white mt-0.5 block">{userStreak} días</span>
+            <span className={`text-lg font-bold font-mono mt-0.5 block ${pageTextClass}`}>{userStreak} días</span>
           </div>
         </div>
 
@@ -139,7 +144,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
           <ShieldCheck className="w-8 h-8 text-brand-violet shrink-0" />
           <div>
             <span className="text-[10px] text-slate-400 uppercase font-bold block">Vocabulario Dominado</span>
-            <span className="text-sm font-bold text-slate-200 mt-1 block">
+            <span className={`text-sm font-bold mt-1 block ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
               {masteredCount} de {localVocab.length} palabras (+4 estrellas)
             </span>
           </div>
@@ -192,7 +197,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
       <div className="bg-white/5 border border-white/5 rounded-3xl p-5 space-y-4 text-left">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
-            <h3 className="font-bold text-sm text-white font-display">Tus Tarjetas de Repetición Espaciada 📖</h3>
+            <h3 className={`font-bold text-sm font-display ${pageTextClass}`}>Tus Tarjetas de Repetición Espaciada 📖</h3>
             <p className="text-xs text-slate-400 mt-0.5 leading-normal">Repasa tus palabras guardadas, escúchalas y califica de 1 a 5 tu nivel de dominio para el algoritmo.</p>
           </div>
 
@@ -204,14 +209,14 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                 placeholder="Buscar palabra..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent border-none text-xs text-white p-2 focus:outline-none placeholder-slate-500 w-full"
+                className={`bg-transparent border-none text-xs p-2 focus:outline-none placeholder-slate-500 w-full ${isDarkMode ? 'text-white' : 'text-slate-900'}`}
               />
             </div>
-            
+
             <select
               value={activeCategoryFilter}
               onChange={(e) => setActiveCategoryFilter(e.target.value)}
-              className="p-2 border border-white/5 bg-zinc-900 rounded-xl text-xs text-white pointer shrink-0"
+              className={`p-2 rounded-xl pointer shrink-0 ${isDarkMode ? 'border border-white/5 bg-zinc-900 text-white' : 'border border-slate-200 bg-white text-slate-900'}`}
             >
               <option value="all">Todas categorías</option>
               <option value="Housing">Housing</option>
@@ -232,7 +237,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
             >
               <div className="flex justify-between items-start">
                 <div className="text-left">
-                  <h4 className="font-bold text-sm text-white flex items-center gap-1.5 leading-none">
+                  <h4 className={`font-bold text-sm flex items-center gap-1.5 leading-none ${pageTextClass}`}>
                     {item.word}
                     <button 
                       onClick={() => triggerTTS(item.word)}
@@ -246,7 +251,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                 </div>
 
                 <div className="text-right">
-                  <span className="text-xs font-semibold text-slate-200 block">{item.translation}</span>
+                  <span className={`text-xs font-semibold block ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>{item.translation}</span>
                   <span className="text-[9px] uppercase tracking-widest font-extrabold text-brand-violet bg-brand-violet/10 px-2 py-0.5 rounded mt-1.5 inline-block">
                     {item.category}
                   </span>
@@ -290,13 +295,13 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/5 pb-4">
           <div className="text-left">
             <span className="text-[10px] uppercase font-extrabold text-brand-orange tracking-widest font-mono">Premium Access</span>
-            <h3 className="text-lg font-bold text-white font-display">EasyGo Unlimited Subscription</h3>
+            <h3 className={`text-lg font-bold font-display ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>EasyGo Unlimited Subscription</h3>
             <p className="text-xs text-slate-400">Desbloquea tutorías orales ilimitadas con la IA y el escáner de cámara real.</p>
           </div>
 
-          <div className="flex items-center gap-2 bg-brand-purple/20 border border-brand-violet/20 rounded-2xl p-2 px-4 shrink-0">
+          <div className={`flex items-center gap-2 rounded-2xl p-2 px-4 shrink-0 ${isDarkMode ? 'bg-brand-purple/20 border border-brand-violet/20' : 'bg-slate-100 border border-slate-200'}`}>
             <ShieldCheck className="w-5 h-5 text-brand-violet shrink-0" />
-            <span className="text-[10px] font-bold text-white font-mono">Pago Legal & Seguro</span>
+            <span className={`text-[10px] font-bold font-mono ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Pago Legal & Seguro</span>
           </div>
         </div>
 
@@ -318,15 +323,17 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                     className={`p-4 rounded-2xl border flex items-center justify-between pointer transition-all ${
                       selectedPlan === plan.id 
                         ? 'border-brand-orange bg-brand-orange/15 text-white' 
-                        : 'border-white/5 bg-white/5 text-slate-300'
+                        : isDarkMode 
+                          ? 'border-white/5 bg-white/5 text-slate-300' 
+                          : 'border-slate-200 bg-slate-50 text-slate-900'
                     }`}
                   >
                     <div>
-                      <h4 className="text-xs font-bold text-white leading-none mb-1">{plan.term}</h4>
+                      <h4 className={`text-xs font-bold leading-none mb-1 ${selectedPlan === plan.id ? 'text-white' : isDarkMode ? 'text-white' : 'text-slate-900'}`}>{plan.term}</h4>
                       <p className="text-[10px] text-slate-400 leading-normal">{plan.desc}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-sm font-extrabold font-mono text-white">${plan.cost}</span>
+                      <span className={`text-sm font-extrabold font-mono ${selectedPlan === plan.id ? 'text-white' : isDarkMode ? 'text-white' : 'text-slate-900'}`}>${plan.cost}</span>
                       <span className="text-[9px] text-slate-500 block">USD</span>
                     </div>
                   </label>
@@ -342,7 +349,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                     placeholder="Ej. EASYGO50"
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
-                    className="flex-1 bg-white/5 border border-white/5 rounded-xl px-4 py-2 text-xs text-white uppercase focus:outline-none focus:border-brand-orange"
+                    className={`flex-1 bg-white/5 border border-white/5 rounded-xl px-4 py-2 text-xs uppercase focus:outline-none focus:border-brand-orange ${isDarkMode ? 'text-white' : 'text-slate-900'}`}
                   />
                   <button
                     type="button"
@@ -365,12 +372,12 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
             <div className="space-y-4">
               <label className="text-[10px] uppercase font-bold text-slate-400 block mb-2">Ingresa tu tarjeta de crédito:</label>
 
-              <div className="bg-white/5 rounded-2xl p-4 border border-white/5 space-y-3.5">
-                <div className="flex justify-between items-center bg-black/30 p-2 rounded-xl text-xs">
-                  <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                    <CreditCard className="w-4 h-4 text-brand-violet shrink-0" /> Stripe Secure Tunnel
-                  </span>
-                  <span className="text-[9px] text-slate-500 font-bold font-mono">TLS 1.3 Certified</span>
+<div className={`rounded-2xl p-4 space-y-3.5 ${isDarkMode ? 'bg-white/5 border border-white/5' : 'bg-white border border-slate-200'}`}>
+                  <div className={`flex justify-between items-center rounded-xl p-2 text-xs ${isDarkMode ? 'bg-black/30' : 'bg-slate-100'}`}>
+                    <span className={`text-[10px] flex items-center gap-1 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <CreditCard className="w-4 h-4 text-brand-violet shrink-0" /> Stripe Secure Tunnel
+                    </span>
+                    <span className={`text-[9px] font-bold font-mono ${isDarkMode ? 'text-slate-500' : 'text-slate-600'}`}>TLS 1.3 Certified</span>
                 </div>
 
                 <div className="space-y-1">
@@ -381,7 +388,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                     placeholder="4242 4242 4242 4242"
                     value={cardNumber}
                     onChange={(e) => setCardNumber(e.target.value)}
-                    className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange font-mono"
+                    className={`w-full rounded-xl p-3 text-xs font-mono focus:outline-none focus:border-brand-orange ${isDarkMode ? 'bg-black/40 border border-white/5 text-white' : 'bg-white border border-slate-200 text-slate-900'}`}
                   />
                 </div>
 
@@ -394,7 +401,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                       placeholder="12/28"
                       value={cardExpiry}
                       onChange={(e) => setCardExpiry(e.target.value)}
-                      className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange font-mono"
+                      className={`w-full rounded-xl p-3 text-xs font-mono focus:outline-none focus:border-brand-orange ${isDarkMode ? 'bg-black/40 border border-white/5 text-white' : 'bg-white border border-slate-200 text-slate-900'}`}
                     />
                   </div>
                   <div className="space-y-1">
@@ -405,7 +412,7 @@ export default function ProgressView({ vocabularyList, onEarnXp, userXp, userStr
                       placeholder="123"
                       value={cardCvc}
                       onChange={(e) => setCardCvc(e.target.value)}
-                      className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange font-mono"
+                      className={`w-full rounded-xl p-3 text-xs font-mono focus:outline-none focus:border-brand-orange ${isDarkMode ? 'bg-black/40 border border-white/5 text-white' : 'bg-white border border-slate-200 text-slate-900'}`}
                     />
                   </div>
                 </div>

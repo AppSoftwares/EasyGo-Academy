@@ -1,46 +1,59 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# EasyGo Academy Pro - Sistema Unificado
+/* Creado por Jesús Pirela */
 
-# Run and deploy your AI Studio app
+Este proyecto fusiona la robustez de una academia tradicional con la tecnología moderna de IA y movilidad multiplataforma.
 
-This contains everything you need to run your app locally.
+## Arquitectura
+- **Core:** Lógica de negocio pura (Clean Architecture).
+- **Mobile:** Expo SDK 54 (Android / iOS).
+- **Web:** React + TypeScript (Dashboard Administrativo).
+- **Backend:** Supabase (PostgreSQL + RLS + Auth).
 
-View your app in AI Studio: https://ai.studio/apps/d242c809-67ac-4d0a-8f09-dbb632117230
+## Requisitos Previos
+1. Node.js (LTS)
+2. Expo CLI (`npm install -g expo-cli`)
+3. EAS CLI (`npm install -g eas-cli`)
+4. Cuenta en Supabase.com
 
-## Run Locally
+## Configuración Inicial
 
-**Prerequisites:**  Node.js
+### 1. Backend (Supabase)
+- Crea un nuevo proyecto en Supabase.
+- Copia el contenido de `supabase/migrations/20240101000000_init_schema.sql` y ejecútalo en el SQL Editor de Supabase.
+- Habilita Google Auth o Email Auth en la sección de Authentication.
 
+### 2. Móvil (Expo)
+```bash
+cd apps/mobile
+npm install
+# Para Android (Windows + Android Studio)
+npx expo run:android
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 3. iOS sin Mac (Windows)
+Este proyecto está configurado para compilación remota:
+1. Crea una cuenta en [expo.dev](https://expo.dev).
+2. Ejecuta `eas build --platform ios`.
+3. Expo compilará el `.ipa` en sus servidores y te dará un link de descarga o lo enviará a TestFlight.
 
-## Pruebas móviles y construcción de Android/iOS
+## Seguridad y Reglas
+- **RLS:** Activado en todas las tablas. Ningún usuario puede ver datos de otro.
+- **Sanitización:** Todo input es procesado por `InputSanitizer` antes de guardarse.
+- **UTC:** Todos los tiempos se guardan en UTC y se transforman en la UI.
+- **Branding:** Logos vectoriales y paddings de seguridad de 16dp obligatorios.
 
-1. Instala dependencias:
-   `npm install`
-2. Construye la app web:
-   `npm run build`
-3. Sincroniza Capacitor:
-   `npm run cap:sync`
-4. Agrega Android e iOS una sola vez:
-   `npm run cap:add:android`
-   `npm run cap:add:ios`
-5. Abre el proyecto móvil:
-   `npm run cap:open:android`
-   `npm run cap:open:ios`
+## Estructura de Ingeniería (Actualizada)
+- **Consistencia:** Proyecto migrado a TypeScript (`.tsx`) para mayor seguridad.
+- **Enrutamiento:** Centralizado en `src/App.tsx` usando `react-router-dom`.
+- **Híbrido:** `SupabaseClient` optimizado para funcionar tanto en entorno Web (Vite) como Mobile (Expo).
+- **Seguridad:** API Keys removidas de `app.json` y movidas a gestión por variables de entorno.
 
-> Para pruebas desde un teléfono en la misma red, ejecuta el servidor con host accesible:
-> `npm run dev:host`
-> Luego abre `http://<IP-del-PC>:3000` desde el navegador del teléfono.
+## Requisitos Previos
+1. Node.js (LTS)
+2. pnpm (Recomendado) o npm.
+3. Expo CLI (`npm install -g expo-cli`)
+4. EAS CLI (`npm install -g eas-cli`)
 
-## Variables de entorno y seguridad
-
-- El archivo `.env` local debe contener solo valores secretos y nunca debe subirse al repositorio.
-- Para Supabase en el cliente, usa `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
-- No expongas `service_role` ni claves de administrador en el código del cliente.
-- Para el backend, usa variables del servidor que no lleguen al navegador.
+---
+**Ingeniería y Arquitectura:** Jesús Pirela
+**Versión:** 1.0.0

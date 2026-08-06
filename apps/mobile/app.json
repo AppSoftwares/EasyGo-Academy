@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "EasyGo Academy",
+    "slug": "easygo-academy",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/branding/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/branding/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.easygo.academy",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/branding/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.easygo.academy"
+    },
+    "web": {
+      "favicon": "./assets/branding/favicon.png"
+    },
+    "plugins": [
+      "expo-updates"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "TU_PROJECT_ID_DE_EXPO"
+      },
+      "supabaseUrl": "https://nwccwrqhljpdsgdgdqdd.supabase.co",
+      "supabaseAnonKey": "sb_publishable_YM8wCvo3H6JzGDTDXNlZnA_pRIsBiki",
+      "apiUrl": "http://172.16.0.2:3001/api",
+      "geminiApiKey": "TU_GEMINI_API_KEY",
+      "googleTtsKey": "TU_GOOGLE_TTS_KEY"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/TU_PROJECT_ID_DE_EXPO"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
+}

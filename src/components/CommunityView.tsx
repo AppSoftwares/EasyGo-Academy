@@ -7,9 +7,10 @@ interface CommunityViewProps {
   onEarnXp: (xp: number) => void;
   userEmail: string;
   userName: string;
+  isDarkMode: boolean;
 }
 
-export default function CommunityView({ onEarnXp, userEmail, userName }: CommunityViewProps) {
+export default function CommunityView({ onEarnXp, userEmail, userName, isDarkMode }: CommunityViewProps) {
   const [posts, setPosts] = useState<CommunityPost[]>(INITIAL_COMMUNITY_POSTS);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [groups, setGroups] = useState<StudyGroup[]>(STUDY_GROUPS);
@@ -115,34 +116,41 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
 
   const currentCommentPost = posts.find(p => p.id === activeCommentPostId);
 
+  const pageTextClass = isDarkMode ? 'text-white' : 'text-slate-900';
+  const pageBgClass = isDarkMode ? 'bg-brand-dark text-white' : 'bg-slate-100 text-slate-900';
+  const panelClass = isDarkMode ? 'bg-white/5 border border-white/5' : 'bg-white/95 border border-slate-200 shadow-sm';
+  const bannerClass = isDarkMode
+    ? 'brand-gradient border border-white/10 shadow-xl'
+    : 'bg-brand-orange/10 border border-brand-orange/20 shadow-sm';
+
   return (
-    <div id="community-view-container" className="space-y-6">
+    <div id="community-view-container" className={`space-y-6 ${pageBgClass}`}>
       {/* Title */}
       <div className="flex flex-col gap-1.5">
         <span className="font-academy text-brand-orange text-3xl font-semibold">Tus Aliados</span>
-        <h1 className="font-display font-extrabold text-2xl text-white tracking-tight">Comunidad e Intercambio</h1>
-        <p className="text-slate-400 text-sm">Comparte tus triunfos, supera dudas de adaptación y desafíate con otros Hispanos.</p>
+        <h1 className={`font-display font-extrabold text-2xl tracking-tight ${pageTextClass}`}>Comunidad e Intercambio</h1>
+        <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Comparte tus triunfos, supera dudas de adaptación y desafíate con otros Hispanos.</p>
       </div>
 
       {/* Weekly Challenge Banner */}
-      <div className="rounded-3xl p-5 brand-gradient border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-pulse-slow">
-        <div className="space-y-1.5 text-left text-white max-w-sm">
-          <span className="text-[10px] uppercase font-mono tracking-widest font-extrabold flex items-center gap-1">
+      <div className={`rounded-3xl p-5 ${bannerClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${isDarkMode ? 'animate-pulse-slow' : ''}`}>
+        <div className="space-y-1.5 text-left max-w-sm">
+          <span className={`text-[10px] uppercase font-mono tracking-widest font-extrabold flex items-center gap-1 ${isDarkMode ? 'text-white' : 'text-brand-orange'}`}>
             <Award className="w-4 h-4 text-brand-orange" /> DESAFÍO DE LA SEMANA
           </span>
-          <h3 className="text-lg font-bold font-display">{WEEKLY_CHALLENGE.title}</h3>
-          <p className="text-xs text-white/95 leading-relaxed">{WEEKLY_CHALLENGE.description}</p>
+          <h3 className={`text-lg font-bold font-display ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{WEEKLY_CHALLENGE.title}</h3>
+          <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-white/95' : 'text-slate-700'}`}>{WEEKLY_CHALLENGE.description}</p>
         </div>
 
         {!joinedWeeklyChallenge ? (
           <button
             onClick={handleJoinChallenge}
-            className="px-6 py-3 rounded-full bg-slate-950 text-white font-bold text-xs pointer transition-all active:scale-95 shadow-lg shrink-0 self-start sm:self-center"
+            className={`px-6 py-3 rounded-full font-bold text-xs pointer transition-all active:scale-95 shadow-lg shrink-0 self-start sm:self-center ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-brand-orange text-white hover:bg-brand-coral'}`}
           >
             Participar y Grabar (+100 XP) 🎤
           </button>
         ) : (
-          <div className="flex items-center gap-1.5 bg-black/40 px-4 py-2 border border-white/10 rounded-full text-xs font-bold text-white shrink-0 self-start sm:self-center">
+          <div className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold shrink-0 self-start sm:self-center ${isDarkMode ? 'bg-black/40 border border-white/10 text-white' : 'bg-slate-100 border border-slate-200 text-slate-900'}`}>
             <CheckCircle2 className="w-4 h-4 text-brand-success shrink-0" /> Participando (¡+{WEEKLY_CHALLENGE.xpBonus} XP extra!)
           </div>
         )}
@@ -153,17 +161,17 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
         
         {/* Left Side: Study Groups List */}
         <div className="space-y-4 md:col-span-1">
-          <div className="bg-white/5 border border-white/5 rounded-3xl p-5 space-y-4">
+          <div className={`${panelClass} rounded-3xl p-5 space-y-4`}>
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-brand-orange shrink-0" />
-              <h3 className="font-bold text-sm text-white font-display">Grupos de Estudio Activos</h3>
+              <h3 className={`font-bold text-sm font-display ${pageTextClass}`}>Grupos de Estudio Activos</h3>
             </div>
 
             <div className="grid gap-3">
               {groups.map((grp) => (
                 <div
                   key={grp.id}
-                  className="bg-white/5 border border-white/5 rounded-2xl p-4 space-y-3"
+                  className={`${panelClass} rounded-2xl p-4 space-y-3`}
                 >
                   <div>
                     <div className="flex justify-between items-center">
@@ -174,7 +182,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                         {grp.membersCount} miembros
                       </span>
                     </div>
-                    <h4 className="text-xs font-bold text-white mt-2 leading-snug">{grp.name}</h4>
+                    <h4 className={`text-xs font-bold mt-2 leading-snug ${pageTextClass}`}>{grp.name}</h4>
                     <p className="text-[10px] text-slate-400 mt-1 leading-normal">{grp.description}</p>
                   </div>
 
@@ -237,13 +245,13 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                   placeholder="Título breve (opcional)..."
                   value={newPostTitle}
                   onChange={(e) => setNewPostTitle(e.target.value)}
-                  className="bg-white/5 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange"
+                  className={`bg-white/5 border border-white/5 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-orange ${isDarkMode ? 'text-white' : 'text-slate-900'}`}
                 />
 
                 <select
                   value={newPostCategory}
                   onChange={(e) => setNewPostCategory(e.target.value as any)}
-                  className="bg-zinc-900 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange pointer"
+                  className={`rounded-xl p-3 text-xs focus:outline-none focus:border-brand-orange pointer ${isDarkMode ? 'bg-zinc-900 border border-white/5 text-white' : 'bg-white border border-slate-200 text-slate-900'}`}
                 >
                   <option value="General">Categoría: General</option>
                   <option value="Tips">Categoría: Tips</option>
@@ -258,7 +266,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                 placeholder="Explica qué necesitas saber, tu tip laboral o tu victoria..."
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
-                className="w-full bg-white/5 border border-white/5 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange resize-none"
+                className={`w-full bg-white/5 border border-white/5 rounded-xl p-3 text-xs focus:outline-none focus:border-brand-orange resize-none ${isDarkMode ? 'text-white' : 'text-slate-900'}`}
               />
 
               <div className="flex justify-end gap-2 text-xs pt-1">
@@ -285,7 +293,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
               filteredPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="bg-brand-dark/40 border border-white/5 rounded-2xl p-5 space-y-4"
+                  className={`rounded-2xl p-5 space-y-4 ${isDarkMode ? 'bg-brand-dark/40 border border-white/5' : 'bg-white/95 border border-slate-200'}`}
                 >
                   {/* Post Metadata row */}
                   <div className="flex justify-between items-start">
@@ -294,7 +302,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                         {post.userName.charAt(0)}
                       </div>
                       <div className="text-left font-display">
-                        <span className="text-xs font-bold text-white block">{post.userName}</span>
+                        <span className={`text-xs font-bold block ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{post.userName}</span>
                         <span className="text-[9px] text-slate-400 font-mono block mt-0.5">{post.createdAt}</span>
                       </div>
                     </div>
@@ -307,7 +315,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                   {/* Post Content */}
                   <div className="space-y-1">
                     {post.title && (
-                      <h4 className="text-sm font-extrabold text-white leading-snug">{post.title}</h4>
+                      <h4 className={`text-sm font-extrabold leading-snug ${pageTextClass}`}>{post.title}</h4>
                     )}
                     <p className="text-xs leading-relaxed text-slate-300">{post.content}</p>
                   </div>
@@ -335,15 +343,15 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
 
                   {/* Active Comments box */}
                   {activeCommentPostId === post.id && (
-                    <div className="space-y-3.5 bg-black/40 p-4 rounded-xl border border-white/5 animate-fade-in text-left">
+                    <div className={`space-y-3.5 rounded-xl border animate-fade-in text-left ${isDarkMode ? 'bg-black/40 border border-white/5' : 'bg-slate-100 border border-slate-200'}`}>
                       <span className="text-[10px] uppercase font-bold text-brand-orange tracking-widest block mb-1">Respuestas de Estudiantes</span>
                       
                       {post.comments && post.comments.length > 0 && (
                         <div className="space-y-2 max-h-[150px] overflow-y-auto scrollbar-none">
                           {post.comments.map((comm, idx) => (
-                            <div key={idx} className="bg-white/5 p-2 px-3.5 rounded-lg">
-                              <span className="text-[10px] font-bold text-white shrink-0 block">{comm.userName}</span>
-                              <p className="text-xs text-slate-300 mt-0.5 leading-normal">{comm.content}</p>
+                            <div key={idx} className={`p-2 px-3.5 rounded-lg ${isDarkMode ? 'bg-white/5' : 'bg-slate-100 border border-slate-200'}`}>
+                              <span className={`text-[10px] font-bold shrink-0 block ${pageTextClass}`}>{comm.userName}</span>
+                              <p className="text-xs text-slate-500 mt-0.5 leading-normal">{comm.content}</p>
                             </div>
                           ))}
                         </div>
@@ -356,7 +364,7 @@ export default function CommunityView({ onEarnXp, userEmail, userName }: Communi
                           placeholder="Añade una respuesta constructiva..."
                           value={newCommentText}
                           onChange={(e) => setNewCommentText(e.target.value)}
-                          className="flex-1 bg-white/5 border border-white/5 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange"
+                          className={`flex-1 ${isDarkMode ? 'bg-white/5 border border-white/5 text-white' : 'bg-slate-100 border border-slate-200 text-slate-900'} rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-orange`}
                         />
                         <button
                           onClick={() => handleAddComment(post.id)}

@@ -1,0 +1,1797 @@
+{
+  "level": "A2",
+  "modules": [
+    {
+      "id": 1,
+      "title": "I was there (Past Locations)",
+      "description": "Aprende a reportar dónde estuviste y a ubicar eventos en el pasado.",
+      "lessons": [
+        {
+          "title": "The Transition to Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The Transition to Past",
+              "content": "El verbo To Be (ser/estar) es el único verbo en inglés que tiene dos formas en el pasado. La transición desde el presente es directa:\n\n- Am / Is se convierten en Was (I, He, She, It).\n- Are se convierte en Were (You, We, They).\n\nEjemplo (Presente): 'I am in the office.' (Estoy en la oficina).\nEjemplo (Pasado): 'I was in the office.' (Estuve/Estaba en la oficina).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Convierte esta oración al pasado: 'The tools are on the table.'",
+              "answer": "The tools were on the table.",
+              "type": "fill-blank",
+              "explanation": "The tools es plural → were"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was o were para describir una ubicación en el pasado"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto manteniendo la estructura del pasado del verbo to be"
+            }
+          ]
+        },
+        {
+          "title": "In the Office Yesterday",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "In the Office Yesterday",
+              "content": "El pasado necesita contexto. Si dices 'I was in the office', la siguiente pregunta lógica es '¿cuándo?'. Aquí entran los marcadores de tiempo, que generalmente se colocan al final de la oración.\n\n- Yesterday: Ayer (ej: yesterday morning, yesterday afternoon).\n- Last...: El pasado/La pasada (ej: last night = anoche, last week = la semana pasada).\n- ...ago: Hace [cantidad de tiempo] (ej: two hours ago = hace dos horas, five minutes ago = hace cinco minutos).\n\nEjemplo: 'I was in the warehouse two hours ago.'",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que tú estuviste en el trabajo (at work) ayer en la mañana",
+              "answer": "I was at work yesterday morning.",
+              "type": "fill-blank",
+              "explanation": "Usa 'I was' + lugar + marcador de tiempo"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was/were + un marcador de tiempo (yesterday, last night, ago)"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto o el marcador de tiempo"
+            }
+          ]
+        },
+        {
+          "title": "Questions in the Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Questions in the Past",
+              "content": "En el entorno laboral, confirmar ubicaciones pasadas es estándar para auditorías o seguimiento de tareas. Para preguntar, simplemente invertimos el orden (el verbo va primero).\n\n- Yes/No Question: 'Were you at the meeting yesterday?' (¿Estuviste en la reunión ayer?).\n- Open Question: 'Where were you last night?' (¿Dónde estabas anoche?).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Pregúntale a un compañero de trabajo dónde estaba él hace 10 minutos (10 minutes ago)",
+              "answer": "Where were you 10 minutes ago?",
+              "type": "fill-blank",
+              "explanation": "Usa 'Where were you' + marcador de tiempo"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa la estructura de pregunta con was/were"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto o el tipo de pregunta (Yes/No o abierta)"
+            }
+          ]
+        },
+        {
+          "title": "I wasn't at home",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "I wasn't at home",
+              "content": "Aclarar dónde no estabas es vital para corregir información falsa o justificar por qué no hiciste algo. Usamos las contracciones negativas.\n\n- Was not -> Wasn't\n- Were not -> Weren't (se pronuncia /wérnt/, en una sola sílaba).\n\nEjemplo: 'I wasn't at home, I was at the hospital.'\nEjemplo: 'They weren't in the office yesterday.'",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tu supervisor cree que estabas en el área de descanso (break room). Corrige la información diciendo: 'Yo no estaba en el área de descanso, yo estaba en la bodega (warehouse)'",
+              "answer": "I wasn't in the break room, I was in the warehouse.",
+              "type": "fill-blank",
+              "explanation": "Usa wasn't para negar y was para afirmar la ubicación correcta"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa wasn't o weren't para corregir una información falsa"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto y la ubicación"
+            }
+          ]
+        },
+        {
+          "title": "The Attendance Challenge",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "The Attendance Challenge",
+              "content": "Esta actividad consolida tu capacidad para realizar un reporte de asistencia de un evento que ya terminó.\n\nImagina que hubo una reunión de seguridad importante ayer. Basado en esta lista, reporta el estado de asistencia:\n- John: Present (en la reunión)\n- Sarah y Mike: Absent (en el taller / in the workshop)\n- Tú: Present (en la reunión)",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta tu estado (sobre ti)",
+              "answer": "I was in the meeting.",
+              "type": "fill-blank",
+              "explanation": "Usa 'I was' para reportar tu asistencia"
+            },
+            {
+              "question": "Reporta el estado de John",
+              "answer": "He was in the meeting.",
+              "type": "fill-blank",
+              "explanation": "Usa 'He was' para tercera persona singular"
+            },
+            {
+              "question": "Reporta el estado de Sarah y Mike",
+              "answer": "They weren't in the meeting, they were in the workshop.",
+              "type": "fill-blank",
+              "explanation": "Usa 'they weren't' para negar y 'they were' para afirmar la ubicación correcta"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was/were y wasn't/weren't para reportar asistencia"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía los sujetos y las ubicaciones"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Former Roles & Jobs",
+      "description": "Habla sobre quién eras y qué hacías en el pasado.",
+      "lessons": [
+        {
+          "title": "My Previous Job",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "My Previous Job",
+              "content": "Para hablar de tu profesión o cargo en el pasado, usamos Was/Were seguido de tu título.\n\n- Regla de Oro: En inglés, siempre debes usar el artículo 'a' o 'an' (un/una) antes de la profesión. (No digas 'I was manager', di 'I was a manager').\n- Ejemplo: 'I was a teacher in my country.' (Yo era profesor en mi país).\n- Ejemplo: 'She was a portfolio manager.' (Ella era gestora de cartera).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Piensen en tu vida profesional antes de tu proyecto actual. ¿Cuál era tu cargo principal?",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I was a technician / I was a supervisor"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'I was a/an...' para hablar de un cargo pasado"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el cargo o la profesión"
+            }
+          ]
+        },
+        {
+          "title": "Team History",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Team History",
+              "content": "Los negocios y el trabajo se tratan de relaciones. Para describir tu conexión pasada con otras personas, usamos los plurales We were (Nosotros éramos) o They were (Ellos eran).\n\n- Coworkers: Compañeros de trabajo.\n- Clients: Clientes.\n- Classmates: Compañeros de clase.\n\nEjemplo: 'We were coworkers in 2020.' (Éramos compañeros de trabajo en 2020).\nEjemplo: 'They were my clients last year.' (Ellos eran mis clientes el año pasado).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Describe la relación que tenías con un grupo de personas en tu trabajo anterior (ej. si eran tus estudiantes, clientes o colegas)",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: They were my students / We were coworkers"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'We were' o 'They were' para describir relaciones pasadas"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el grupo de personas y el marcador de tiempo"
+            }
+          ]
+        },
+        {
+          "title": "Describing Past States",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Describing Past States",
+              "content": "A veces necesitas reportar cómo te sentías en un momento específico del pasado, especialmente para justificar una acción. Usamos Was/Were + Adjetivo.\n\n- Tired: Cansado/a.\n- Busy: Ocupado/a.\n- Happy: Feliz.\n- Sick: Enfermo/a.\n\nEjemplo: 'I couldn't finish the class because I was sick.' (No pude terminar la clase porque estaba enfermo).\nEjemplo: 'We were very busy yesterday.' (Estuvimos muy ocupados ayer).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "¿Cómo estabas (tu estado físico o mental) al final de tu jornada laboral de ayer?",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I was tired / I was happy"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was/were + adjetivo para describir un estado pasado"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto y el adjetivo"
+            }
+          ]
+        },
+        {
+          "title": "Correcting Past Roles",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Correcting Past Roles",
+              "content": "En entornos corporativos, es común que haya confusiones sobre quién tenía qué responsabilidad. Usar la forma negativa te permite aclarar tu rango o rol de manera profesional.\n\n- Estructura: Sujeto + wasn't/weren't + [Rol incorrecto], Sujeto + was/were + [Rol real].\n\nEjemplo: 'I wasn't the supervisor, I was the assistant.' (Yo no era el supervisor, yo era el asistente).\nEjemplo: 'They weren't my employees, they were my students.' (Ellos no eran mis empleados, eran mis estudiantes).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Alguien asume que tú eras el director de tu antigua empresa. Corrige diciendo que no eras el director (director), que eras un analista (analyst)",
+              "answer": "I wasn't the director, I was an analyst.",
+              "type": "fill-blank",
+              "explanation": "Usa 'I wasn't' para negar el rol incorrecto y 'I was' para afirmar el rol real"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa la estructura negativa y afirmativa para corregir un rol"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía los roles y los sujetos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Weather & Environment",
+      "description": "Describe el clima y el estado de lugares en el pasado.",
+      "lessons": [
+        {
+          "title": "It was cold",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "It was cold",
+              "content": "En español, solemos omitir el sujeto al hablar del clima (decimos 'estaba lloviendo'). En inglés, el sujeto es obligatorio. Para el clima, siempre usamos el pronombre It seguido de was.\n\n- Sunny: Soleado.\n- Rainy: Lluvioso.\n- Snowy: Nevado.\n- Hot / Cold: Caluroso / Frío.\n\nEjemplo: 'It was rainy yesterday.' (Estuvo lluvioso ayer). No digas: 'Was rainy yesterday'.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "¿Cómo describirías el clima de ayer en tu ciudad?",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: It was sunny / It was cold"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'It was' + adjetivo de clima"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el adjetivo de clima"
+            }
+          ]
+        },
+        {
+          "title": "The Place was...",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The Place was...",
+              "content": "Al reportar el estado de un lugar de trabajo o un establecimiento público en el pasado, usamos adjetivos descriptivos clave.\n\n- Crowded: Lleno de gente / Abarrotado.\n- Empty: Vacío.\n- Clean: Limpio.\n- Messy: Desordenado / Sucio.\n\nEjemplo: 'We couldn't work because the office was messy.' (No pudimos trabajar porque la oficina estaba desordenada).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Describe cómo estaba el supermercado (o la tienda) la última vez que fuiste a comprar suministros",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: The store was crowded / The supermarket was clean"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'The [place] was' + adjetivo"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el lugar y el adjetivo"
+            }
+          ]
+        },
+        {
+          "title": "Reasons for Delays",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Reasons for Delays",
+              "content": "Esta es la estructura estándar para justificar un retraso. Unimos un resultado negativo con una condición pasada usando la palabra because (porque).\n\n- Estructura: [Resultado] + because + [Condición pasada].\n\nEjemplo: 'I was late because the traffic was terrible.' (Llegué tarde porque el tráfico estaba terrible).\nEjemplo: 'The delivery was late because the weather was bad.' (La entrega se retrasó porque el clima estaba malo).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Justifica por qué llegaste tarde usando el clima (lluvia) como razón",
+              "answer": "I was late because it was rainy.",
+              "type": "fill-blank",
+              "explanation": "Usa 'because' + descripción del clima en pasado"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa [resultado] + because + [condición pasada]"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el resultado y la condición"
+            }
+          ]
+        },
+        {
+          "title": "Was it difficult?",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Was it difficult?",
+              "content": "Al finalizar una tarea o proyecto, es común evaluar su complejidad. Usamos Was it...? para preguntar sobre la experiencia general.\n\n- 'Was it difficult?' (¿Estuvo difícil?).\n- 'Was it easy?' (¿Estuvo fácil?).\n- 'Was the exam complicated?' (¿Estuvo complicado el examen?).\n\nRespuesta corta: 'Yes, it was.' / 'No, it wasn't.'",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Pregúntale a un estudiante o colega si la tarea que acaba de terminar fue difícil",
+              "answer": "Was it difficult?",
+              "type": "fill-blank",
+              "explanation": "Usa 'Was it' + adjetivo para preguntar sobre una experiencia"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'Was it...?' para preguntar sobre una tarea o experiencia"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el adjetivo o el objeto de la pregunta"
+            }
+          ]
+        },
+        {
+          "title": "Was vs. Were (Pronunciation)",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Was vs. Were",
+              "content": "Este es un error auditivo común. Si pronuncias 'were' incorrectamente, puede sonar como 'where' (dónde) o confundirse con 'was'.\n\n- Was: Se pronuncia suave, casi como /woz/ o /waz/. La vocal es muy relajada y termina en un sonido vibrante ligero (z).\n- Were: Se pronuncia /weer/. No tiene sonido de 'A' ni de 'O'. Imagina que alargas la 'E' y terminas con una 'R' inglesa pura (enrollando la lengua hacia atrás, sin tocar el paladar).",
+              "examples": [
+                "It WAS cold. (/woz/)",
+                "They WERE cold. (/weer/)"
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "Practica la pronunciación: contrasta 'It was sunny' y 'They were sunny' en voz alta",
+              "answer": "",
+              "type": "open",
+              "explanation": "Concéntrate en la diferencia entre /woz/ y /weer/"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was para singular y were para plural"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía los sujetos y los adjetivos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "My Story in the US",
+      "description": "Relata tus primeras experiencias y contrasta el pasado con el presente.",
+      "lessons": [
+        {
+          "title": "First Impressions",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "First Impressions",
+              "content": "Para relatar tus primeras experiencias, combinamos el sujeto de tu historia (My first day, The interview, My first class) con was o were y un adjetivo descriptivo.\n\n- My first day was difficult. (Mi primer día fue difícil).\n- The people were friendly. (La gente era amigable).\n- Everything was new. (Todo era nuevo).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Piensen en tu primer día en un nuevo trabajo, proyecto o país. ¿Cómo fue esa primera impresión?",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: My first day was exciting / My first class was interesting"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa 'My first... was/were' + adjetivo"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto (My first job, The interview, etc.)"
+            }
+          ]
+        },
+        {
+          "title": "Differences",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Differences",
+              "content": "Las buenas historias tienen matices. A menudo, nuestras experiencias iniciales están llenas de contrastes. Usamos la palabra but (pero) para unir dos descripciones pasadas que se oponen.\n\nEstructura: [idea 1] + but + [idea 2].\n\nEjemplo: 'The apartment was small, but the city was big.' (El apartamento era pequeño, pero la ciudad era grande).\nEjemplo: 'The job was hard, but my coworkers were excellent.' (El trabajo era duro, pero mis compañeros eran excelentes).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Crea un contraste sobre tu primera experiencia laboral o de estudio",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: The salary was low, but the team was great"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa [idea 1] + but + [idea 2] con was/were"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía los sujetos y los adjetivos de contraste"
+            }
+          ]
+        },
+        {
+          "title": "Confirming Info",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Confirming Info",
+              "content": "En una conversación natural, cuando alguien te pregunta sobre tu pasado, no repites toda la oración; suenas como un robot si lo haces. Usamos Short Answers (respuestas cortas).\n\n- Were you nervous? -> Yes, I was. (Sí, lo estaba).\n- Was the weather cold? -> No, it wasn't. (No, no lo estaba).\n- Were they your clients? -> Yes, they were. (Sí, lo eran).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Responde de forma corta y profesional a esta pregunta de un colega: 'Were you at the office yesterday?'",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: Yes, I was / No, I wasn't"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa short answers con was/were: Yes, I was / No, it wasn't"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la pregunta y la respuesta corta"
+            }
+          ]
+        },
+        {
+          "title": "Your Story First",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "Your Story First",
+              "content": "Es momento de redactar tu narrativa fundacional. Describe cómo fue tu primer empleo (ya sea en los Estados Unidos, o tu primer proyecto importante).\n\nGuía: Menciona cuál era tu cargo (I was a...), cómo era el lugar (The place was...), y cómo te sentías en ese momento (I was...).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Describe tu primer empleo o proyecto importante",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I was a cashier. The store was busy. I was nervous but happy."
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa was/were para describir tu pasado laboral"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Añade más detalles a tu historia personal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Yesterday at Work (Regular Verbs)",
+      "description": "Reporta tareas completadas usando verbos regulares en pasado.",
+      "lessons": [
+        {
+          "title": "The -ed Transformation",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The -ed Transformation",
+              "content": "La gran ventaja del inglés es que el pasado de los verbos regulares es idéntico para todas las personas (I, You, He, She, We, They). No hay conjugaciones complejas; la regla general es añadir -ed al final del verbo base.\n\n- Regla General: Añade -ed. (Work → Worked / Clean → Cleaned).\n- Terminación en 'e': Solo añade la -d. (Close → Closed).\n- Terminación en consonante + 'y': Cambia la 'y' por 'i' y añade -ed. (Study → Studied).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Transforma este verbo al pasado usando la regla general: Start (comenzar)",
+              "answer": "Started",
+              "type": "fill-blank",
+              "explanation": "Añade -ed al final del verbo base: start + ed = started"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Convierte un verbo regular a su forma pasada"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa otro verbo regular con la terminación -ed"
+            }
+          ]
+        },
+        {
+          "title": "Reporting Completed Tasks",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Reporting Completed Tasks",
+              "content": "Para reportar acciones laborales, usamos una estructura directa: Sujeto + Verbo(-ed) + Objeto. Aquí tienes los verbos de alta frecuencia para reportes operativos:\n\n- Check → Checked (Revisar/Verificar)\n- Open → Opened (Abrir)\n- Close → Closed (Cerrar)\n- Help → Helped (Ayudar)\n- Finish → Finished (Terminar)\n- Call → Called (Llamar)\n\nEjemplo: 'I checked the materials.' (Revisé los materiales).\nEjemplo: 'She called the client.' (Ella llamó al cliente).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que ayudaste a un estudiante o compañero de trabajo",
+              "answer": "I helped my coworker.",
+              "type": "fill-blank",
+              "explanation": "Usa el verbo help en pasado: helped"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo regular en pasado para reportar una tarea"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el objeto"
+            }
+          ]
+        },
+        {
+          "title": "Time Markers",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Time Markers",
+              "content": "Una tarea sin fecha de finalización no es un buen reporte. Siempre que uses el pasado simple (-ed), debes anclar la acción con un marcador de tiempo al final de la oración. Son los mismos que aprendimos en el Módulo 13.\n\n- Yesterday: Ayer.\n- Last night / Last week: Anoche / La semana pasada.\n- Two hours ago: Hace dos horas.\n\nEjemplo: 'We closed the office two hours ago.' (Cerramos la oficina hace dos horas).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que terminaste el documento (document) ayer",
+              "answer": "I finished the document yesterday.",
+              "type": "fill-blank",
+              "explanation": "Usa el verbo finish en pasado + marcador de tiempo yesterday"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo en pasado + un marcador de tiempo"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el marcador de tiempo (last week, two hours ago)"
+            }
+          ]
+        },
+        {
+          "title": "Professional Compliance",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Professional Compliance",
+              "content": "El 'Compliance' (cumplimiento) es la capacidad de demostrar que seguiste el protocolo. Al final de tu jornada laboral, tus superiores esperan un resumen de lo completado.\n\n- 'I finished the report.' (Terminé el informe).\n- 'I cleaned the station.' (Limpié la estación de trabajo).\n- 'I checked the equipment.' (Revisé el equipo).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Escribe una oración combinando un verbo de la Lección 2 con un marcador de tiempo para reportar una tarea cumplida",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I checked the equipment yesterday morning"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo regular en pasado para reportar cumplimiento"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la tarea reportada"
+            }
+          ]
+        },
+        {
+          "title": "The End of Shift Challenge",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "The End of Shift Challenge",
+              "content": "Esta actividad entrena tu memoria y tu capacidad de generar reportes operativos reales.\n\nActividad: Imagina que tu turno de trabajo acaba de terminar y tu supervisor te pide un resumen rápido de lo que lograste. Escribe una lista de 5 tareas que completaste usando verbos regulares terminados en -ed y marcadores de tiempo.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tarea 1",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I checked the inventory"
+            },
+            {
+              "question": "Tarea 2",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I cleaned my workstation"
+            },
+            {
+              "question": "Tarea 3",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I called the supervisor"
+            },
+            {
+              "question": "Tarea 4",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I finished the report"
+            },
+            {
+              "question": "Tarea 5",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I closed the doors"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "The Magic of DID",
+      "description": "Forma preguntas y negaciones en pasado usando el auxiliar DID.",
+      "lessons": [
+        {
+          "title": "The Helper Concept",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The Helper Concept",
+              "content": "En el pasado simple, DID es tu verbo auxiliar (ayudante). No tiene traducción al español (no significa 'hacer' en este contexto); su única función es avisarle al cerebro del oyente: 'Atención, lo que voy a decir está en pasado'.\n\nLa Regla de Oro (El Escudo): Cuando DID entra en la oración, absorbe toda la energía del pasado. Actúa como un escudo protector. Como resultado, el verbo principal regresa a su forma base (pierde la -ed).\n\nError común: 'Did you worked?' (Esto es un 'doble pasado' y es incorrecto).\nCorrecto: 'Did you work?' (El Did ya hizo el trabajo de convertir la oración al pasado).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Selecciona la opción gramaticalmente correcta: A) Did she called the client? B) Did she call the client?",
+              "answer": "Did she call the client?",
+              "type": "fill-blank",
+              "explanation": "Did absorbe el pasado, el verbo principal vuelve a su forma base (call, no called)"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa Did + sujeto + verbo base para una pregunta"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto y el verbo"
+            }
+          ]
+        },
+        {
+          "title": "I didn't... (The Negative)",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "I didn't...",
+              "content": "Para reportar que una tarea no se realizó, unimos Did + not para formar la contracción Didn't.\n\nNuevamente, aplicamos la regla de neutralización: el verbo que le sigue debe estar intacto (sin -ed).\n\n- Afirmativo: 'I checked the email.' (Revisé el correo).\n- Negativo: 'I didn't check the email.' (No revisé el correo).\n\nEjemplo laboral: 'The machine didn't work yesterday.' (La máquina no funcionó ayer).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Transforma este reporte afirmativo ('I finished the report') en un reporte negativo para informar a tu supervisor que no lo lograste",
+              "answer": "I didn't finish the report.",
+              "type": "fill-blank",
+              "explanation": "Usa didn't + verbo base (finish, no finished)"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa didn't + verbo base para negar una acción pasada"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el contexto"
+            }
+          ]
+        },
+        {
+          "title": "Confirming Orders",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Confirming Orders",
+              "content": "Como líder, profesor o supervisor, constantemente debes auditar si las cosas se hicieron. La estructura de auditoría (pregunta de Sí/No) es matemática:\n\nEstructura: Did + Sujeto + Verbo (Base) + Complemento + Marcador de Tiempo?\n\n- 'Did you check the truck?' (¿Revisaste el camión?).\n- 'Did she call the client last night?' (¿Llamó ella al cliente anoche?).\n- 'Did they clean the office?' (¿Limpiaron ellos la oficina?).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Eres el encargado de cerrar la instalación. Pregúntale a tu compañero de trabajo si él cerró (close) la puerta principal (main door)",
+              "answer": "Did you close the main door?",
+              "type": "fill-blank",
+              "explanation": "Usa Did + sujeto + verbo base (close, no closed)"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa Did para preguntar sobre una acción pasada"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el sujeto y la acción"
+            }
+          ]
+        },
+        {
+          "title": "Short Answers in Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Short Answers in Past",
+              "content": "En un entorno profesional, la eficiencia es clave. Si alguien te hace una pregunta con Did, no debes repetir toda la oración para responder. Usa las respuestas cortas. Son idénticas para todos los pronombres (I, You, He, She, They...).\n\n- Pregunta: Did you clean the station?\n- Afirmativo: Yes, I did. (Sí, lo hice).\n- Negativo: No, I didn't. (No, no lo hice).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tu supervisor te pregunta: 'Did you send the document?' (¿Enviaste el documento?). Responde de manera profesional y corta indicando que no lo hiciste",
+              "answer": "No, I didn't.",
+              "type": "fill-blank",
+              "explanation": "Usa la respuesta corta negativa: No, I didn't"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa Yes, I did / No, I didn't"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Responde a una pregunta diferente con short answer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Daily Life Events (Personal Stories)",
+      "description": "Cuenta qué hiciste en tu tiempo libre usando el pasado simple.",
+      "lessons": [
+        {
+          "title": "Personal Verbs",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Personal Verbs",
+              "content": "El entorno laboral no lo es todo. Para construir relaciones reales con tus estudiantes, colegas o clientes en Estados Unidos, necesitas dominar el 'Small Talk' (conversación casual). Poder contar qué hiciste el fin de semana o qué estudiaste anoche es lo que te humaniza y genera empatía.\n\n- Cook -> Cooked (Cocinar)\n- Study -> Studied (Estudiar)\n- Wash -> Washed (Lavar)\n- Play -> Played (Jugar / Tocar un instrumento)\n- Listen -> Listened (Escuchar)\n- Watch -> Watched (Mirar pantallas/TV)\n\nEjemplo: 'I studied Mandarin last night.' (Estudié mandarín anoche).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta una actividad personal (como estudiar o ver algo) que hiciste anoche",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I watched a movie last night"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo regular en pasado para una actividad personal"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la actividad personal"
+            }
+          ]
+        },
+        {
+          "title": "Last Weekend",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Last Weekend",
+              "content": "El lunes por la mañana, la pregunta obligatoria en cualquier entorno social es qué hiciste durante el fin de semana. Anclamos estas historias con los marcadores de tiempo correspondientes.\n\n- Last weekend: El fin de semana pasado.\n- On Saturday / On Sunday: El sábado / El domingo.\n\nEjemplo: 'I washed my clothes on Saturday and I rested on Sunday.' (Lavé mi ropa el sábado y descansé el domingo).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Resume una actividad principal que realizaste el sábado pasado",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I cleaned my apartment on Saturday"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo en pasado + on Saturday / on Sunday"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la actividad y el día"
+            }
+          ]
+        },
+        {
+          "title": "Sequence Markers",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Sequence Markers",
+              "content": "Una historia sin conectores suena como una lista de compras. Para darle fluidez y lógica narrativa a tus relatos, usamos marcadores de secuencia.\n\n1. First: Primero.\n2. Then: Luego / Entonces.\n3. After that: Después de eso.\n4. Finally: Finalmente.\n\nEjemplo: 'First, I cooked dinner. Then, I worked on my app. Finally, I watched TV.' (Primero, cociné la cena. Luego, trabajé en mi aplicación. Finalmente, vi televisión).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Secuencia tres acciones que hiciste ayer al llegar a casa. Usa First, Then y Finally",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: First, I changed my clothes. Then, I prepared dinner. Finally, I called my family."
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa marcadores de secuencia para narrar una serie de acciones"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía las acciones y el orden"
+            }
+          ]
+        },
+        {
+          "title": "Small Talk in the Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Small Talk in the Past",
+              "content": "La interacción social requiere interés genuino en el otro. Usamos la estructura de auditoria (Did you...?) pero en un tono amigable para iniciar la conversación.\n\n- 'Did you cook dinner last night?' (¿Cocinaste la cena anoche?).\n- 'Did you study for the data analysis certification?' (¿Estudiaste para la certificación de análisis de datos?).\n- 'Did you watch the game on Sunday?' (¿Viste el partido el domingo?).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Inicia una conversación preguntándole a un estudiante o colega si estudió ayer",
+              "answer": "Did you study yesterday?",
+              "type": "fill-blank",
+              "explanation": "Usa Did + sujeto + verbo base (study)"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa Did you...? para preguntar sobre actividades personales"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la actividad sobre la que preguntas"
+            }
+          ]
+        },
+        {
+          "title": "The 3 Sounds of -ed",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The 3 Sounds of -ed",
+              "content": "Este es el filtro definitivo entre un inglés básico y uno avanzado. La terminación -ed NUNCA se pronuncia como 'ed' literal en español, a menos que el verbo original termine en 'T' o 'D'. Tiene tres sonidos distintos:\n\n1. El sonido /t/ (Verbos secos o sin vibración): Si el verbo termina en un sonido sordo (k, p, s, sh, ch), la -ed suena como una 'T' fuerte y seca. La 'e' es muda.\n   - Work -> Worked (Suena: wørkt)\n   - Watch -> Watched (Suena: wácht)\n\n2. El sonido /d/ (Verbos con vibración o vocales): Si el verbo termina en un sonido que hace vibrar la garganta (l, n, r, v, m, o cualquier vocal), la -ed suena como una 'D' suave. La 'e' sigue siendo muda.\n   - Clean -> Cleaned (Suena: kliind)\n   - Play -> Played (Suena: pleid)\n\n3. El sonido /Id/ (La única excepción): Solo si el verbo base termina en 'T' o 'D', pronunciamos una sílaba extra que suena como 'id'.\n   - Visit -> Visited (Suena: vi-si-tid)\n   - Need -> Needed (Suena: ní-did)",
+              "examples": [
+                "Washed (/t/)",
+                "Listened (/d/)",
+                "Wanted (/Id/)"
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "Toca tu garganta al pronunciar estos tres verbos para sentir la diferencia. No pronuncies la 'e' en los dos primeros: 1. Washed 2. Listened 3. Wanted",
+              "answer": "",
+              "type": "open",
+              "explanation": "Practica la pronunciación de los tres sonidos de -ed"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo con terminación -ed y practica su pronunciación"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo con un sonido diferente de -ed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Incident Reporting (Problem Solving)",
+      "description": "Reporta incidentes y soluciones en el trabajo.",
+      "lessons": [
+        {
+          "title": "Reporting Incidents",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Reporting Incidents",
+              "content": "Para reportar que algo salió mal, usamos verbos regulares en pasado. Un reporte profesional debe ser objetivo y directo, sin rodeos emocionales.\n\n- Stopped: Se detuvo / Paró. (The machine stopped).\n- Failed: Falló. (The system failed).\n- Complained: Se quejó. (The client complained).\n- Crashed: Se bloqueó / Chocó. (The computer crashed).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Imagina que la computadora que estabas usando dejó de funcionar ayer. Escribe el reporte usando el verbo crash",
+              "answer": "The computer crashed yesterday.",
+              "type": "fill-blank",
+              "explanation": "Usa crash en pasado: crashed"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo regular en pasado para reportar un incidente"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el incidente reportado"
+            }
+          ]
+        },
+        {
+          "title": "Solutions & Actions",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Solutions & Actions",
+              "content": "Un líder no solo reporta el problema, reporta la acción correctiva. Para unir el incidente con la solución, usamos la palabra so (así que / por lo tanto).\n\n- Estructura: [Problema en pasado] + so + [Solución en pasado].\n\nEjemplo: 'The machine stopped, so I called the manager.' (La máquina se detuvo, así que llamé al gerente).\nEjemplo: 'The client complained, so I checked the order.' (El cliente se quejó, así que revisé el pedido).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "El sistema falló (failed), así que tú reiniciaste (restarted) el equipo. Escribe la oración completa",
+              "answer": "The system failed, so I restarted the computer.",
+              "type": "fill-blank",
+              "explanation": "Usa so para conectar el problema con la solución"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa [problema] + so + [solución] en pasado"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el problema y la solución"
+            }
+          ]
+        },
+        {
+          "title": "Clarifying Misunderstandings",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Clarifying Misunderstandings",
+              "content": "Durante un incidente, es común que haya confusión sobre quién hizo qué. Debes usar la negación (Didn't) como tu escudo legal para corregir información falsa, seguida inmediatamente por la verdad en afirmación.\n\n- Acusación: 'Did you use the broken tool?' (¿Usaste la herramienta rota?).\n- Defensa: 'No, I didn't use that tool; I used this one.' (No, no usé esa herramienta; usé esta).\n\nAclaración: 'We didn't close the door, the wind closed it.' (Nosotros no cerramos la puerta, el viento la cerró).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tu supervisor cree que tú ignoraste (ignored) al cliente. Defiéndete diciendo que tú no ignoraste al cliente, que tú lo ayudaste (helped)",
+              "answer": "I didn't ignore the client, I helped him.",
+              "type": "fill-blank",
+              "explanation": "Usa didn't + verbo base para negar, y pasado afirmativo para la verdad"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa didn't para negar una acusación y afirma la acción correcta"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la acusación y la defensa"
+            }
+          ]
+        },
+        {
+          "title": "Your Story First (Incident)",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "Your Story First",
+              "content": "Es el momento de aplicar esto a tu realidad. Narra un incidente menor que hayas resuelto recientemente (puede ser en el trabajo, con tu software, en tu casa o en tu comunidad).\n\nGuía para tu historia:\n1. El Incidente: ¿Qué pasó? (Ej: The internet failed).\n2. La Falsa Asunción (Opcional): ¿Hubo alguna confusión? (Ej: I didn't touch the router).\n3. La Solución: ¿Qué hiciste para arreglarlo? (Ej: ...so I called the company).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Narra un incidente que hayas resuelto",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: The printer stopped, so I restarted it. I didn't break it."
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa pasado simple y negación para narrar un incidente"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Añade más detalles a tu incidente"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Career History (Irregular Verbs)",
+      "description": "Domina los verbos irregulares para hablar de tu carrera profesional.",
+      "lessons": [
+        {
+          "title": "The Irregular World",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "The Irregular World",
+              "content": "Los verbos irregulares son los verdaderos rebeldes del inglés; no siguen reglas, pero son precisamente los que más usamos en la vida diaria y en las entrevistas de trabajo. Para hablar de logros, negociaciones y progreso profesional, el control sobre estos verbos es innegociable.\n\n- No hay lógica, hay memoria: No puedes predecir cómo cambiarán.\n- Go (Ir) se convierte en Went.\n- Buy (Comprar) se convierte en Bought.\n\nError crítico: Jamás agregues -ed a un verbo irregular (Nunca digas Go-ed o Buy-ed).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Escribe el pasado de 'Buy' para reportar que adquiriste herramientas nuevas",
+              "answer": "I bought new tools yesterday.",
+              "type": "fill-blank",
+              "explanation": "El pasado de buy es bought"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo irregular en pasado (go, buy, etc.)"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo irregular"
+            }
+          ]
+        },
+        {
+          "title": "Getting Started",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Getting Started",
+              "content": "En una entrevista o relato profesional, necesitas describir cómo empezaron las cosas. Estos tres verbos son tus pilares para hablar de inicios y transformaciones.\n\n- Get -> Got: Obtener / Conseguir. (Ej: I got the job - Conseguí el trabajo).\n- Become -> Became: Convertirse en / Llegar a ser. (Ej: I became a manager - Me convertí en gerente).\n- Begin -> Began: Comenzar. (Ej: We began the project in 2025 - Comenzamos el proyecto en 2025).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta en qué año comenzaste (begin) tu proyecto educativo o conseguiste (get) tu primer trabajo importante",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I began my studies in 2023 / I got my first job in 2022"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa got, became, o began para hablar de inicios profesionales"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el contexto"
+            }
+          ]
+        },
+        {
+          "title": "Communication at Work",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Communication at Work",
+              "content": "El trabajo de oficina y gestión requiere constante comunicación. Estos verbos irregulares te permiten reportar con quién hablaste y qué informaste.\n\n- Speak -> Spoke: Hablar. (Ej: I spoke with the boss).\n- Write -> Wrote: Escribir. (Ej: She wrote an email to the client).\n- Read -> Read: Leer (Se escribe igual, pero en pasado se pronuncia como el color rojo: /red/).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que hablaste con un estudiante (o cliente) importante ayer",
+              "answer": "I spoke with the client yesterday.",
+              "type": "fill-blank",
+              "explanation": "El pasado de speak es spoke"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa spoke, wrote, o read para comunicaciones en el trabajo"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el destinatario"
+            }
+          ]
+        },
+        {
+          "title": "Money & Time",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Money & Time",
+              "content": "La gestión de recursos y finanzas es crítica en cualquier negocio. Estos verbos irregulares te permiten reportar transacciones y uso de tiempo.\n\n- Make -> Made: Hacer / Ganar dinero. (Ej: I made money last month).\n- Spend -> Spent: Gastar dinero / Pasar tiempo. (Ej: I spent time on the software).\n- Pay -> Paid: Pagar. (Ej: They paid the invoice).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Describe en qué invertiste (spend) tu tiempo la semana pasada",
+              "answer": "I spent time on the new project last week.",
+              "type": "fill-blank",
+              "explanation": "El pasado de spend es spent"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa made, spent, o paid para finanzas o tiempo"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el recurso (dinero, tiempo)"
+            }
+          ]
+        },
+        {
+          "title": "The Interview Challenge",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "The Interview Challenge",
+              "content": "Esta actividad simula el inicio de una entrevista de trabajo o una reunión de negocios donde debes destacar tus éxitos recientes.\n\nActividad: Escribe tres logros o acciones importantes que realizaste en tu último empleo o proyecto utilizando los verbos irregulares de esta unidad.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Logro 1 (Usa Got o Became)",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I got a promotion last year"
+            },
+            {
+              "question": "Logro 2 (Usa Spoke o Wrote)",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I spoke with key clients every week"
+            },
+            {
+              "question": "Logro 3 (Usa Made o Spent)",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I made important decisions for the team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Professional Travel & Movement",
+      "description": "Habla de viajes, logística y movimiento usando verbos irregulares.",
+      "lessons": [
+        {
+          "title": "Going Places",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Going Places",
+              "content": "Estos son los tres pilares del movimiento en inglés. Indican dirección, origen y partida.\n\n- Go → Went: Ir → Fui / Fue. (Ej: I went to the office).\n- Come → Came: Venir → Vine / Vino. (Ej: The student came to the class).\n- Leave → Left: Salir / Dejar → Salí / Dejé. (Ej: I left the materials on the desk).\n\nNota: Left significa tanto salir de un lugar físico como dejar un objeto abandonado o posicionado en algún sitio.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta a qué lugar fuiste (went) ayer después de tu jornada de trabajo o estudio",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I went to the supermarket after work"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa went, came, o left para movimiento"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el destino"
+            }
+          ]
+        },
+        {
+          "title": "Logistics in the Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Logistics in the Past",
+              "content": "Para coordinar proyectos, enviar recursos o gestionar carteras, necesitas reportar el flujo de la logística.\n\n- Drive → Drove: Conducir / Manejar. (Ej: I drove the truck to the warehouse).\n- Send → Sent: Enviar. (Ej: They sent the package this morning / I sent the lesson to the students).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Confirma que tú enviaste un correo, archivo o reporte importante el día de ayer",
+              "answer": "I sent the report yesterday.",
+              "type": "fill-blank",
+              "explanation": "El pasado de send es sent"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa drove o sent para logística"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el objeto"
+            }
+          ]
+        },
+        {
+          "title": "Seeing & Meeting",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Seeing & Meeting",
+              "content": "Las reuniones y la detección de problemas son el núcleo de cualquier posición de liderazgo o soporte.\n\n- See → Saw: Ver. (Ej: I saw the problem in the code / I saw the error).\n- Meet → Met: Conocer por primera vez / Reunirse. (Ej: I met the team yesterday / We met the new client).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que te reuniste (met) con un cliente, estudiante o compañero la semana pasada",
+              "answer": "I met with the client last week.",
+              "type": "fill-blank",
+              "explanation": "El pasado de meet es met"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa saw o met para reuniones o percepciones"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y la persona/objeto"
+            }
+          ]
+        },
+        {
+          "title": "Understanding Instructions",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Understanding Instructions",
+              "content": "El trabajo intelectual y la resolución de problemas requieren verbos cognitivos. Estos son vitales para auditar si una instrucción fue asimilada en el pasado.\n\n- Understand → Understood: Entender / Comprender. (Ej: I understood the grammar rules).\n- Know → Knew: Saber / Conocer (información). (Ej: I knew the exact coordinates for the script).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Asegúrale a tu supervisor que tú entendiste (understood) las nuevas instrucciones de seguridad o del proyecto",
+              "answer": "I understood the new safety instructions.",
+              "type": "fill-blank",
+              "explanation": "El pasado de understand es understood"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa understood o knew para procesos cognitivos"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y la información comprendida"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Transactions & Purchases",
+      "description": "Habla de compras, ventas y transacciones usando verbos irregulares.",
+      "lessons": [
+        {
+          "title": "Buying Supplies",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Buying Supplies",
+              "content": "Estos tres verbos rigen el flujo de caja y de inventario. Son esenciales para reportar gastos o ingresos.\n\n- Buy → Bought: Comprar → Compré. (Ej: I bought the materials).\n- Pay → Paid: Pagar → Pagué. (Ej: The client paid the invoice).\n- Sell → Sold: Vender → Vendí. (Ej: We sold all the equipment).\n\nNota de pronunciación: Bought suena como 'bót'. La 'gh' es completamente muda.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Imagina que fuiste a la ferretería o tienda de electrónica para tu negocio. Reporta qué compraste (bought) y cómo pagaste (paid)",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I bought new tools and paid with my credit card"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa bought, paid, o sold para transacciones"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el objeto de la transacción"
+            }
+          ]
+        },
+        {
+          "title": "Giving & Taking",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Giving & Taking",
+              "content": "Para trazar la cadena de custodia de un objeto (herramientas, documentos, dinero), usamos verbos de transferencia.\n\n- Give → Gave: Dar / Entregar. (Ej: I gave the receipt to the supervisor).\n- Take → Took: Tomar / Agarrar / Llevarse. (Ej: He took the tools).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Reporta que tú le entregaste (gave) el material o el recibo (receipt) a un estudiante/cliente",
+              "answer": "I gave the receipt to the client.",
+              "type": "fill-blank",
+              "explanation": "El pasado de give es gave"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa gave o took para transferencias"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el objeto transferido"
+            }
+          ]
+        },
+        {
+          "title": "Finding Solutions",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Finding Solutions",
+              "content": "El liderazgo requiere reportar que un problema fue resuelto. Estos verbos indican descubrimientos y procesos mentales.\n\n- Find → Found: Encontrar. (Ej: I found the missing key / We found the error).\n- Think → Thought: Pensar / Creer. (Ej: I thought of a new plan / I thought it was a good idea).\n\nNota de pronunciación: Thought suena como 'zót' (con la lengua entre los dientes para la 'th').",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tu equipo perdió un documento importante, pero tú lo encontraste. Escribe el reporte",
+              "answer": "I found the missing document.",
+              "type": "fill-blank",
+              "explanation": "El pasado de find es found"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa found o thought para soluciones o ideas"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el problema resuelto"
+            }
+          ]
+        },
+        {
+          "title": "Telling the Story",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Telling the Story",
+              "content": "Alerta de error común: En español usamos 'decir' para casi todo. En inglés, hay una regla de oro que separa a Tell de Say.\n\n- Tell → Told: Se usa solo cuando mencionas a la persona que recibe el mensaje inmediatamente después del verbo.\n  * Correcto: I told John. / She told me.\n  * Incorrecto: I told that the machine is broken.\n\n- Say → Said: Se usa para reportar las palabras dichas, sin necesidad de mencionar a quién se las dijiste.\n  * Ejemplo: She said hello / I said the truth.",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Tu supervisor necesita saber si le informaste al cliente sobre el retraso. Usa Told para reportar que tú le dijiste al cliente",
+              "answer": "I told the client about the delay.",
+              "type": "fill-blank",
+              "explanation": "Usa told + persona que recibe el mensaje"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa told o said para reportar comunicación verbal"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el mensaje"
+            }
+          ]
+        },
+        {
+          "title": "Irregular Vowels",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Irregular Vowels",
+              "content": "Los verbos irregulares suelen cambiar su sonido vocálico central. Entrenar tu oído a este cambio te evitará confusiones al escuchar hablantes nativos.\n\n1. El salto de /a/ a /au/:\n   - Find suena abierto: faind\n   - Found suena redondo: faund\n\n2. El salto de /e/ a /e/:\n   - Say rima con la letra 'A': séi\n   - Said suena seco y corto, como la 'e' en español: sed (Nunca digas 'sa-id')",
+              "examples": [
+                "Find → Found",
+                "Say → Said"
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "Practica la pronunciación de estas parejas: Find → Found, Say → Said",
+              "answer": "",
+              "type": "open",
+              "explanation": "Concéntrate en el cambio del sonido vocálico"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un par de verbos con cambio vocálico"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el contexto"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "My Career Path",
+      "description": "Integra verbos regulares e irregulares para contar tu trayectoria profesional.",
+      "lessons": [
+        {
+          "title": "Combining the Past",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Combining the Past",
+              "content": "El mayor reto de la fluidez es el 'cambio de engranaje' mental entre aplicar la regla del -ed y recordar la forma irregular. La clave es visualizar la acción, no la regla gramatical.\n\n- Ejemplo (Regular → Irregular): 'I called the client and we spoke about the portfolio.' (Llamé al cliente y hablamos sobre la cartera).\n- Ejemplo (Irregular → Regular): 'I went to the office and organized the files.' (Fui a la oficina y organicé los archivos).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Combina una acción regular (ej. worked, checked) con una irregular (ej. made, saw) en una misma oración sobre tu experiencia laboral",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I checked the inventory and saw the problem"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa un verbo regular y uno irregular en la misma oración"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía los verbos y el contexto"
+            }
+          ]
+        },
+        {
+          "title": "Time Expressions for Career",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Time Expressions for Career",
+              "content": "Para estructurar un CV oral, necesitas 'anclas' de tiempo que marquen las etapas de tu carrera y le den orden lógico a tu narrativa.\n\n- Two years ago: Hace dos años. (Ej: Two years ago, I started my project).\n- In [Year]: En [Año]. (Ej: In 2024, I got a new certification).\n- Back then: En aquel entonces / En esa época. (Ej: Back then, I was a manager).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Describe cuál era tu posición o a qué te dedicabas hace tres años usando la expresión 'Back then'",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: Back then, I was a technician"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa una expresión de tiempo para anclar tu pasado profesional"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía la expresión de tiempo"
+            }
+          ]
+        },
+        {
+          "title": "Major Life Changes",
+          "type": "explanation",
+          "sections": [
+            {
+              "title": "Major Life Changes",
+              "content": "Las trayectorias profesionales no son líneas rectas. A menudo involucran saltos importantes, cambios de sector o mudanzas. Estos verbos irregulares describen transformación:\n\n- Leave → Left: Dejar / Salir de. (Ej: I left my previous job).\n- Build → Built: Construir. (Ej: I built a new career in education).\n- Make → Made: Hacer / Tomar (una decisión). (Ej: I made the decision to study data analysis).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Usa el verbo Built o Left para describir un cambio importante en tu vida profesional",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: I left my old job and built a new career"
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa left, built, o made para describir un cambio"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Varía el verbo y el cambio descrito"
+            }
+          ]
+        },
+        {
+          "title": "Your Story First (CV Oral)",
+          "type": "exercise",
+          "sections": [
+            {
+              "title": "Your Story First",
+              "content": "Redacta tu CV oral. Este es el resumen de tu trayectoria desde tu primer trabajo importante hasta tu proyecto actual.\n\nGuía de redacción:\n1. El inicio: Usa un marcador de tiempo y un verbo irregular (In 2020, I got a job as...).\n2. El desarrollo: Combina acciones regulares e irregulares sobre tus logros (I managed portfolios, I spoke with clients...).\n3. La transición: Usa verbos de cambio para explicar cómo llegaste a tu enfoque actual (Then, I left that company and built my own educational project...).",
+              "examples": []
+            }
+          ],
+          "questions": [
+            {
+              "question": "Redacta tu CV oral",
+              "answer": "",
+              "type": "open",
+              "explanation": "Ejemplo: In 2021, I got a job as a sales associate. I helped many clients and learned a lot. Then, I left that job and built my own online business."
+            },
+            {
+              "question": "Escribe un ejemplo usando la estructura explicada en esta lección",
+              "answer": "",
+              "type": "open",
+              "explanation": "Usa marcadores de tiempo y verbos en pasado para tu trayectoria"
+            },
+            {
+              "question": "Escribe otra frase diferente usando la misma estructura gramatical",
+              "answer": "",
+              "type": "open",
+              "explanation": "Añade más detalles a tu historia profesional"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

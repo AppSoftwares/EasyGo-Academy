@@ -1,35 +1,46 @@
-node_modules/
-dist/
+# .gitignore
+/* Creado por Jesús Pirela */
 
-# Security and Access Keys
-src/config/access_keys/
-
+# Variables de entorno y secretos
 .env
-
-android/
-ios/
-.idea/
-
-# Images and documents
-*.png
-*.jpg
-*.jpeg
-*.pdf
-*.xlsx
-
-# Common editor / system files
-package-lock.json
-.expo/
-.vscode/
-npm-debug.log*
-yarn.lock
-.DS_Store
-
-node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
+.env.local
+.env.*.local
+*.env
+*.env *
 .env*
-!.env.example
+backend/.env*
+local.properties
+secrets.properties
+google-services.json
+google-services.plist
+secrets.json
+
+# Supabase
+supabase/.temp
+supabase/seed.sql
+
+# Claves y Keystores
+*.keystore
+*.jks
+*.p12
+*.pem
+
+# Node / Dependencias
+node_modules/
+dist/
+build/
+.expo/
+*.log
+
+# IDEs y Sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Mobile específico
+ios/
+android/
+*.ipa
+*.apk

@@ -4,10 +4,9 @@ const config: CapacitorConfig = {
   appId: 'com.easygo.academy',
   appName: 'EasyGo Academy',
   webDir: 'dist',
-  bundledWebRuntime: false,
   server: {
-    cleartext: true,
-  },
+    androidScheme: 'https'
+  }
 };
 
 export default config;

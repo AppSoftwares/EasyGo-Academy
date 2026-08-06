@@ -1,0 +1,17 @@
+const express = require('express')
+const router = express.Router()
+const questionController = require('../controllers/questionController')
+const { authMiddleware, teacherMiddleware, adminMiddleware } = require('../middleware/auth')
+
+// Rutas públicas (para el test)
+router.get('/test', questionController.getForTest)
+router.get('/level-test', questionController.getLevelTestQuestions)
+// Rutas protegidas (admin/profesor)
+router.get('/', authMiddleware, teacherMiddleware, questionController.getAll)
+router.get('/stats', authMiddleware, teacherMiddleware, questionController.getStats)
+router.get('/:id', authMiddleware, teacherMiddleware, questionController.getById)
+router.post('/', authMiddleware, teacherMiddleware, questionController.create)
+router.put('/:id', authMiddleware, teacherMiddleware, questionController.update)
+router.delete('/:id', authMiddleware, adminMiddleware, questionController.delete)
+router.post('/bulk', authMiddleware, adminMiddleware, questionController.bulkCreate)
+module.exports = router

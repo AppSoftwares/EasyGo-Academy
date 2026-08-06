@@ -6,12 +6,13 @@ import { BookOpen, Trophy, Volume2, CheckCircle2, XCircle, ArrowRight, BookMarke
 interface LessonsViewProps {
   onEarnXp: (xp: number) => void;
   userLevel: string;
+  isDarkMode: boolean;
 }
 
-export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
+export default function LessonsView({ onEarnXp, userLevel, isDarkMode }: LessonsViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
-  
+
   // Interactive quiz state
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
@@ -41,6 +42,10 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
     const matchDifficulty = selectedDifficulty === 'all' || lesson.level === selectedDifficulty;
     return matchCategory && matchDifficulty;
   });
+
+  const pageTextClass = isDarkMode ? 'text-white' : 'text-slate-900';
+  const pageBodyClass = isDarkMode ? 'bg-brand-dark/50' : 'bg-slate-100';
+  const panelClass = isDarkMode ? 'bg-white/5 border border-white/5' : 'bg-white/95 border border-slate-200 shadow-sm';
 
   const triggerTTS = (text: string) => {
     if ('speechSynthesis' in window) {
@@ -74,7 +79,7 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
       setQuizScore(quizScore + 1);
     }
     setHasCheckedAnswer(true);
-    
+
     // Play pronunciation if audioText is present
     if (currentQuestion.audioText) {
       triggerTTS(currentQuestion.audioText);
@@ -85,7 +90,7 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
     if (!activeLesson) return;
     setSelectedOption(null);
     setHasCheckedAnswer(false);
-    
+
     if (currentStep < activeLesson.content.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -96,14 +101,14 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
   };
 
   return (
-    <div id="lessons-view-container" className="space-y-6">
+    <div id="lessons-view-container" className={`space-y-6 ${pageTextClass} ${pageBodyClass}`}>
       {!activeLesson ? (
         <>
           {/* Headline */}
           <div className="flex flex-col gap-1.5">
             <span className="font-academy text-brand-orange text-3xl font-semibold">Tus Lecciones de Vida</span>
-            <h1 className="font-display font-extrabold text-2xl text-white tracking-tight">Estudios por Hitos Útiles</h1>
-            <p className="text-slate-400 text-sm">Contenido práctico diseñado para resolver de verdad el día a día en los Estados Unidos.</p>
+            <h1 className={`font-display font-extrabold text-2xl tracking-tight ${pageTextClass}`}>Estudios por Hitos Útiles</h1>
+            <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Contenido práctico diseñado para resolver de verdad el día a día en los Estados Unidos.</p>
           </div>
 
           {/* Scrolling filter horizontal bar */}
@@ -159,10 +164,10 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
                       </span>
                     </div>
 
-                    <h3 className="font-display font-bold text-white text-lg group-hover:text-brand-orange transition-colors">
+                    <h3 className={`font-display font-bold text-lg group-hover:text-brand-orange transition-colors ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                       {lesson.title}
                     </h3>
-                    <p className="text-slate-400 text-xs mt-1.5 leading-relaxed">
+                    <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} text-xs mt-1.5 leading-relaxed`}>
                       {lesson.description}
                     </p>
                   </div>
@@ -171,7 +176,7 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
                     <span className="text-xs font-bold font-mono text-brand-violet flex items-center gap-1">
                       <Trophy className="w-4 h-4 text-brand-orange shrink-0" /> +{lesson.xpReward} XP
                     </span>
-                    <button className="text-xs font-bold text-white group-hover:translate-x-1.5 transition-transform flex items-center gap-1">
+                    <button className={`text-xs font-bold group-hover:translate-x-1.5 transition-transform flex items-center gap-1 ${isDarkMode ? 'text-white' : 'text-brand-orange'}`}>
                       Estudiar <ArrowRight className="w-4 h-4 text-brand-orange" />
                     </button>
                   </div>
@@ -187,36 +192,36 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
         </>
       ) : (
         /* Quiz active interface */
-        <div className="glass rounded-3xl p-6 relative border border-white/10 shadow-2xl">
+        <div className={`${panelClass} rounded-3xl p-6 relative shadow-2xl`}>
           {/* Quiz Header Progress Bar */}
           <div className="flex items-center justify-between gap-4 mb-6">
             <button
               onClick={() => setActiveLesson(null)}
-              className="text-xs text-slate-400 hover:text-white transition-colors"
+              className={`text-xs ${isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-700'} transition-colors`}
             >
               ← Cancelar
             </button>
-            
+
             <div className="flex-1 bg-white/10 h-2 rounded-full overflow-hidden">
-              <div 
+              <div
                 className="bg-gradient-to-r from-brand-orange to-brand-violet h-full transition-all duration-300"
                 style={{ width: `${((currentStep + (showCompletionPage ? 1 : 0)) / activeLesson.content.length) * 100}%` }}
               />
             </div>
 
-            <span className="text-xs font-mono font-bold text-white shrink-0">
+            <span className={`text-xs font-mono font-bold shrink-0 ${pageTextClass}`}>
               {showCompletionPage ? '100' : `${Math.round((currentStep / activeLesson.content.length) * 100)}`}%
             </span>
           </div>
 
+          {/* ACTIVE QUIZ STEP */}
           {!showCompletionPage ? (
-            /* ACTIVE QUIZ STEP */
             <div className="space-y-6">
               <div>
                 <span className="text-xs font-bold text-brand-orange tracking-widest uppercase">
                   Paso {currentStep + 1} de {activeLesson.content.length}
                 </span>
-                <h2 className="text-xl font-bold font-display text-white mt-1 leading-snug">
+                <h2 className={`text-xl font-bold font-display mt-1 leading-snug ${pageTextClass}`}>
                   {activeLesson.content[currentStep].question}
                 </h2>
               </div>
@@ -236,7 +241,7 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
                 {activeLesson.content[currentStep].options.map((opt, idx) => {
                   const isSelected = selectedOption === opt;
                   const isAnswerChecked = hasCheckedAnswer;
-                  
+
                   // Style modifiers for answers validation
                   let optStyle = 'border-white/5 bg-white/5 text-slate-300 hover:bg-white/10';
                   if (isSelected) {
@@ -279,8 +284,8 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
                   disabled={!selectedOption}
                   onClick={handleCheckAnswer}
                   className={`w-full py-4 rounded-2xl text-sm font-bold shadow-lg transition-all ${
-                    selectedOption 
-                      ? 'bg-gradient-to-r from-brand-orange to-brand-purple text-white pointer hover:opacity-90 active:scale-95' 
+                    selectedOption
+                      ? 'bg-gradient-to-r from-brand-orange to-brand-purple text-white pointer hover:opacity-90 active:scale-95'
                       : 'bg-slate-800 text-slate-500 cursor-not-allowed'
                   }`}
                 >
@@ -290,7 +295,7 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
                 <div className="space-y-4 animate-fade-in border-t border-white/5 pt-4">
                   <div className="p-4 rounded-2xl bg-white/5">
                     <span className="text-xs uppercase font-extrabold text-brand-orange tracking-widest block mb-1">Explicación práctica:</span>
-                    <p className="text-xs leading-relaxed text-slate-300">
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                       {activeLesson.content[currentStep].explanation}
                     </p>
                   </div>
@@ -313,11 +318,11 @@ export default function LessonsView({ onEarnXp, userLevel }: LessonsViewProps) {
 
               <div className="space-y-2">
                 <span className="text-xs font-extrabold uppercase text-brand-purple tracking-widest">Lección Terminada</span>
-                <h2 className="text-2xl font-bold font-display text-white">
+                <h2 className={`text-2xl font-bold font-display ${pageTextClass}`}>
                   ¡Gran trabajo en la lección!
                 </h2>
-                <p className="text-xs text-slate-400 max-w-xs mx-auto">
-                  Has completado &quot;{activeLesson.title}&quot; exitosamente y desbloqueado puntos de experiencia.
+                <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600'} max-w-xs mx-auto`}>
+                  Has completado satisfactoriamente los desafíos de hoy. Sigue así para mantener tu racha.
                 </p>
               </div>
 

@@ -6,9 +6,10 @@ import { Camera, Volume2, Save, Sparkles, RefreshCw, Layers, Check, Info } from 
 interface ObjectScannerProps {
   onEarnXp: (xp: number) => void;
   onAddVocabulary: (item: VocabularyItem) => void;
+  isDarkMode: boolean;
 }
 
-export default function ObjectScanner({ onEarnXp, onAddVocabulary }: ObjectScannerProps) {
+export default function ObjectScanner({ onEarnXp, onAddVocabulary, isDarkMode }: ObjectScannerProps) {
   const [activeDetectionIdx, setActiveDetectionIdx] = useState<number>(0);
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [showSavingSuccess, setShowSavingSuccess] = useState<boolean>(false);
@@ -106,13 +107,18 @@ export default function ObjectScanner({ onEarnXp, onAddVocabulary }: ObjectScann
     triggerTTS(activeObj.word);
   };
 
+  const pageTextClass = isDarkMode ? 'text-white' : 'text-slate-900';
+  const pageBgClass = isDarkMode ? 'bg-brand-dark text-white' : 'bg-slate-100 text-slate-900';
+  const sectionBg = isDarkMode ? 'bg-white/5 border border-white/5' : 'bg-white/95 border border-slate-200 shadow-sm';
+  const inputClass = isDarkMode ? 'bg-zinc-950 border-white/10 text-white placeholder:text-slate-400' : 'bg-white border-slate-200 text-slate-900 placeholder:text-slate-500';
+
   return (
-    <div id="object-scanner-container" className="space-y-6">
+    <div id="object-scanner-container" className={`space-y-6 ${pageBgClass}`}>
       {/* Title */}
       <div className="flex flex-col gap-1.5">
         <span className="font-academy text-brand-orange text-3xl font-semibold">Cámara Inteligente</span>
-        <h1 className="font-display font-extrabold text-2xl text-white tracking-tight">Escáner de Objetos Reales</h1>
-        <p className="text-slate-400 text-sm">Apunta tu teléfono a cualquier objeto de tu casa para descubrir instantáneamente cómo se dice, se escribe y se pronuncia en inglés.</p>
+        <h1 className={`font-display font-extrabold text-2xl tracking-tight ${pageTextClass}`}>Escáner de Objetos Reales</h1>
+        <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Apunta tu teléfono a cualquier objeto de tu casa para descubrir instantáneamente cómo se dice, se escribe y se pronuncia en inglés.</p>
       </div>
 
       {/* Main Viewfinder Section */}
