@@ -28,11 +28,11 @@ jobs:
 
       - name: Install expo-app deps
         working-directory: expo-app
-        run: pnpm install --no-frozen-lockfile
+        run: npm install
 
       - name: Prebuild native projects
         working-directory: expo-app
-        run: npx expo prebuild --platform all --clean
+        run: npx expo prebuild --platform all --clean --no-install
 
       # ANDROID BUILD
       - name: Setup Java
