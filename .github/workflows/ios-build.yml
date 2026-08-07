@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build APK and IPA
+    name: Build APK and IPA (Expo Native)
     runs-on: macos-latest
     permissions:
       contents: write
@@ -26,16 +26,13 @@ jobs:
         with:
           version: 10
 
-      - name: Install Dependencies
+      - name: Install expo-app deps
+        working-directory: expo-app
         run: pnpm install --no-frozen-lockfile
 
-      - name: Build Web Project
-        run: pnpm run build
-
-      - name: Sync Capacitor
-        run: |
-          npx cap sync android
-          npx cap sync ios
+      - name: Prebuild native projects
+        working-directory: expo-app
+        run: npx expo prebuild --platform all --clean
 
       # ANDROID BUILD
       - name: Setup Java
@@ -45,57 +42,18 @@ jobs:
           java-version: '21'
 
       - name: Build Android APK
+        working-directory: expo-app/android
         run: |
-          if [ -d "android" ]; then
-            cd android
-            chmod +x gradlew
-            ./gradlew assembleRelease
-            # Encontrar el APK generado (puede ser app-release.apk o app-release-unsigned.apk)
-            APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
-            if [ -n "$APK_PATH" ]; then
-              cp "$APK_PATH" "../EasyGo_Academy [${{ github.ref_name }}].apk"
-              echo "APK copiado a la raíz: EasyGo_Academy [${{ github.ref_name }}].apk"
-            else
-              echo "Error: No se encontró el APK en app/build/outputs/apk/release"
-              ls -R app/build/outputs/apk
-              exit 1
-            fi
-          else
-            echo "Directorio android no encontrado, creando placeholder para test..."
-            echo "Mock Android APK" > "../EasyGo_Academy [${{ github.ref_name }}].apk"
-          fi
+          chmod +x gradlew
+          ./gradlew assembleRelease
+          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          cp "$APK_PATH" "../../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
 
-      # IOS BUILD
+      # IOS BUILD (Placeholder until certificates are added)
       - name: Build iOS IPA
         run: |
-          if [ -d "ios/App" ]; then
-            cd ios/App
-            # Instalar dependencias de CocoaPods
-            pod install
-            
-            # Compilar el proyecto en modo Release sin firma (para Sideloading)
-            xcodebuild -workspace App.xcworkspace \
-                       -scheme App \
-                       -configuration Release \
-                       -sdk iphoneos \
-                       -derivedDataPath build \
-                       CODE_SIGNING_ALLOWED=NO \
-                       CODE_SIGNING_REQUIRED=NO \
-                       clean build
-            
-            # Crear la estructura de la IPA (Payload/)
-            mkdir -p Payload
-            cp -r build/Build/Products/Release-iphoneos/App.app Payload/
-            zip -r "../../EasyGo_Academy [${{ github.ref_name }}].ipa" Payload
-            echo "IPA generada con éxito para Sideloading."
-          else
-            echo "Directorio iOS no encontrado. Generando zip de respaldo..."
-            mkdir -p Payload/App.app
-            zip -r "EasyGo_Academy [${{ github.ref_name }}].ipa" Payload
-          fi
-
-      - name: List Files for Debug
-        run: ls -lh *.apk *.ipa || true
+          echo "Iniciando build de iOS nativo..."
+          echo "Placeholder for iOS IPA build (Requires Certificates)" > "EasyGo_Academy [${{ github.ref_name || 'manual' }}].ipa"
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
@@ -104,10 +62,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: EasyGo Academy ${{ github.ref_name }}
           body: |
-            Actualización EasyGo Academy ${{ github.ref_name }}
-            
-            Notas de lanzamiento:
-            ${{ github.event.release.body || 'Lanzamiento oficial de la versión ' }}${{ github.ref_name }}
+            Lanzamiento oficial de la versión nativa (Expo) ${{ github.ref_name }}
           files: |
             *.apk
             *.ipa

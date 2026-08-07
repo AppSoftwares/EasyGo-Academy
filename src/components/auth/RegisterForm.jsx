@@ -18,7 +18,7 @@ export const RegisterForm = () => {
   const validate = () => {
     if (formData.name.trim().length < 2) return 'Ingresa tu nombre completo'
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return 'Email inválido'
-    if (formData.password.length < 8) return 'La contraseña debe tener al menos 8 caracteres'
+    if (formData.password.length < 6) return 'La contraseña debe tener al menos 6 caracteres'
     if (formData.password !== confirmPassword) return 'Las contraseñas no coinciden'
     return ''
   }

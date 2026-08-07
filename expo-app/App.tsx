@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import {
   ScrollView, StyleSheet, Text, TouchableOpacity,
-  View, Dimensions, Switch, TextInput, Image, KeyboardAvoidingView, Platform
+  View, Dimensions, Switch, TextInput, Image, KeyboardAvoidingView, Platform, ActivityIndicator
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,18 +15,29 @@ import { VocabularyItem } from './types';
 import { getTheme } from './Theme';
 import { SettingsView } from './SettingsView';
 
+// Auth & Store
+import { useAuthStore } from './store/useAuthStore';
+import { LoginForm } from './components/auth/LoginForm';
+import { RegisterForm } from './components/auth/RegisterForm';
+
 const { width, height } = Dimensions.get('window');
 
 export default function App() {
+  // Auth State
+  const { user, isAuthenticated, logout, isLoading: authLoading } = useAuthStore();
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+
   // Capa de Estado
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState('home');
-  const [userXp, setUserXp] = useState(1250);
-  const [userStreak, setUserStreak] = useState(7);
-  const [userLevel, setUserLevel] = useState('A1-A2 Principiante');
-  const [userName, setUserName] = useState('Jess Pirela');
-  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>(INITIAL_VOCABULARY);
+
+  // Derivados de Auth
+  const userXp = user?.points || 0;
+  const userStreak = user?.streak || 0;
+  const userLevel = user?.assignedLevel || 'A1-A2 Principiante';
+  const userName = user?.name || 'Estudiante';
+  const profileImage = user?.photo || null;
 
   // Theme Layer
   const theme = getTheme(isDarkMode);
@@ -47,6 +58,31 @@ export default function App() {
     Speech.speak(text, { language: 'en-US', rate: 0.9 });
   };
 
+  // Pantalla de Carga
+  if (authLoading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#0a041e', justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#5B2ECC" />
+      </View>
+    );
+  }
+
+  // Pantallas de Autenticación
+  if (!isAuthenticated) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#0a041e' }}>
+          <StatusBar style="light" />
+          {authMode === 'login' ? (
+            <LoginForm onSwitchToRegister={() => setAuthMode('register')} />
+          ) : (
+            <RegisterForm onSwitchToLogin={() => setAuthMode('login')} />
+          )}
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
+
   const renderContent = () => {
     if (activeLesson) return renderQuiz();
 
@@ -63,10 +99,10 @@ export default function App() {
           isDarkMode={isDarkMode}
           setIsDarkMode={setIsDarkMode}
           userLevel={userLevel}
-          setUserLevel={setUserLevel}
+          setUserLevel={() => {}} // Bloqueado por auth real
           userName={userName}
           profileImage={profileImage}
-          setProfileImage={setProfileImage}
+          setProfileImage={() => {}} // Bloqueado por auth real
         />
       );
       default: return renderHome();
@@ -78,7 +114,7 @@ export default function App() {
       <View style={styles.header}>
         <View>
           <Text style={[styles.brandText, { color: theme.text }]}>EasyGo <Text style={{color: theme.primary}}>Academy</Text></Text>
-          <Text style={[styles.subtitle, { color: theme.textMuted }]}>¡Hola, listo para practicar!</Text>
+          <Text style={[styles.subtitle, { color: theme.textMuted }]}>¡Hola, {userName.split(' ')[0]}!</Text>
         </View>
         <View style={styles.headerIcons}>
           <View style={[styles.miniStat, { backgroundColor: theme.card }]}>
@@ -275,11 +311,11 @@ export default function App() {
 
       <View style={styles.statsGrid}>
          <View style={[styles.statBox, { backgroundColor: theme.card }]}>
-            <Text style={[styles.statNum, { color: theme.primary }]}>48</Text>
+            <Text style={[styles.statNum, { color: theme.primary }]}>{userStreak}</Text>
             <Text style={[styles.statLabelSmall, { color: theme.textMuted }]}>Días Activo</Text>
          </View>
          <View style={[styles.statBox, { backgroundColor: theme.card }]}>
-            <Text style={[styles.statNum, { color: theme.secondary }]}>156</Text>
+            <Text style={[styles.statNum, { color: theme.secondary }]}>{vocabularyList.length}</Text>
             <Text style={[styles.statLabelSmall, { color: theme.textMuted }]}>Palabras</Text>
          </View>
       </View>
@@ -295,6 +331,10 @@ export default function App() {
             {['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'].map(d => <Text key={d} style={{color: theme.textMuted, fontSize: 10}}>{d}</Text>)}
          </View>
       </View>
+
+      <TouchableOpacity style={[styles.button, { marginTop: 24, backgroundColor: theme.error }]} onPress={logout}>
+        <Text style={styles.buttonText}>Cerrar Sesión</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 
@@ -356,7 +396,7 @@ export default function App() {
           style={styles.quizMainButton}
           onPress={() => {
             if (currentStep < activeLesson.content.length - 1) setCurrentStep(currentStep + 1);
-            else { setActiveLesson(null); setUserXp(userXp + activeLesson.xpReward); }
+            else { setActiveLesson(null); }
           }}
         >
           <Text style={styles.buttonText}>Continuar</Text>
@@ -364,8 +404,6 @@ export default function App() {
       </View>
     );
   };
-
-  const renderProfile = () => null; // Redireccionado a SettingsView
 
   return (
     <SafeAreaProvider>
@@ -376,7 +414,7 @@ export default function App() {
             {renderContent()}
           </View>
 
-          {!activeLesson && !showCamera && (
+          {isAuthenticated && !activeLesson && !showCamera && (
             <View style={[styles.tabBar, { backgroundColor: theme.card, borderTopColor: theme.border }]}>
               {[
                 { id: 'home', icon: 'home', label: 'Inicio' },

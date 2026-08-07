@@ -88,6 +88,7 @@ export const HeroSection = () => {
 
   return (
     <section 
+      id="register"
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a0533] via-[#2d0a5c] to-[#4A1FB8] overflow-hidden px-4 sm:px-6 lg:px-8 select-none"
     >
