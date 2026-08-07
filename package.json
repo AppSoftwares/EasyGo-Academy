@@ -62,7 +62,13 @@
     "onlyBuiltDependencies": [
       "core-js",
       "core-js-pure",
-      "esbuild"
+      "esbuild",
+      "typescript",
+      "@capacitor/android",
+      "@capacitor/cli",
+      "@capacitor/core",
+      "@capacitor/ios",
+      "nodemon"
     ]
   }
 }
