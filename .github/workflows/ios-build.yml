@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build APK and IPA (Expo Native)
-    runs-on: macos-latest
+    runs-on: macos-14
     permissions:
       contents: write
     steps:
@@ -20,8 +20,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: expo-app/package-lock.json
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
 
       - name: Install expo-app deps
         working-directory: expo-app
@@ -30,28 +34,23 @@ jobs:
 
       - name: Prebuild native projects
         working-directory: expo-app
-        run: npx expo prebuild --platform all --clean --no-install
+        run: |
+          npx expo prebuild --platform all --clean --no-install
 
       # ANDROID BUILD
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-          cache: 'gradle'
-
       - name: Build Android APK
         working-directory: expo-app/android
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease
-          # Find the APK and move it to the root
+          # Find the APK and copy it to the root
           find app/build/outputs/apk/release -name "*.apk" -exec cp {} "../../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk" \;
 
-      # IOS BUILD (Placeholder until certificates are added)
+      # IOS BUILD (Requires certificates for real IPA, this is a structure)
       - name: Build iOS IPA
         run: |
           echo "Iniciando build de iOS nativo..."
+          # Placeholder para validar el flujo sin certificados
           echo "Placeholder for iOS IPA build (Requires Certificates)" > "EasyGo_Academy [${{ github.ref_name || 'manual' }}].ipa"
 
       - name: Create GitHub Release
