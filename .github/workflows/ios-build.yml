@@ -48,17 +48,19 @@ jobs:
             cd android
             chmod +x gradlew
             ./gradlew assembleRelease
-            # Encontrar el APK generado independientemente de si es -release o -unsigned
+            # Encontrar el APK generado (puede ser app-release.apk o app-release-unsigned.apk)
             APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
             if [ -n "$APK_PATH" ]; then
-              mv "$APK_PATH" "../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
+              cp "$APK_PATH" "../EasyGo_Academy [${{ github.ref_name }}].apk"
+              echo "APK copiado a la raíz: EasyGo_Academy [${{ github.ref_name }}].apk"
             else
-              echo "Error: No se encontró el APK generado."
+              echo "Error: No se encontró el APK en app/build/outputs/apk/release"
+              ls -R app/build/outputs/apk
               exit 1
             fi
           else
-            echo "Directorio android no encontrado, creando placeholder para debug..."
-            touch "../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
+            echo "Directorio android no encontrado, creando placeholder para test..."
+            touch "../EasyGo_Academy [${{ github.ref_name }}].apk"
           fi
 
       # IOS BUILD (Requires certificates for real IPA, this is a structure)
@@ -66,26 +68,26 @@ jobs:
         run: |
           echo "Iniciando build de iOS..."
           # Placeholder para validar el flujo sin certificados
-          touch "EasyGo_Academy [${{ github.ref_name || 'manual' }}].ipa"
+          touch "EasyGo_Academy [${{ github.ref_name }}].ipa"
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: EasyGo-Academy-Builds
-          path: |
-            EasyGo_Academy [*.apk
-            EasyGo_Academy [*.ipa
-          retention-days: 7
+      - name: List Files for Debug
+        run: ls -lh *.apk *.ipa || true
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          name: EasyGo Academy ${{ github.ref_name }}
+          body: |
+            Actualización EasyGo Academy ${{ github.ref_name }}
+            
+            Notas de lanzamiento:
+            ${{ github.event.release.body || 'Lanzamiento oficial de la versión ' }}${{ github.ref_name }}
           files: |
-            EasyGo_Academy [${{ github.ref_name }}].apk
-            EasyGo_Academy [${{ github.ref_name }}].ipa
+            *.apk
+            *.ipa
+          fail_on_unmatched_files: true
           draft: false
           prerelease: false
           generate_release_notes: true
