@@ -21,10 +21,6 @@
     "cap:open:ios": "npx cap open ios"
   },
   "dependencies": {
-    "@capacitor/android": "^8.5.0",
-    "@capacitor/cli": "^7.6.8",
-    "@capacitor/core": "^8.5.0",
-    "@capacitor/ios": "^8.5.0",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.16.1",
     "framer-motion": "^10.16.0",
