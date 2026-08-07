@@ -22,7 +22,7 @@
     "expo-secure-store": "~13.0.2",
     "expo-speech": "~12.0.2",
     "expo-splash-screen": "~0.27.0",
-    "expo-system-ui": "~0.29.3",
+    "expo-system-ui": "~0.30.7",
     "expo-status-bar": "~1.12.1",
     "lucide-react-native": "^0.394.0",
     "react": "18.2.0",
