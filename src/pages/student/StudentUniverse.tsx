@@ -129,65 +129,96 @@ export default function StudentUniverse() {
       <main className="flex-1 w-full container-custom py-6 pb-24 z-10">
         {activeTab === 'home' && (
           <div className="space-y-6 animate-fade-in text-left">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className={`${homePanelClass} rounded-3xl p-5 space-y-4 md:col-span-2 lg:col-span-2`}>
-                <div>
-                  <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider font-mono">Nivel de Conversación</span>
-                  <h2 className="text-lg font-bold text-white font-display mt-0.5 flex items-center gap-1.5">
-                    {userLevel} <GraduationCap className="w-5 h-5 text-brand-orange shrink-0" />
-                  </h2>
+            <div className="grid gap-6 grid-cols-1">
+              <div className={`${homePanelClass} rounded-3xl p-6 space-y-4 w-full relative overflow-hidden`}>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full -mr-20 -mt-20 blur-3xl" />
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <span className="text-xs text-brand-orange uppercase font-bold tracking-widest font-mono">Nivel de Conversación Actual</span>
+                    <h2 className="text-3xl font-bold text-white font-display flex items-center gap-3">
+                      {userLevel} <GraduationCap className="w-8 h-8 text-brand-orange" />
+                    </h2>
+                    <p className="text-slate-400 text-sm max-w-md">Estás progresando increíblemente. Completa misiones para alcanzar el siguiente nivel.</p>
+                  </div>
+                  <div className="flex-1 md:max-w-xs space-y-3">
+                    <div className="flex justify-between text-xs font-mono font-bold">
+                      <span className="text-slate-400">PROGRESO NIVEL</span>
+                      <span className="text-brand-orange">{(userXp % 1000) / 10}%</span>
+                    </div>
+                    <div className="h-3 bg-white/10 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-brand-orange to-brand-purple h-full transition-all duration-1000 rounded-full" style={{ width: `${(userXp % 1000) / 10}%` }} />
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono">
+                      <Trophy className="w-3 h-3" /> 1000 XP para el siguiente hito
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-1.5 text-xs font-mono">
-                  <div className="h-2.5 bg-white/10 rounded-full overflow-hidden flex">
-                    <div className="bg-gradient-to-r from-brand-orange to-brand-purple h-full transition-all duration-500 rounded-full" style={{ width: `${(userXp % 1000) / 10}%` }} />
+              </div>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              <div className="lg:col-span-2 grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  {[
+                    { tab: 'practice', label: 'Hablar Show', icon: Mic, bg: 'bg-brand-orange/10 border-brand-orange/20 text-brand-orange' },
+                    { tab: 'scanner', label: 'Escanear', icon: Camera, bg: 'bg-indigo-950/40 border-indigo-500/25 text-indigo-400' },
+                    { tab: 'lessons', label: 'Lecciones', icon: BookOpen, bg: 'bg-brand-purple/10 border-brand-violet/20 text-brand-violet' },
+                    { tab: 'community', label: 'Comunidad', icon: Users, bg: 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400' }
+                  ].map((act) => {
+                    const IconComp = act.icon;
+                    return (
+                      <button key={act.tab} onClick={() => setActiveTab(act.tab)} className="flex flex-col items-center justify-center gap-3 p-6 rounded-3xl bg-white/5 border border-white/5 active:scale-95 hover:bg-white/10 transition-all min-h-[140px]">
+                        <div className={`p-4 rounded-full border ${act.bg}`}>
+                          <IconComp className="w-6 h-6 shrink-0" />
+                        </div>
+                        <span className="text-xs font-bold text-slate-300 leading-none">{act.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="bg-white/5 border border-white/5 rounded-3xl p-6 space-y-4 h-full">
+                  <h3 className="font-bold text-sm text-white font-display">Tus Misiones Diarias 🎯</h3>
+                  <div className="flex flex-col gap-3">
+                    {missions.map((m) => (
+                      <div key={m.id} className={`p-4 rounded-2xl flex flex-col items-start gap-2 border ${m.completed ? 'bg-brand-success/10 border-brand-success/20 text-slate-400' : 'bg-white/5 border-white/5 text-slate-100'}`}>
+                        <div className="flex justify-between w-full">
+                          <div className="flex items-center gap-2">
+                            <input type="checkbox" checked={m.completed} disabled className="accent-brand-success scale-110 shrink-0" />
+                            <span className={`text-xs font-bold ${m.completed && 'line-through'}`}>{m.title}</span>
+                          </div>
+                          <span className="text-[10px] font-bold font-mono text-brand-orange">+{m.xpReward} XP</span>
+                        </div>
+                        <span className="text-[10px] text-slate-400 ml-6">{m.desc}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              <div className="glass bg-gradient-to-r from-brand-purple/20 to-brand-orange/5 border border-white/5 rounded-3xl p-5 flex items-center justify-between gap-4 lg:col-span-1">
-                <div className="space-y-1">
-                  <span className="text-[9px] uppercase tracking-widest font-extrabold text-brand-orange">Siguiente parada survival</span>
-                  <h4 className="text-sm font-extrabold text-white">Reunion Escolar 🏫</h4>
-                </div>
-                <button onClick={() => setActiveTab('lessons')} className="p-2 bg-brand-orange rounded-full text-white active:scale-95">
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="grid grid-cols-2 gap-4 text-center">
-                {[
-                  { tab: 'practice', label: 'Hablar Show', icon: Mic, bg: 'bg-brand-orange/10 border-brand-orange/20 text-brand-orange' },
-                  { tab: 'scanner', label: 'Escanear', icon: Camera, bg: 'bg-indigo-950/40 border-indigo-500/25 text-indigo-400' },
-                  { tab: 'lessons', label: 'Lecciones', icon: BookOpen, bg: 'bg-brand-purple/10 border-brand-violet/20 text-brand-violet' },
-                  { tab: 'community', label: 'Comunidad', icon: Users, bg: 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400' }
-                ].map((act) => {
-                  const IconComp = act.icon;
-                  return (
-                    <button key={act.tab} onClick={() => setActiveTab(act.tab)} className="flex flex-col items-center gap-3 p-6 rounded-3xl bg-white/5 border border-white/5 active:scale-95 hover:bg-white/10 transition-all">
-                      <div className={`p-4 rounded-full border ${act.bg}`}>
-                        <IconComp className="w-6 h-6 shrink-0" />
-                      </div>
-                      <span className="text-xs font-bold text-slate-300 leading-none">{act.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="bg-white/5 border border-white/5 rounded-3xl p-5 space-y-3.5">
-                <h3 className="font-bold text-sm text-white font-display">Tus Misiones Diarias 🎯</h3>
-                <div className="space-y-2.5">
-                  {missions.map((m) => (
-                    <div key={m.id} className={`p-3.5 rounded-2xl flex items-start gap-3 border ${m.completed ? 'bg-brand-success/10 border-brand-success/20 text-slate-400' : 'bg-white/5 border-white/5 text-slate-100'}`}>
-                      <input type="checkbox" checked={m.completed} disabled className="accent-brand-success mt-1 scale-105 shrink-0" />
-                      <div className="flex-1 text-left">
-                        <span className={`text-xs font-bold block ${m.completed && 'line-through'}`}>{m.title}</span>
-                        <span className="text-[10px] text-slate-400 block mt-0.5">{m.desc}</span>
-                      </div>
-                      <span className="text-[10px] font-bold font-mono text-brand-orange">+{m.xpReward} XP</span>
+              <div className="lg:col-span-1 space-y-6">
+                <div className="bg-white/5 border border-white/5 rounded-3xl p-6 space-y-4">
+                  <h3 className="font-bold text-sm text-white font-display">Resumen de Entrenamiento</h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="text-slate-400">Racha Semanal</span>
+                      <span className="text-white font-bold">{userStreak} / 7 días</span>
                     </div>
-                  ))}
+                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div className="bg-brand-orange h-full" style={{ width: `${(userStreak / 7) * 100}%` }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="glass bg-gradient-to-br from-brand-purple/20 to-brand-orange/5 border border-white/5 rounded-3xl p-6 flex flex-col justify-between min-h-[220px]">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest font-extrabold text-brand-orange">Siguiente parada survival</span>
+                    <h4 className="text-lg font-extrabold text-white mt-1">Reunion Escolar 🏫</h4>
+                    <p className="text-xs text-slate-400 mt-2">Habla con los maestros de tus hijos con confianza y resuelve dudas académicas.</p>
+                  </div>
+                  <button onClick={() => setActiveTab('lessons')} className="w-full py-3 mt-4 bg-brand-orange hover:bg-brand-coral rounded-2xl text-white font-bold text-sm active:scale-95 transition-all shadow-lg shadow-brand-orange/20">
+                    Continuar Aventura
+                  </button>
                 </div>
               </div>
             </div>

@@ -40,7 +40,5 @@ Thumbs.db
 desktop.ini
 
 # Mobile específico
-ios/
-android/
 *.ipa
 *.apk
