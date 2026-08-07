@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
-  "releaseNotes": "Lanzamiento oficial v1.0.0: Dashboard responsivo completo, infraestructura DevOps automatizada, parches de seguridad Supabase y soporte nativo para Android e iOS.",
-  "downloadUrlAndroid": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.0/EasyGo_Academy [v1.0.0].apk",
-  "downloadUrlIos": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.0/EasyGo_Academy [v1.0.0].ipa",
+  "version": "1.0.1",
+  "releaseNotes": "Fix: Branded icons for iOS/Android, improved mobile app feel (disabled overscroll), and responsive dashboard final touches.",
+  "downloadUrlAndroid": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.1/EasyGo_Academy [v1.0.1].apk",
+  "downloadUrlIos": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.1/EasyGo_Academy [v1.0.1].ipa",
   "forceUpdate": true
 }

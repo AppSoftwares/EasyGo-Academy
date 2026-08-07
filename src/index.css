@@ -10,6 +10,11 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
+  /* App Feel */
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 @layer base {
