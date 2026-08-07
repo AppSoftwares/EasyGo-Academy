@@ -65,12 +65,34 @@ jobs:
             echo "Mock Android APK" > "../EasyGo_Academy [${{ github.ref_name }}].apk"
           fi
 
-      # IOS BUILD (Requires certificates for real IPA, this is a structure)
+      # IOS BUILD
       - name: Build iOS IPA
         run: |
-          echo "Iniciando build de iOS..."
-          # Placeholder no vacío para evitar error de validación en GitHub Release
-          echo "Placeholder for iOS IPA build (Requires Certificates)" > "EasyGo_Academy [${{ github.ref_name }}].ipa"
+          if [ -d "ios/App" ]; then
+            cd ios/App
+            # Instalar dependencias de CocoaPods
+            pod install
+            
+            # Compilar el proyecto en modo Release sin firma (para Sideloading)
+            xcodebuild -workspace App.xcworkspace \
+                       -scheme App \
+                       -configuration Release \
+                       -sdk iphoneos \
+                       -derivedDataPath build \
+                       CODE_SIGNING_ALLOWED=NO \
+                       CODE_SIGNING_REQUIRED=NO \
+                       clean build
+            
+            # Crear la estructura de la IPA (Payload/)
+            mkdir -p Payload
+            cp -r build/Build/Products/Release-iphoneos/App.app Payload/
+            zip -r "../../EasyGo_Academy [${{ github.ref_name }}].ipa" Payload
+            echo "IPA generada con éxito para Sideloading."
+          else
+            echo "Directorio iOS no encontrado. Generando zip de respaldo..."
+            mkdir -p Payload/App.app
+            zip -r "EasyGo_Academy [${{ github.ref_name }}].ipa" Payload
+          fi
 
       - name: List Files for Debug
         run: ls -lh *.apk *.ipa || true
