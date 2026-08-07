@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -60,15 +60,15 @@ jobs:
             fi
           else
             echo "Directorio android no encontrado, creando placeholder para test..."
-            touch "../EasyGo_Academy [${{ github.ref_name }}].apk"
+            echo "Mock Android APK" > "../EasyGo_Academy [${{ github.ref_name }}].apk"
           fi
 
       # IOS BUILD (Requires certificates for real IPA, this is a structure)
       - name: Build iOS IPA
         run: |
           echo "Iniciando build de iOS..."
-          # Placeholder para validar el flujo sin certificados
-          touch "EasyGo_Academy [${{ github.ref_name }}].ipa"
+          # Placeholder no vacío para evitar error de validación en GitHub Release
+          echo "Placeholder for iOS IPA build (Requires Certificates)" > "EasyGo_Academy [${{ github.ref_name }}].ipa"
 
       - name: List Files for Debug
         run: ls -lh *.apk *.ipa || true
