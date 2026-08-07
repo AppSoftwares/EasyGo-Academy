@@ -48,10 +48,17 @@ jobs:
             cd android
             chmod +x gradlew
             ./gradlew assembleRelease
-            mv app/build/outputs/apk/release/app-release.apk "../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
+            # Encontrar el APK generado independientemente de si es -release o -unsigned
+            APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+            if [ -n "$APK_PATH" ]; then
+              mv "$APK_PATH" "../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
+            else
+              echo "Error: No se encontró el APK generado."
+              exit 1
+            fi
           else
-            echo "Directorio android no encontrado, saltando build..."
-            touch "EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
+            echo "Directorio android no encontrado, creando placeholder para debug..."
+            touch "../EasyGo_Academy [${{ github.ref_name || 'manual' }}].apk"
           fi
 
       # IOS BUILD (Requires certificates for real IPA, this is a structure)
