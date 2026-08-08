@@ -110,7 +110,12 @@ export default function App() {
   };
 
   const renderHome = () => (
-    <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+      bounces={false}
+      overScrollMode="never"
+    >
       <View style={styles.header}>
         <View>
           <Text style={[styles.brandText, { color: theme.text }]}>EasyGo <Text style={{color: theme.primary}}>Academy</Text></Text>
@@ -186,7 +191,7 @@ export default function App() {
   );
 
   const renderPractice = () => (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <Text style={[styles.title, { color: theme.text }]}>Pierde el Miedo</Text>
       <Text style={[styles.subtitle, { color: theme.textMuted }]}>Práctica Oral Interactiva</Text>
 
@@ -236,7 +241,7 @@ export default function App() {
     }
 
     return (
-      <View style={[styles.content, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
+      <View style={[styles.scrollContent, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
         <Ionicons name="camera-outline" size={100} color={theme.primary} />
         <Text style={[styles.title, { color: theme.text, textAlign: 'center' }]}>EasyGo Lens</Text>
         <Text style={[styles.subtitle, { color: theme.textMuted, textAlign: 'center', paddingHorizontal: 40 }]}>
@@ -257,7 +262,7 @@ export default function App() {
   };
 
   const renderCommunity = () => (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <Text style={[styles.title, { color: theme.text }]}>Comunidad</Text>
 
       <View style={[styles.challengeCard, { backgroundColor: theme.primary }]}>
@@ -306,7 +311,7 @@ export default function App() {
   );
 
   const renderStats = () => (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <Text style={[styles.title, { color: theme.text }]}>Tu Progreso</Text>
 
       <View style={styles.statsGrid}>
@@ -339,7 +344,7 @@ export default function App() {
   );
 
   const renderLessons = () => (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <Text style={[styles.title, { color: theme.text }]}>Tus Lecciones</Text>
       {INITIAL_LESSONS.map((lesson) => (
         <TouchableOpacity
@@ -408,7 +413,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right']}>
-        <StatusBar style={isDarkMode ? "light" : "dark"} />
+        <StatusBar style="light" />
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}}>
           <View style={styles.mainContainer}>
             {renderContent()}
@@ -441,7 +446,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   mainContainer: { flex: 1 },
-  content: { padding: 20, paddingBottom: 100 },
+  scrollContent: { padding: 20, paddingBottom: 120 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 },
   brandText: { fontSize: 22, fontWeight: '900' },
   headerIcons: { flexDirection: 'row', gap: 8 },

@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "sdkVersion": "52.0.0",
+    "sdkVersion": "51.0.0",
     "jsEngine": "hermes",
     "assetBundlePatterns": [
       "**/*"
@@ -37,11 +37,17 @@
     "plugins": [
       "expo-secure-store",
       "expo-splash-screen",
+      "expo-system-ui",
       [
         "expo-build-properties",
         {
           "android": {
-            "kotlinVersion": "1.9.24"
+            "kotlinVersion": "1.9.24",
+            "packagingOptions": {
+              "pickFirst": [
+                "**/libc++_shared.so"
+              ]
+            }
           }
         }
       ]
