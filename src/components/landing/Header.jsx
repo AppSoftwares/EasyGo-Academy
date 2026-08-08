@@ -62,9 +62,9 @@ export const Header = () => {
             }`}>
               Iniciar sesión
             </Link>
-            <a href="#register" className="bg-accent hover:bg-accent-light text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm hover:shadow-md">
+            <Link to="/register" className="bg-accent hover:bg-accent-light text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm hover:shadow-md">
               Comenzar gratis
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}

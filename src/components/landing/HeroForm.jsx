@@ -5,7 +5,10 @@ import axios from 'axios'
 // Detectar IP automáticamente para evitar ERR_CONNECTION_REFUSED en red local
 const getBackendUrl = () => {
   const { hostname } = window.location;
-  if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+  if (hostname.includes('vercel.app') || hostname.includes('Ga-Tillo.ddns.net')) {
+    return '/api';
+  }
+  if (hostname !== 'localhost' && hostname !== '127.0.0.1' && !hostname.includes('.')) {
     return `http://${hostname}:3001/api`;
   }
   return import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
