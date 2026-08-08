@@ -1,7 +1,7 @@
 {
-  "version": "1.0.2",
-  "releaseNotes": "Lanzamiento v1.0.2: Integración real con el Backend en la app nativa (Login/Registro), persistencia de sesión con AsyncStorage y optimización de flujos nativos.",
-  "downloadUrlAndroid": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.2/EasyGo_Academy [v1.0.2].apk",
-  "downloadUrlIos": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.2/EasyGo_Academy [v1.0.2].ipa",
+  "version": "1.0.8",
+  "releaseNotes": "Lanzamiento oficial v1.0.8: Renombrado de flujo de Actions para claridad y forzado de disparador en GitHub. Mejoras en la estabilidad del build nativo.",
+  "downloadUrlAndroid": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.8/EasyGo_Academy [v1.0.8].apk",
+  "downloadUrlIos": "https://github.com/AppSoftwares/EasyGo-Academy/releases/download/v1.0.8/EasyGo_Academy [v1.0.8].ipa",
   "forceUpdate": true
 }
