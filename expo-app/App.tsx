@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import {
   ScrollView, StyleSheet, Text, TouchableOpacity,
-  View, Dimensions, Switch, TextInput, Image, KeyboardAvoidingView, Platform, ActivityIndicator
+  View, Dimensions, Switch, TextInput, Image, KeyboardAvoidingView, Platform, ActivityIndicator,
+  BackHandler
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,13 +20,14 @@ import { SettingsView } from './SettingsView';
 import { useAuthStore } from './store/useAuthStore';
 import { LoginForm } from './components/auth/LoginForm';
 import { RegisterForm } from './components/auth/RegisterForm';
+import { ForgotPasswordForm } from './components/auth/ForgotPasswordForm';
 
 const { width, height } = Dimensions.get('window');
 
 export default function App() {
   // Auth State
   const { user, isAuthenticated, logout, isLoading: authLoading } = useAuthStore();
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [authMode, setAuthMode] = useState<'login' | 'register' | 'forgot-password'>('login');
 
   // Capa de Estado
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -54,6 +56,27 @@ export default function App() {
   // Community state
   const [activeCategory, setActiveCategory] = useState('Todos');
 
+  useEffect(() => {
+    const backAction = () => {
+      if (activeLesson) {
+        setActiveLesson(null);
+        return true;
+      }
+      if (activeTab !== 'home') {
+        setActiveTab('home');
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [activeLesson, activeTab]);
+
   const triggerTTS = (text: string) => {
     Speech.speak(text, { language: 'en-US', rate: 0.9 });
   };
@@ -74,9 +97,14 @@ export default function App() {
         <SafeAreaView style={{ flex: 1, backgroundColor: '#0a041e' }}>
           <StatusBar style="light" />
           {authMode === 'login' ? (
-            <LoginForm onSwitchToRegister={() => setAuthMode('register')} />
-          ) : (
+            <LoginForm
+              onSwitchToRegister={() => setAuthMode('register')}
+              onForgotPassword={() => setAuthMode('forgot-password')}
+            />
+          ) : authMode === 'register' ? (
             <RegisterForm onSwitchToLogin={() => setAuthMode('login')} />
+          ) : (
+            <ForgotPasswordForm onBackToLogin={() => setAuthMode('login')} />
           )}
         </SafeAreaView>
       </SafeAreaProvider>
@@ -429,12 +457,35 @@ export default function App() {
                 { id: 'community', icon: 'people', label: 'Comuna' },
                 { id: 'progress', icon: 'bar-chart', label: 'Stats' },
                 { id: 'profile', icon: 'settings', label: 'Ajustes' }
-              ].map((tab) => (
-                <TouchableOpacity key={tab.id} style={styles.tabButton} onPress={() => setActiveTab(tab.id)}>
-                  <Ionicons name={(activeTab === tab.id ? tab.icon : tab.icon + '-outline') as any} size={22} color={activeTab === tab.id ? theme.primary : theme.textMuted} />
-                  <Text style={[styles.tabText, { color: activeTab === tab.id ? theme.primary : theme.textMuted }]}>{tab.label}</Text>
-                </TouchableOpacity>
-              ))}
+              ].map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <TouchableOpacity
+                    key={tab.id}
+                    style={styles.tabButton}
+                    onPress={() => setActiveTab(tab.id)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={[
+                      styles.tabIconContainer,
+                      isActive && { backgroundColor: theme.primary + '15' }
+                    ]}>
+                      <Ionicons
+                        name={(isActive ? tab.icon : tab.icon + '-outline') as any}
+                        size={20}
+                        color={isActive ? theme.primary : theme.textMuted}
+                      />
+                    </View>
+                    <Text style={[
+                      styles.tabText,
+                      { color: isActive ? theme.primary : theme.textMuted },
+                      isActive && { fontWeight: '800' }
+                    ]}>
+                      {tab.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           )}
         </KeyboardAvoidingView>
@@ -483,9 +534,10 @@ const styles = StyleSheet.create({
   lessonDesc: { fontSize: 13, lineHeight: 18, marginBottom: 16 },
   lessonFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   reward: { fontSize: 13, fontWeight: '800' },
-  tabBar: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 12, paddingBottom: 24, borderTopWidth: 1 },
-  tabButton: { alignItems: 'center' },
-  tabText: { fontSize: 9, fontWeight: '700', marginTop: 4 },
+  tabBar: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, paddingBottom: Platform.OS === 'ios' ? 30 : 15, borderTopWidth: 1, elevation: 8, shadowColor: '#000', shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.1, shadowRadius: 4 },
+  tabButton: { alignItems: 'center', flex: 1 },
+  tabIconContainer: { padding: 6, borderRadius: 12, marginBottom: 2 },
+  tabText: { fontSize: 9, fontWeight: '600' },
   button: { backgroundColor: '#f59e0b', paddingHorizontal: 32, paddingVertical: 14, borderRadius: 16, alignItems: 'center' },
   buttonText: { color: '#ffffff', fontWeight: '800', fontSize: 16 },
   practiceCard: { padding: 30, borderRadius: 32, alignItems: 'center', borderWidth: 1, marginTop: 10 },

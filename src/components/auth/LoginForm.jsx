@@ -82,9 +82,9 @@ export const LoginForm = () => {
             />
 
             <div className="flex justify-end">
-              <a href="#" className="text-sm text-primary hover:text-accent font-semibold transition-colors">
-                Olvidaste tu contrasena?
-              </a>
+              <Link to="/forgot-password" size="sm" className="text-sm text-primary hover:text-accent font-semibold transition-colors">
+                ¿Olvidaste tu contraseña?
+              </Link>
             </div>
 
             <Button type="submit" variant="primary" size="lg" className="w-full" loading={isLoading}>

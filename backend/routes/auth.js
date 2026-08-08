@@ -26,6 +26,11 @@ router.post('/login', [
   validate
 ], authController.login);
 
+router.post('/forgot-password', [
+  body('email').isEmail().withMessage('Email inválido'),
+  validate
+], authController.forgotPassword);
+
 // Rutas protegidas
 router.get('/profile', authMiddleware, authController.getProfile);
 router.post('/logout', authMiddleware, authController.logout);

@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator 
 import { useAuthStore } from '../../store/useAuthStore';
 import { Ionicons } from '@expo/vector-icons';
 
-export const LoginForm = ({ onSwitchToRegister }: { onSwitchToRegister: () => void }) => {
+export const LoginForm = ({ onSwitchToRegister, onForgotPassword }: { onSwitchToRegister: () => void; onForgotPassword: () => void }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading, error } = useAuthStore();
@@ -56,6 +56,10 @@ export const LoginForm = ({ onSwitchToRegister }: { onSwitchToRegister: () => vo
           />
         </View>
 
+        <TouchableOpacity onPress={onForgotPassword} style={styles.forgotPassword}>
+          <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin} disabled={isLoading}>
           {isLoading ? (
             <ActivityIndicator color="#fff" />
@@ -88,6 +92,8 @@ const styles = StyleSheet.create({
   inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', borderRadius: 16, borderWidth: 1, borderColor: '#334155' },
   inputIcon: { marginLeft: 16 },
   input: { flex: 1, padding: 16, color: '#fff', fontSize: 15 },
+  forgotPassword: { alignSelf: 'flex-end', marginTop: -8 },
+  forgotPasswordText: { color: '#94a3b8', fontSize: 13, fontWeight: '600' },
   loginButton: { backgroundColor: '#5B2ECC', padding: 18, borderRadius: 16, alignItems: 'center', marginTop: 8 },
   loginButtonText: { color: '#fff', fontWeight: '800', fontSize: 16 },
   footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 24 },

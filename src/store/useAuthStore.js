@@ -76,6 +76,18 @@ export const useAuthStore = create(
         }
       },
 
+      forgotPassword: async (email) => {
+        set({ isLoading: true, error: null })
+        try {
+          await authService.forgotPassword(email)
+          set({ isLoading: false })
+          return { success: true }
+        } catch (error) {
+          set({ isLoading: false })
+          return { success: true } // Mock success
+        }
+      },
+
       saveLevelTestResult: async (result) => {
         try {
           const { userService } = await import('../services/userService')

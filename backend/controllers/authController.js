@@ -159,6 +159,25 @@ const authController = {
     }
   },
 
+  // Olvidó contraseña
+  forgotPassword: async (req, res) => {
+    try {
+      const { email } = req.body;
+      // En una app real, aquí enviaríamos un email con un link de reset
+      // Por ahora devolvemos éxito para la simulación del flujo UI
+      res.json({
+        success: true,
+        message: "Si tu correo está registrado, recibirás instrucciones para restablecer tu contraseña."
+      });
+    } catch (error) {
+      console.error("Error en forgotPassword:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al procesar la solicitud"
+      });
+    }
+  },
+
   // Obtener perfil
   getProfile: async (req, res) => {
     try {

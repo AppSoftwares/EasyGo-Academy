@@ -10,6 +10,7 @@ import {
 import { LandingPage } from "./pages/LandingPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import StudentUniverse from "./pages/student/StudentUniverse";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
@@ -65,6 +66,7 @@ function App() {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/level-test" element={<PublicLevelTest />} />
 
         {/* Protected Dashboard / Student Universe */}

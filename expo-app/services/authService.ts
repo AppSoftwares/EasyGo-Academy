@@ -9,6 +9,10 @@ export const authService = {
     return api.post('/auth/register', userData);
   },
 
+  forgotPassword: (email: string) => {
+    return api.post('/auth/forgot-password', { email });
+  },
+
   getProfile: () => {
     return api.get('/auth/profile');
   },
