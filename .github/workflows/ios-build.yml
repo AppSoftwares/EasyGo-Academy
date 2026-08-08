@@ -38,6 +38,8 @@ jobs:
           npx expo prebuild --platform all --clean --no-install
           # Fix for 'release' property error in expo-modules-core
           echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
+          echo "android.useAndroidX=true" >> android/gradle.properties
+          echo "android.enableJetifier=true" >> android/gradle.properties
           echo "android.nonFinalResIds=false" >> android/gradle.properties
 
       # ANDROID BUILD
