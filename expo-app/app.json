@@ -34,6 +34,11 @@
       "package": "com.easygo.academy",
       "versionCode": 6
     },
+    "extra": {
+      "eas": {
+        "projectId": "df805b61-4e74-4809-bc97-fdacbc1c4aab"
+      }
+    },
     "plugins": [
       "expo-secure-store",
       "expo-splash-screen",
