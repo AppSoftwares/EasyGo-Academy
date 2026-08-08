@@ -36,6 +36,9 @@ jobs:
         working-directory: expo-app
         run: |
           npx expo prebuild --platform all --clean --no-install
+          # Fix for 'release' property error in expo-modules-core
+          echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
+          echo "android.nonFinalResIds=false" >> android/gradle.properties
 
       # ANDROID BUILD
       - name: Build Android APK
