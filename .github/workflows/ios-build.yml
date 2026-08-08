@@ -10,8 +10,8 @@ on:
 
 jobs:
   build:
-    name: Build APK and IPA (Expo Native)
-    runs-on: macos-14
+    name: Build APK and IPA
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -21,9 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: 'npm'
-          cache-dependency-path: expo-app/package-lock.json
+          node-version: 20
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -31,56 +29,24 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install expo-app deps
+      - name: Install Dependencies
         working-directory: expo-app
         run: npm install
 
-      - name: Prebuild native projects
+      - name: Prebuild Native Projects
         working-directory: expo-app
-        run: npx expo prebuild --platform all --clean --no-install
+        run: npx expo prebuild --platform android --clean --no-install
 
-      - name: Configure Android build features (CRITICAL FIX)
+      - name: Configure Android Properties
+        working-directory: expo-app/android
         run: |
-          # Use the correct path for monorepo
-          cd expo-app/android
           echo "android.defaults.buildfeatures.buildconfig=true" >> gradle.properties
-          echo "android.useAndroidX=true" >> gradle.properties
-          echo "android.enableJetifier=true" >> gradle.properties
-          echo "android.nonFinalResIds=false" >> gradle.properties
-          
-          # Fix the 'release' property issue
-          # SDK 52+ requires AGP 8.7.2+ and Gradle 8.10+
-          # Using sed to be more precise in the generated file
-          sed -i '' 's/distributionUrl=.*/distributionUrl=https\\:\/\/services.gradle.org\/distributions\/gradle-8.10.2-all.zip/' gradle/wrapper/gradle-wrapper.properties
-          
-          # Ensure AGP version is consistent with Gradle 8.10.2
-          # We'll use 8.7.2 as it's very stable
-          sed -i '' "s/classpath('com.android.tools.build:gradle:[^']*')/classpath('com.android.tools.build:gradle:8.7.2')/" build.gradle
-          sed -i '' 's/classpath("com.android.tools.build:gradle:[^"]*")/classpath("com.android.tools.build:gradle:8.7.2")/' build.gradle
 
       - name: Build Android APK
         working-directory: expo-app/android
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease --stacktrace
-          
-      - name: Locate and Rename APK
-        run: |
-          # Robust find and rename
-          APK_PATH=$(find expo-app/android/app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          if [ -n "$APK_PATH" ]; then
-            cp "$APK_PATH" "EasyGo_Academy_${{ github.ref_name || 'manual' }}.apk"
-          else
-            echo "APK not found!"
-            exit 1
-          fi
-
-      - name: Build iOS IPA (Placeholder)
-        run: |
-          echo "Placeholder for iOS IPA build (Requires Certificates & Provisioning Profiles)"
-          echo "In real scenario: xcodebuild -workspace ... -scheme ... -archivePath ... -exportArchive ..."
-          echo "This step currently creates a dummy file for workflow validation"
-          echo "Placeholder content" > "EasyGo_Academy_${{ github.ref_name || 'manual' }}.ipa"
+          ./gradlew assembleRelease
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
@@ -88,14 +54,9 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: EasyGo Academy ${{ github.ref_name }}
-          body: |
-            Lanzamiento oficial de la versión nativa (Expo) ${{ github.ref_name }}
           files: |
-            *.apk
-            *.ipa
+            expo-app/android/app/build/outputs/apk/release/*.apk
           fail_on_unmatched_files: true
-          draft: false
-          prerelease: false
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
