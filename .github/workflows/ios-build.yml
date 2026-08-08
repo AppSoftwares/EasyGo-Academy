@@ -37,10 +37,12 @@ jobs:
         run: |
           npx expo prebuild --platform all --clean --no-install
           # Inject rules directly into the generated project to bypass Plugin conflicts
+          # Correct path: expo-app/android/gradle.properties
           echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
           echo "android.useAndroidX=true" >> android/gradle.properties
           echo "android.enableJetifier=true" >> android/gradle.properties
           echo "android.nonFinalResIds=false" >> android/gradle.properties
+          echo "android.defaults.buildfeatures.resvalues=true" >> android/gradle.properties
 
       # ANDROID BUILD
       - name: Build Android APK
