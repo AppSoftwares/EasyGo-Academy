@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '17'
 
       - name: Install expo-app deps
         working-directory: expo-app
@@ -40,15 +40,21 @@ jobs:
       - name: Configure Android build features (CRITICAL FIX)
         run: |
           # Use the correct path for monorepo
-          echo "android.defaults.buildfeatures.buildconfig=true" >> expo-app/android/gradle.properties
-          echo "android.useAndroidX=true" >> expo-app/android/gradle.properties
-          echo "android.enableJetifier=true" >> expo-app/android/gradle.properties
-          echo "android.nonFinalResIds=false" >> expo-app/android/gradle.properties
+          cd expo-app/android
+          echo "android.defaults.buildfeatures.buildconfig=true" >> gradle.properties
+          echo "android.useAndroidX=true" >> gradle.properties
+          echo "android.enableJetifier=true" >> gradle.properties
+          echo "android.nonFinalResIds=false" >> gradle.properties
           
-          # Fix the 'release' property issue by ensuring SoftwareComponent is handled or AGP version is consistent
-          # This specific error sometimes relates to how components are registered in AGP 8+
-          # Forcing a specific Gradle version that is compatible with AGP 8.7.3
-          echo "distributionUrl=https\://services.gradle.org/distributions/gradle-8.10.2-all.zip" > expo-app/android/gradle/wrapper/gradle-wrapper.properties
+          # Fix the 'release' property issue
+          # SDK 52+ requires AGP 8.7.2+ and Gradle 8.10+
+          # Using sed to be more precise in the generated file
+          sed -i '' 's/distributionUrl=.*/distributionUrl=https\\:\/\/services.gradle.org\/distributions\/gradle-8.10.2-all.zip/' gradle/wrapper/gradle-wrapper.properties
+          
+          # Ensure AGP version is consistent with Gradle 8.10.2
+          # We'll use 8.7.2 as it's very stable
+          sed -i '' "s/classpath('com.android.tools.build:gradle:[^']*')/classpath('com.android.tools.build:gradle:8.7.2')/" build.gradle
+          sed -i '' 's/classpath("com.android.tools.build:gradle:[^"]*")/classpath("com.android.tools.build:gradle:8.7.2")/' build.gradle
 
       - name: Build Android APK
         working-directory: expo-app/android
