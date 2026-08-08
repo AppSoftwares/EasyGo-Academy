@@ -2,7 +2,7 @@
   "expo": {
     "name": "EasyGo Academy",
     "slug": "easygo-academy-expo",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "platforms": [
       "ios",
@@ -23,7 +23,7 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/icon.png",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "bundleIdentifier": "com.easygo.academy"
     },
     "android": {
@@ -32,7 +32,7 @@
         "backgroundColor": "#081623"
       },
       "package": "com.easygo.academy",
-      "versionCode": 2
+      "versionCode": 3
     },
     "plugins": [
       "expo-secure-store",
