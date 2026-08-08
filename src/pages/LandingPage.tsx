@@ -17,6 +17,7 @@ import { CTASection } from "../components/landing/CTASection";
 import { Footer } from "../components/landing/Footer";
 
 export const LandingPage = () => {
+  // Versión 1.0.6 - Despliegue Limpio
   // Efecto de parallax al hacer scroll
 // Efectos al montar el componente (Scroll + Widget de Chat)
   useEffect(() => {
