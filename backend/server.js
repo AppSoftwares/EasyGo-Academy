@@ -108,32 +108,36 @@ app.use((err, req, res, next) => {
 });
 
 // Iniciar servidor
-const startServer = async () => {
-  try {
-    // Sincronizar base de datos
-    await syncDatabase();
+if (process.env.NODE_ENV !== "production") {
+  const startServer = async () => {
+    try {
+      // Sincronizar base de datos
+      await syncDatabase();
 
-    // Iniciar el servidor antes de los seeds para que responda rápido
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
-      console.log(`📚 API Base: http://localhost:${PORT}/api`);
-      console.log(`❤️  Health: http://localhost:${PORT}/api/health`);
-    });
+      // Iniciar el servidor antes de los seeds para que responda rápido
+      app.listen(PORT, '0.0.0.0', () => {
+        console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`📚 API Base: http://localhost:${PORT}/api`);
+        console.log(`❤️  Health: http://localhost:${PORT}/api/health`);
+      });
 
-    // Ejecutar seeds en segundo plano
-    seedRunner().then(async () => {
-      // Verificar usuarios cargados
-      const { User } = require("./models");
-      const users = await User.findAll({ attributes: ['email', 'role'] });
-      console.log('👥 Usuarios en DB:', users.map(u => `${u.email} (${u.role})`));
-    }).catch(err => {
-      console.error('❌ Error en seedRunner:', err.message);
-    });
+      // Ejecutar seeds en segundo plano
+      seedRunner().then(async () => {
+        // Verificar usuarios cargados
+        const { User } = require("./models");
+        const users = await User.findAll({ attributes: ['email', 'role'] });
+        console.log('👥 Usuarios en DB:', users.map(u => `${u.email} (${u.role})`));
+      }).catch(err => {
+        console.error('❌ Error en seedRunner:', err.message);
+      });
 
-  } catch (error) {
-    console.error("❌ Error al iniciar el servidor:", error.message);
-    process.exit(1);
-  }
-};
+    } catch (error) {
+      console.error("❌ Error al iniciar el servidor:", error.message);
+      process.exit(1);
+    }
+  };
 
-startServer();
+  startServer();
+}
+
+module.exports = app;
