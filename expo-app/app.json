@@ -2,14 +2,14 @@
   "expo": {
     "name": "EasyGo Academy",
     "slug": "easygo-academy-expo",
-    "version": "1.0.6",
+    "version": "1.0.8",
     "orientation": "portrait",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "sdkVersion": "52.0.0",
+    "sdkVersion": "51.0.0",
     "jsEngine": "hermes",
     "assetBundlePatterns": [
       "**/*"
@@ -23,7 +23,7 @@
     "ios": {
       "supportsTablet": true,
       "icon": "./assets/icon.png",
-      "buildNumber": "6",
+      "buildNumber": "8",
       "bundleIdentifier": "com.easygo.academy"
     },
     "android": {
@@ -32,12 +32,7 @@
         "backgroundColor": "#081623"
       },
       "package": "com.easygo.academy",
-      "versionCode": 6
-    },
-    "extra": {
-      "eas": {
-        "projectId": "df805b61-4e74-4809-bc97-fdacbc1c4aab"
-      }
+      "versionCode": 8
     },
     "plugins": [
       "expo-secure-store",
@@ -47,8 +42,7 @@
         "expo-build-properties",
         {
           "android": {
-            "kotlinVersion": "2.0.21",
-            "agpVersion": "8.7.3"
+            "kotlinVersion": "1.9.24"
           }
         }
       ]
