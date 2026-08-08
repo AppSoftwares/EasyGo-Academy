@@ -42,17 +42,16 @@ jobs:
         run: |
           # Ensure android directory exists
           if [ -d "android" ]; then
-            # Fix distributionUrl in gradle-wrapper.properties
-            sed -i.bak 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.10.2-bin.zip#' android/gradle/wrapper/gradle-wrapper.properties
+            # Fix distributionUrl in gradle-wrapper.properties to 8.14.3 (required for SDK 52+)
+            sed -i.bak 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.14.3-bin.zip#' android/gradle/wrapper/gradle-wrapper.properties
             
-            # Fix AGP version in build.gradle
+            # Fix AGP version in build.gradle to 8.7.3 (required for SDK 52+)
             sed -i.bak "s#classpath('com.android.tools.build:gradle:[^']*')#classpath('com.android.tools.build:gradle:8.7.3')#" android/build.gradle
             sed -i.bak 's#classpath("com.android.tools.build:gradle:[^"]*")#classpath("com.android.tools.build:gradle:8.7.3")#' android/build.gradle
             
-            # Inject rules into gradle.properties
+            # Inject critical rules into gradle.properties
             echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
             echo "android.defaults.buildfeatures.resvalues=true" >> android/gradle.properties
-            echo "android.disableAutomaticComponentCreation=false" >> android/gradle.properties
             echo "android.useAndroidX=true" >> android/gradle.properties
             echo "android.enableJetifier=true" >> android/gradle.properties
           fi
