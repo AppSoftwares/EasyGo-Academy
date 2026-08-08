@@ -1,7 +1,7 @@
 {
   "name": "easygo-academy",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "description": "EasyGo Academy - Plataforma de aprendizaje de inglés con IA",
   "author": "EasyGo Academy Team",
