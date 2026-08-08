@@ -19,13 +19,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '17'
 
       - name: Install expo-app deps
         working-directory: expo-app
@@ -36,11 +36,11 @@ jobs:
         working-directory: expo-app
         run: |
           npx expo prebuild --platform all --clean --no-install
-          # Critical fix for 'release' property error in Expo SDK 52 + Gradle 8.8+
-          # This enables the required build features
+          # Inject rules directly into the generated project to bypass Plugin conflicts
           echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
           echo "android.useAndroidX=true" >> android/gradle.properties
           echo "android.enableJetifier=true" >> android/gradle.properties
+          echo "android.nonFinalResIds=false" >> android/gradle.properties
 
       # ANDROID BUILD
       - name: Build Android APK
