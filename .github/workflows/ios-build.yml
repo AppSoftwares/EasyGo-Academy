@@ -1,4 +1,4 @@
-name: iOS Build IPA
+name: Mobile Build APK & IPA
 
 on:
   push:
