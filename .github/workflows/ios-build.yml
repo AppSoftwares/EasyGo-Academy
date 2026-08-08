@@ -1,4 +1,4 @@
-name: iOS Build IPA
+name: iOS Build IPA # Triggered by tag or manual dispatch
 
 on:
   push:
