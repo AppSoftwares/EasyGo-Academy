@@ -39,7 +39,7 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(cors({
-  origin: (process.env.CORS_ORIGINS || '').split(',').filter(Boolean),
+  origin: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',').filter(Boolean) : '*',
   credentials: true,
 }));
 app.use(express.json({ limit: "1mb" }));

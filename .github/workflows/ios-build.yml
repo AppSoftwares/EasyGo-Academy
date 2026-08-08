@@ -37,6 +37,12 @@ jobs:
         run: |
           npx expo prebuild --platform all --clean --no-install
 
+      - name: Configure Android build features
+        working-directory: expo-app
+        run: |
+          mkdir -p android
+          echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
+
       # ANDROID BUILD
       - name: Build Android APK
         working-directory: expo-app/android

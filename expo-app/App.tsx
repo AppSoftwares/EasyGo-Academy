@@ -58,6 +58,10 @@ export default function App() {
 
   useEffect(() => {
     const backAction = () => {
+      if (!isAuthenticated && authMode !== 'login') {
+        setAuthMode('login');
+        return true;
+      }
       if (activeLesson) {
         setActiveLesson(null);
         return true;
@@ -75,7 +79,7 @@ export default function App() {
     );
 
     return () => backHandler.remove();
-  }, [activeLesson, activeTab]);
+  }, [isAuthenticated, authMode, activeLesson, activeTab]);
 
   const triggerTTS = (text: string) => {
     Speech.speak(text, { language: 'en-US', rate: 0.9 });

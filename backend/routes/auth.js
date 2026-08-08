@@ -15,7 +15,7 @@ const validate = (req, res, next) => {
 // Rutas públicas
 router.post('/register', [
   body('email').isEmail().withMessage('Email inválido'),
-  body('password').isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres'),
+  body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
   body('name').notEmpty().withMessage('El nombre es requerido'),
   validate
 ], authController.register);
