@@ -1,4 +1,4 @@
-name: iOS Build IPA # Triggered by tag or manual dispatch
+name: iOS Build IPA
 
 on:
   push:
@@ -19,13 +19,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '17'
 
       - name: Install expo-app deps
         working-directory: expo-app
@@ -36,12 +36,6 @@ jobs:
         working-directory: expo-app
         run: |
           npx expo prebuild --platform all --clean --no-install
-
-      - name: Configure Android build features
-        working-directory: expo-app
-        run: |
-          mkdir -p android
-          echo "android.defaults.buildfeatures.buildconfig=true" >> android/gradle.properties
 
       # ANDROID BUILD
       - name: Build Android APK
@@ -56,7 +50,6 @@ jobs:
       - name: Build iOS IPA
         run: |
           echo "Iniciando build de iOS nativo..."
-          # Placeholder para validar el flujo sin certificados
           echo "Placeholder for iOS IPA build (Requires Certificates)" > "EasyGo_Academy [${{ github.ref_name || 'manual' }}].ipa"
 
       - name: Create GitHub Release
