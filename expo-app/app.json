@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "sdkVersion": "51.0.0",
+    "sdkVersion": "52.0.0",
     "jsEngine": "hermes",
     "assetBundlePatterns": [
       "**/*"
@@ -43,7 +43,7 @@
         {
           "android": {
             "kotlinVersion": "1.9.24",
-            "agpVersion": "8.2.1"
+            "agpVersion": "8.7.2"
           }
         }
       ]
