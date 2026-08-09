@@ -29,6 +29,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     emptyOutDir: true,
+    chunkSizeWarningLimit: 1000, // Subimos el límite a 1MB para que no de avisos
   },
   resolve: {
     alias: {
