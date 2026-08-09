@@ -150,15 +150,18 @@ PostLike.belongsTo(User, { foreignKey: 'userId', as: 'user' })
 // ============ SINCRONIZACIÓN ==========
 const syncDatabase = async (force = false) => {
   try {
-    const sequelizeInit = new Sequelize("", process.env.DB_USER || "root", process.env.DB_PASSWORD || "", {
-      host: process.env.DB_HOST || "localhost",
-      port: process.env.DB_PORT || 3306,
-      dialect: "mysql",
-      logging: false,
-    });
-    const dbName = process.env.DB_NAME || "easygo_academy";
-    await sequelizeInit.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`);
-    await sequelizeInit.close();
+    // Si usamos DB_URL (Supabase/Postgres), no intentamos crear la base de datos manualmente
+    if (!process.env.DB_URL) {
+      const sequelizeInit = new Sequelize("", process.env.DB_USER || "root", process.env.DB_PASSWORD || "", {
+        host: process.env.DB_HOST || "localhost",
+        port: process.env.DB_PORT || 3306,
+        dialect: "mysql",
+        logging: false,
+      });
+      const dbName = process.env.DB_NAME || "easygo_academy";
+      await sequelizeInit.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`);
+      await sequelizeInit.close();
+    }
 
     await sequelize.authenticate();
     console.log("✅ Conexión a base de datos establecida");
