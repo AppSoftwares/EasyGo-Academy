@@ -46,15 +46,28 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Inicialización de DB para Serverless (Vercel)
-// No bloqueamos la petición para evitar Timeouts de 10s
-if (process.env.VERCEL) {
-  syncDatabase().then(() => {
-    console.log("✅ Base de datos sincronizada en segundo plano");
-    seedRunner().catch(e => console.error("❌ Error en seeds:", e.message));
-  }).catch(err => {
-    console.error("❌ Error inicializando DB en Vercel:", err.message);
-  });
-}
+let isDbSynced = false;
+const ensureDb = async () => {
+  if (isDbSynced) return;
+  try {
+    console.log("🔄 Iniciando sincronización de DB...");
+    await syncDatabase();
+    await seedRunner();
+    isDbSynced = true;
+    console.log("✅ DB sincronizada con éxito");
+  } catch (error) {
+    console.error("❌ Error sincronizando DB:", error.message);
+    // No bloqueamos para permitir que health check responda
+  }
+};
+
+// Middleware para asegurar DB en cada petición de API
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    await ensureDb();
+  }
+  next();
+});
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

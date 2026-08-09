@@ -72,6 +72,8 @@ const authController = {
       });
     } catch (error) {
       console.error("Error en registro:", error);
+
+      // Error de validación de base de datos
       if (error.name === "SequelizeValidationError") {
         const messages = error.errors.map((e) => e.message);
         return res.status(400).json({
@@ -79,9 +81,12 @@ const authController = {
           message: messages.join(". "),
         });
       }
+
+      // Error detallado para depuración en Vercel
       res.status(500).json({
         success: false,
         message: "Error al registrar usuario",
+        debug: process.env.NODE_ENV === 'production' ? error.message : undefined
       });
     }
   },
