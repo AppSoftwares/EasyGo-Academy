@@ -48,14 +48,18 @@ app.use(express.urlencoded({ extended: true }));
 // Inicialización de DB para Serverless (Vercel)
 let isDbSynced = false;
 app.use(async (req, res, next) => {
+  // Ignorar peticiones que no sean API o que sean assets
+  if (!req.path.startsWith('/api')) return next();
+
   if (!isDbSynced && process.env.NODE_ENV === "production") {
     try {
+      console.log("🔄 Sincronizando base de datos en Vercel...");
       await syncDatabase();
       await seedRunner();
       isDbSynced = true;
-      console.log("✅ Base de datos inicializada en modo Serverless");
+      console.log("✅ Base de datos lista");
     } catch (error) {
-      console.error("❌ Error inicializando DB en modo Serverless:", error.message);
+      console.error("❌ Fallo crítico en inicialización de DB:", error.message);
     }
   }
   next();

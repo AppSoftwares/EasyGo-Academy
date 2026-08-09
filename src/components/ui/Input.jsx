@@ -29,6 +29,7 @@ export const Input = ({
             border-2 border-gray-200 rounded-xl 
             focus:border-primary focus:ring-4 focus:ring-primary/10 
             transition-all duration-300 bg-gray-50 focus:bg-white
+            text-gray-900 font-medium
             ${error ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : ''}
             ${className}`}
           onFocus={() => setFocused(true)}
