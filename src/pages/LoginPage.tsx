@@ -302,7 +302,7 @@ export const LoginPage = () => {
               </div>
 
               <div className="flex justify-end">
-                <Link to="/forgot-password" size="sm" className="text-xs text-gray-500 hover:text-primary-light transition-colors">
+                <Link to="/forgot-password" className="text-xs text-gray-500 hover:text-primary-light transition-colors">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>

@@ -2,8 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-color: #FAFAFA;
+  --text-color: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.05);
+  --primary: #5B2ECC;
+  --accent: #e3504a;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+}
+
+.dark {
+  --bg-color: #0a041e;
+  --text-color: #f8fafc;
+  --card-bg: #1e293b;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+}
+
 html, body {
-  background-color: #0a041e !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color);
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   margin: 0;
@@ -19,14 +38,14 @@ html, body {
 
 @layer base {
   html {
-    @apply bg-brand-dark;
+    @apply bg-[var(--bg-color)];
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
   
   body {
-    @apply font-sans antialiased text-white;
+    @apply font-sans antialiased;
     overflow-x: hidden;
   }
   
@@ -53,7 +72,8 @@ html, body {
   }
   
   .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/10 shadow-xl;
+    background-color: var(--glass-bg);
+    @apply backdrop-blur-xl border border-white/10 shadow-xl;
   }
 
   .glass-light {

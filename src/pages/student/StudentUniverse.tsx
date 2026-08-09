@@ -7,6 +7,8 @@ import CommunityView from '../../components/CommunityView';
 import ProgressView from '../../components/ProgressView';
 import AdminDashboard from '../../components/AdminDashboard';
 import UserProfileView from '../../components/UserProfileView';
+import { useThemeStore } from '../../store/useThemeStore';
+import { useAuthStore } from '../../store/useAuthStore';
 import { VocabularyItem } from '../../types';
 import { INITIAL_VOCABULARY } from '../../data';
 import {
@@ -15,6 +17,9 @@ import {
 } from 'lucide-react';
 
 export default function StudentUniverse() {
+  const { user, logout } = useAuthStore() as any;
+  const { isDarkMode } = useThemeStore();
+
   // Master states
   const [isOnboarded, setIsOnboarded] = useState<boolean>(false);
   const [isAdminMode, setIsAdminMode] = useState<boolean>(false);
@@ -23,10 +28,9 @@ export default function StudentUniverse() {
   // User statistics state
   const [userXp, setUserXp] = useState<number>(1250);
   const [userStreak, setUserStreak] = useState<number>(7);
-  const [userLevel, setUserLevel] = useState<string>('A1-A2 Principiante');
-  const [userEmail] = useState<string>('jess.pirela@gmail.com');
-  const [userName, setUserName] = useState<string>('Jess Pirela');
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [userLevel, setUserLevel] = useState<string>(user?.assignedLevel || 'A1-A2 Principiante');
+  const userEmail = user?.email || 'estudiante@easygo.com';
+  const userName = user?.name || 'Estudiante';
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>(INITIAL_VOCABULARY);
 
   // States for daily mission checklist
@@ -230,7 +234,15 @@ export default function StudentUniverse() {
         {activeTab === 'scanner' && <ObjectScanner onEarnXp={handleEarnXp} onAddVocabulary={handleAddVocabulary} isDarkMode={isDarkMode} />}
         {activeTab === 'community' && <CommunityView onEarnXp={handleEarnXp} userEmail={userEmail} userName={userName} isDarkMode={isDarkMode} />}
         {activeTab === 'progress' && <ProgressView onEarnXp={handleEarnXp} vocabularyList={vocabularyList} userXp={userXp} userStreak={userStreak} isDarkMode={isDarkMode} />}
-        {activeTab === 'profile' && <UserProfileView userEmail={userEmail} userName={userName} userLevel={userLevel} isDarkMode={isDarkMode} onToggleTheme={setIsDarkMode} onUpdateProfile={handleUpdateProfile} onLogout={handleLogout} onEarnXp={handleEarnXp} />}
+        {activeTab === 'profile' && (
+          <UserProfileView
+            userEmail={userEmail}
+            userName={userName}
+            userLevel={userLevel}
+            isDarkMode={isDarkMode}
+            onLogout={logout}
+          />
+        )}
       </main>
 
       <footer className={`fixed bottom-0 left-0 right-0 py-3 backdrop-blur-md z-20 ${isDarkMode ? 'bg-brand-dark/95 border-t border-white/5' : 'bg-white/90 border-t border-slate-200'}`}>

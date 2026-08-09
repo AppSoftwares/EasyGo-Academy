@@ -6,6 +6,7 @@ let sequelize;
 
 if (process.env.DB_URL) {
   // Configuración para PostgreSQL (Supabase)
+  console.log("📡 Intentando conectar a:", process.env.DB_URL.split('@')[1] || 'URL Oculta');
   sequelize = new Sequelize(process.env.DB_URL, {
     dialect: "postgres",
     logging: false,

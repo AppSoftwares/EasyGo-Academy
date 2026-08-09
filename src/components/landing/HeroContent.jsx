@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { Link } from 'react-router-dom'
 
 export const HeroContent = ({ onOpenForm }) => {
   const ptoMagnetico = useRef(null)
@@ -191,16 +192,16 @@ export const HeroContent = ({ onOpenForm }) => {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          <button 
+          <Link
+            to="/register"
             ref={ptoMagnetico}
-            onClick={onOpenForm}
             className="w-full sm:w-auto bg-[#ff5a36] text-white px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-[0.12em] transition-all duration-300 shadow-lg shadow-[#ff5a36]/20 hover:shadow-[#ff5a36]/40 will-change-transform cursor-pointer relative overflow-hidden group"
           >
             <span className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
             <span className="relative z-10 flex items-center gap-2 justify-center">
               Comienza gratis <span className="transition-transform group-hover:translate-x-1">🚀</span>
             </span>
-          </button>
+          </Link>
         </div>
 
       </div>

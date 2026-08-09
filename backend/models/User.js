@@ -137,6 +137,16 @@ module.exports = (sequelize) => {
         allowNull: true,
         field: "review_notes",
       },
+      twoFactorSecret: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+        field: "two_factor_secret",
+      },
+      twoFactorEnabled: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        field: "two_factor_enabled",
+      },
     },
     {
       tableName: "users",

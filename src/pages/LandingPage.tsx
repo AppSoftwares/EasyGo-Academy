@@ -53,6 +53,10 @@ export const LandingPage = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Badge de Versión para depuración */}
+      <div className="fixed bottom-4 left-4 z-[100] bg-black/50 text-white/50 text-[10px] px-2 py-1 rounded-full pointer-events-none">
+        EasyGo v1.1.0 (Stable)
+      </div>
       <Header />
 
       {/* Hero - sin animación de entrada (es lo primero que se ve) */}

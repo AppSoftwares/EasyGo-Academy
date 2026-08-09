@@ -234,6 +234,127 @@ const authController = {
       });
     }
   },
+
+  // Cambiar contraseña
+  changePassword: async (req, res) => {
+    try {
+      const { currentPassword, newPassword } = req.body;
+      const user = await User.findByPk(req.user.id);
+
+      const isMatch = await user.validatePassword(currentPassword);
+      if (!isMatch) {
+        return res.status(401).json({
+          success: false,
+          message: "La contraseña actual es incorrecta",
+        });
+      }
+
+      user.password = newPassword;
+      await user.save();
+
+      // Invalida otras sesiones excepto la actual
+      const currentToken = req.header("Authorization")?.replace("Bearer ", "");
+      await Session.update(
+        { isActive: false },
+        {
+          where: {
+            userId: user.id,
+            token: { [require('sequelize').Op.ne]: currentToken }
+          }
+        }
+      );
+
+      res.json({
+        success: true,
+        message: "Contraseña actualizada exitosamente",
+      });
+    } catch (error) {
+      console.error("Error al cambiar contraseña:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al cambiar contraseña",
+      });
+    }
+  },
+
+  // Cambiar email
+  changeEmail: async (req, res) => {
+    try {
+      const { newEmail } = req.body;
+
+      const existingUser = await User.findOne({ where: { email: newEmail } });
+      if (existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: "Este email ya está en uso",
+        });
+      }
+
+      await User.update({ email: newEmail }, { where: { id: req.user.id } });
+
+      res.json({
+        success: true,
+        message: "Email actualizado exitosamente",
+      });
+    } catch (error) {
+      console.error("Error al cambiar email:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al cambiar email",
+      });
+    }
+  },
+
+  // Obtener sesiones
+  getSessions: async (req, res) => {
+    try {
+      const sessions = await Session.findAll({
+        where: { userId: req.user.id, isActive: true },
+        order: [['createdAt', 'DESC']],
+      });
+
+      const currentToken = req.header("Authorization")?.replace("Bearer ", "");
+
+      res.json({
+        success: true,
+        sessions: sessions.map(s => ({
+          id: s.id,
+          userAgent: s.userAgent,
+          ip: s.ip,
+          createdAt: s.createdAt,
+          isCurrent: s.token === currentToken
+        })),
+      });
+    } catch (error) {
+      console.error("Error al obtener sesiones:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener sesiones",
+      });
+    }
+  },
+
+  // Eliminar sesión
+  deleteSession: async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      await Session.update(
+        { isActive: false },
+        { where: { id: sessionId, userId: req.user.id } }
+      );
+
+      res.json({
+        success: true,
+        message: "Sesión cerrada correctamente",
+      });
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al cerrar sesión",
+      });
+    }
+  },
 };
 
 module.exports = authController;

@@ -35,4 +35,20 @@ router.post('/forgot-password', [
 router.get('/profile', authMiddleware, authController.getProfile);
 router.post('/logout', authMiddleware, authController.logout);
 
+router.put('/change-password', [
+  authMiddleware,
+  body('currentPassword').notEmpty(),
+  body('newPassword').isLength({ min: 6 }),
+  validate
+], authController.changePassword);
+
+router.put('/change-email', [
+  authMiddleware,
+  body('newEmail').isEmail(),
+  validate
+], authController.changeEmail);
+
+router.get('/sessions', authMiddleware, authController.getSessions);
+router.delete('/sessions/:sessionId', authMiddleware, authController.deleteSession);
+
 module.exports = router;

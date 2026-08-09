@@ -17,6 +17,14 @@ import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { TeacherDashboard } from "./pages/teacher/TeacherDashboard";
 import { PublicLevelTest } from "./pages/PublicLevelTest";
 
+// Profile Sub-pages
+import { AppearancePage } from "./pages/profile/AppearancePage";
+import { AccountPage } from "./pages/profile/AccountPage";
+import { PrivacyPage } from "./pages/profile/PrivacyPage";
+import { NotificationsPage } from "./pages/profile/NotificationsPage";
+import { HelpCenterPage } from "./pages/profile/HelpCenterPage";
+import { LegalPage } from "./pages/profile/LegalPage";
+
 // Stores
 import { useAuthStore } from "./store/useAuthStore";
 
@@ -78,6 +86,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Profile Routes */}
+        <Route path="/profile/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+        <Route path="/profile/privacy" element={<ProtectedRoute><PrivacyPage /></ProtectedRoute>} />
+        <Route path="/profile/appearance" element={<ProtectedRoute><AppearancePage /></ProtectedRoute>} />
+        <Route path="/profile/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+        <Route path="/profile/help" element={<ProtectedRoute><HelpCenterPage /></ProtectedRoute>} />
+        <Route path="/profile/legal" element={<ProtectedRoute><LegalPage /></ProtectedRoute>} />
 
         {/* Admin Routes */}
         <Route
