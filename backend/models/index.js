@@ -4,21 +4,38 @@ require("dotenv").config();
 
 let sequelize;
 
-// Configuración para MySQL (XAMPP/Hosting)
-sequelize = new Sequelize(
-  process.env.DB_NAME || "easygo_academy",
-  process.env.DB_USER || "root",
-  process.env.DB_PASSWORD || "",
-  {
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 3306,
-    dialect: "mysql",
+if (process.env.DB_URL) {
+  // Configuración para PostgreSQL (Supabase)
+  sequelize = new Sequelize(process.env.DB_URL, {
+    dialect: "postgres",
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
     pool: { max: 10, min: 0, acquire: 30000, idle: 10000 },
-    define: { underscored: true, freezeTableName: false, charset: "utf8mb4" },
-  },
-);
-console.log("📡 Usando base de datos MySQL");
+    define: { underscored: true, freezeTableName: false },
+  });
+  console.log("📡 Usando base de datos Supabase (PostgreSQL)");
+} else {
+  // Configuración para MySQL (Local / XAMPP)
+  sequelize = new Sequelize(
+    process.env.DB_NAME || "easygo_academy",
+    process.env.DB_USER || "root",
+    process.env.DB_PASSWORD || "",
+    {
+      host: process.env.DB_HOST || "localhost",
+      port: process.env.DB_PORT || 3306,
+      dialect: "mysql",
+      logging: false,
+      pool: { max: 10, min: 0, acquire: 30000, idle: 10000 },
+      define: { underscored: true, freezeTableName: false, charset: "utf8mb4" },
+    },
+  );
+  console.log("📡 Usando base de datos MySQL");
+}
 
 // Importar modelos
 const UserModel = require("./User");
