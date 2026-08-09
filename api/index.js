@@ -50,54 +50,45 @@ let isDbSynced = false;
 const ensureDb = async () => {
   if (isDbSynced) return;
   try {
-    console.log("🔄 Iniciando sincronización de DB en Vercel...");
+    console.log("🔄 Sincronizando DB...");
     await syncDatabase();
     await seedRunner();
     isDbSynced = true;
-    console.log("✅ DB sincronizada con éxito");
   } catch (error) {
-    console.error("❌ Error sincronizando DB:", error.message);
+    console.error("❌ Error inicialización:", error.message);
   }
 };
 
-// Middleware para asegurar DB en cada petición de API
-app.use(async (req, res, next) => {
-  if (req.path.startsWith('/api')) {
-    await ensureDb();
-  }
-  next();
-});
-
 // Rutas
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/leads", leadRouter);
-app.use("/api/progress", progressRoutes);
-app.use("/api/questions", questionRoutes);
-app.use("/api/test-progress", testProgressRoutes);
-app.use("/api/audiobooks", audiobookRoutes);
-app.use("/api/listening-progress", listeningProgressRoutes);
-app.use("/api/pronunciations", pronunciationRoutes);
-app.use("/api/news", newsRoutes);
-app.use("/api/ranking", rankingRoutes);
-app.use("/api/dictionary", dictionaryRoutes);
-app.use("/api/classes", classRoutes);
-app.use("/api/grammar", grammarRoutes);
-app.use("/api/notifications", notificationRoutes);
-app.use("/api/admin", adminNotificationRoutes);
-app.use("/api/teacher", teacherRoutes);
-app.use("/api/curriculum", curriculumRoutes);
-app.use("/api/modules", moduleRoutes);
-app.use("/api/module-content", moduleContentRoutes);
-app.use('/api/community', communityRoutes)
-app.use("/api/ai", aiRoutes);
+app.use("/api/auth", async (req, res, next) => { await ensureDb(); next(); }, authRoutes);
+app.use("/api/users", async (req, res, next) => { await ensureDb(); next(); }, userRoutes);
+app.use("/api/leads", async (req, res, next) => { await ensureDb(); next(); }, leadRouter);
+app.use("/api/progress", async (req, res, next) => { await ensureDb(); next(); }, progressRoutes);
+app.use("/api/questions", async (req, res, next) => { await ensureDb(); next(); }, questionRoutes);
+app.use("/api/test-progress", async (req, res, next) => { await ensureDb(); next(); }, testProgressRoutes);
+app.use("/api/audiobooks", async (req, res, next) => { await ensureDb(); next(); }, audiobookRoutes);
+app.use("/api/listening-progress", async (req, res, next) => { await ensureDb(); next(); }, listeningProgressRoutes);
+app.use("/api/pronunciations", async (req, res, next) => { await ensureDb(); next(); }, pronunciationRoutes);
+app.use("/api/news", async (req, res, next) => { await ensureDb(); next(); }, newsRoutes);
+app.use("/api/ranking", async (req, res, next) => { await ensureDb(); next(); }, rankingRoutes);
+app.use("/api/dictionary", async (req, res, next) => { await ensureDb(); next(); }, dictionaryRoutes);
+app.use("/api/classes", async (req, res, next) => { await ensureDb(); next(); }, classRoutes);
+app.use("/api/grammar", async (req, res, next) => { await ensureDb(); next(); }, grammarRoutes);
+app.use("/api/notifications", async (req, res, next) => { await ensureDb(); next(); }, notificationRoutes);
+app.use("/api/admin", async (req, res, next) => { await ensureDb(); next(); }, adminNotificationRoutes);
+app.use("/api/teacher", async (req, res, next) => { await ensureDb(); next(); }, teacherRoutes);
+app.use("/api/curriculum", async (req, res, next) => { await ensureDb(); next(); }, curriculumRoutes);
+app.use("/api/modules", async (req, res, next) => { await ensureDb(); next(); }, moduleRoutes);
+app.use("/api/module-content", async (req, res, next) => { await ensureDb(); next(); }, moduleContentRoutes);
+app.use('/api/community', async (req, res, next) => { await ensureDb(); next(); }, communityRoutes)
+app.use("/api/ai", async (req, res, next) => { await ensureDb(); next(); }, aiRoutes);
 
 // Ruta de health check
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: "EasyGo Academy API funcionando correctamente en /api",
-    isServerless: true
+    message: "EasyGo Academy API funcionando",
+    db: isDbSynced ? "Conectada" : "Sincronizando..."
   });
 });
 
