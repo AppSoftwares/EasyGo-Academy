@@ -38,7 +38,7 @@ export const RegisterForm = () => {
     if (result.success) {
       navigate('/dashboard')
     } else {
-      setError(result.error || 'Error al registrar')
+      setLocalError(result.error || 'Error al registrar')
     }
   }
 
