@@ -6,6 +6,7 @@ let sequelize;
 
 if (process.env.DB_URL) {
   // Configuración para PostgreSQL (Supabase)
+  console.log("📡 Intentando conectar a PostgreSQL (Supabase)...");
   sequelize = new Sequelize(process.env.DB_URL, {
     dialect: "postgres",
     logging: false,
@@ -18,15 +19,15 @@ if (process.env.DB_URL) {
     pool: { max: 10, min: 0, acquire: 30000, idle: 10000 },
     define: { underscored: true, freezeTableName: false },
   });
-  console.log("📡 Usando base de datos Supabase (PostgreSQL)");
-} else {
-  // Configuración para MySQL (Local / XAMPP)
+} else if (process.env.DB_HOST) {
+  // Configuración para MySQL (Remoto/Producción)
+  console.log(`📡 Intentando conectar a MySQL en ${process.env.DB_HOST}...`);
   sequelize = new Sequelize(
-    process.env.DB_NAME || "easygo_academy",
-    process.env.DB_USER || "root",
-    process.env.DB_PASSWORD || "",
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
     {
-      host: process.env.DB_HOST || "localhost",
+      host: process.env.DB_HOST,
       port: process.env.DB_PORT || 3306,
       dialect: "mysql",
       logging: false,
@@ -34,7 +35,20 @@ if (process.env.DB_URL) {
       define: { underscored: true, freezeTableName: false, charset: "utf8mb4" },
     },
   );
-  console.log("📡 Usando base de datos MySQL");
+} else {
+  // Fallback Local
+  console.log("📡 Usando configuración de base de datos local (MySQL)");
+  sequelize = new Sequelize(
+    "easygo_academy",
+    "root",
+    "",
+    {
+      host: "localhost",
+      port: 3306,
+      dialect: "mysql",
+      logging: false,
+    },
+  );
 }
 
 // Importar modelos

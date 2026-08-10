@@ -50,45 +50,68 @@ let isDbSynced = false;
 const ensureDb = async () => {
   if (isDbSynced) return;
   try {
-    console.log("🔄 Sincronizando DB...");
-    await syncDatabase();
-    await seedRunner();
+    // Solo autenticar para rapidez
+    await sequelize.authenticate();
     isDbSynced = true;
+    console.log("✅ DB conectada");
+
+    // Sincronizar en segundo plano si estamos en producción (Vercel)
+    // Esto crea las tablas si no existen sin bloquear el registro del usuario
+    syncDatabase().then(() => {
+      seedRunner().catch(e => console.error("❌ Error seeds:", e.message));
+    }).catch(err => console.error("❌ Error sync:", err.message));
+
   } catch (error) {
-    console.error("❌ Error inicialización:", error.message);
+    console.error("❌ Error conexión DB:", error.message);
   }
 };
 
-// Rutas
-app.use("/api/auth", async (req, res, next) => { await ensureDb(); next(); }, authRoutes);
-app.use("/api/users", async (req, res, next) => { await ensureDb(); next(); }, userRoutes);
-app.use("/api/leads", async (req, res, next) => { await ensureDb(); next(); }, leadRouter);
-app.use("/api/progress", async (req, res, next) => { await ensureDb(); next(); }, progressRoutes);
-app.use("/api/questions", async (req, res, next) => { await ensureDb(); next(); }, questionRoutes);
-app.use("/api/test-progress", async (req, res, next) => { await ensureDb(); next(); }, testProgressRoutes);
-app.use("/api/audiobooks", async (req, res, next) => { await ensureDb(); next(); }, audiobookRoutes);
-app.use("/api/listening-progress", async (req, res, next) => { await ensureDb(); next(); }, listeningProgressRoutes);
-app.use("/api/pronunciations", async (req, res, next) => { await ensureDb(); next(); }, pronunciationRoutes);
-app.use("/api/news", async (req, res, next) => { await ensureDb(); next(); }, newsRoutes);
-app.use("/api/ranking", async (req, res, next) => { await ensureDb(); next(); }, rankingRoutes);
-app.use("/api/dictionary", async (req, res, next) => { await ensureDb(); next(); }, dictionaryRoutes);
-app.use("/api/classes", async (req, res, next) => { await ensureDb(); next(); }, classRoutes);
-app.use("/api/grammar", async (req, res, next) => { await ensureDb(); next(); }, grammarRoutes);
-app.use("/api/notifications", async (req, res, next) => { await ensureDb(); next(); }, notificationRoutes);
-app.use("/api/admin", async (req, res, next) => { await ensureDb(); next(); }, adminNotificationRoutes);
-app.use("/api/teacher", async (req, res, next) => { await ensureDb(); next(); }, teacherRoutes);
-app.use("/api/curriculum", async (req, res, next) => { await ensureDb(); next(); }, curriculumRoutes);
-app.use("/api/modules", async (req, res, next) => { await ensureDb(); next(); }, moduleRoutes);
-app.use("/api/module-content", async (req, res, next) => { await ensureDb(); next(); }, moduleContentRoutes);
-app.use('/api/community', async (req, res, next) => { await ensureDb(); next(); }, communityRoutes)
-app.use("/api/ai", async (req, res, next) => { await ensureDb(); next(); }, aiRoutes);
+// Rutas con inicialización rápida
+const initDbMiddleware = async (req, res, next) => {
+  await ensureDb();
+  next();
+};
+
+app.use("/api/auth", initDbMiddleware, authRoutes);
+app.use("/api/users", initDbMiddleware, userRoutes);
+app.use("/api/leads", initDbMiddleware, leadRouter);
+app.use("/api/progress", initDbMiddleware, progressRoutes);
+app.use("/api/questions", initDbMiddleware, questionRoutes);
+app.use("/api/test-progress", initDbMiddleware, testProgressRoutes);
+app.use("/api/audiobooks", initDbMiddleware, audiobookRoutes);
+app.use("/api/listening-progress", initDbMiddleware, listeningProgressRoutes);
+app.use("/api/pronunciations", initDbMiddleware, pronunciationRoutes);
+app.use("/api/news", initDbMiddleware, newsRoutes);
+app.use("/api/ranking", initDbMiddleware, rankingRoutes);
+app.use("/api/dictionary", initDbMiddleware, dictionaryRoutes);
+app.use("/api/classes", initDbMiddleware, classRoutes);
+app.use("/api/grammar", initDbMiddleware, grammarRoutes);
+app.use("/api/notifications", initDbMiddleware, notificationRoutes);
+app.use("/api/admin", initDbMiddleware, adminNotificationRoutes);
+app.use("/api/teacher", initDbMiddleware, teacherRoutes);
+app.use("/api/curriculum", initDbMiddleware, curriculumRoutes);
+app.use("/api/modules", initDbMiddleware, moduleRoutes);
+app.use("/api/module-content", initDbMiddleware, moduleContentRoutes);
+app.use('/api/community', initDbMiddleware, communityRoutes)
+app.use("/api/ai", initDbMiddleware, aiRoutes);
+
+// Ruta especial para sincronizar base de datos manualmente si es necesario
+app.get("/api/admin/db-sync", async (req, res) => {
+  try {
+    await syncDatabase();
+    await seedRunner();
+    res.json({ success: true, message: "Base de datos sincronizada y sembrada" });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // Ruta de health check
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: "EasyGo Academy API funcionando",
-    db: isDbSynced ? "Conectada" : "Sincronizando..."
+    message: "EasyGo Academy API activa",
+    db: isDbSynced ? "Conectada" : "Pendiente de primer uso"
   });
 });
 

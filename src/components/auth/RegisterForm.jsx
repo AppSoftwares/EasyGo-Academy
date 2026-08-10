@@ -37,6 +37,8 @@ export const RegisterForm = () => {
     const result = await register(formData)
     if (result.success) {
       navigate('/dashboard')
+    } else {
+      setError(result.error || 'Error al registrar')
     }
   }
 
@@ -45,9 +47,12 @@ export const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {displayError && (
-        <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-2xl text-sm flex items-center gap-3">
-          <span className="text-lg flex-shrink-0">⚠️</span>
-          <span>{displayError}</span>
+        <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-2xl text-sm flex flex-col gap-1">
+          <div className="flex items-center gap-3 font-bold">
+            <span className="text-lg flex-shrink-0">⚠️</span>
+            <span>Error al registrar</span>
+          </div>
+          <p className="ml-8 text-[11px] opacity-70">{displayError}</p>
         </div>
       )}
 
