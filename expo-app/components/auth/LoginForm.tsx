@@ -68,6 +68,21 @@ export const LoginForm = ({ onSwitchToRegister, onForgotPassword }: { onSwitchTo
           )}
         </TouchableOpacity>
 
+        <View style={styles.dividerContainer}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>O continúa con</Text>
+          <View style={styles.divider} />
+        </View>
+
+        <View style={styles.socialContainer}>
+          <TouchableOpacity style={styles.socialButton}>
+            <Ionicons name="logo-google" size={20} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#000' }]}>
+            <Ionicons name="logo-apple" size={22} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>¿No tienes cuenta? </Text>
           <TouchableOpacity onPress={onSwitchToRegister}>
@@ -96,6 +111,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: { color: '#94a3b8', fontSize: 13, fontWeight: '600' },
   loginButton: { backgroundColor: '#5B2ECC', padding: 18, borderRadius: 16, alignItems: 'center', marginTop: 8 },
   loginButtonText: { color: '#fff', fontWeight: '800', fontSize: 16 },
+  dividerContainer: { flexDirection: 'row', alignItems: 'center', marginVertical: 16 },
+  divider: { flex: 1, height: 1, backgroundColor: '#334155' },
+  dividerText: { color: '#64748b', marginHorizontal: 16, fontSize: 12, fontWeight: '700', textTransform: 'uppercase' },
+  socialContainer: { flexDirection: 'row', gap: 12 },
+  socialButton: { flex: 1, height: 56, borderRadius: 16, backgroundColor: '#334155', justifyContent: 'center', alignItems: 'center', borderWeight: 1, borderColor: '#475569' },
   footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 24 },
   footerText: { color: '#94a3b8', fontSize: 14 },
   linkText: { color: '#5B2ECC', fontWeight: '700', fontSize: 14 },

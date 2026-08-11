@@ -318,6 +318,29 @@ export const LoginPage = () => {
                   <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </button>
+
+              {/* Social Logins */}
+              <div className="space-y-4 pt-2">
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-white/10"></div>
+                  </div>
+                  <span className="relative px-4 bg-[#0f0729] text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    O continuar con
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <button type="button" className="flex items-center justify-center gap-2 bg-white text-gray-900 py-3 rounded-2xl font-bold text-sm hover:bg-gray-100 transition-all shadow-sm active:scale-95">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/smartlock/google.svg" className="w-5 h-5" alt="Google" />
+                    <span>Google</span>
+                  </button>
+                  <button type="button" className="flex items-center justify-center gap-2 bg-black text-white py-3 rounded-2xl font-bold text-sm hover:bg-zinc-900 transition-all border border-white/10 active:scale-95">
+                    <span className="text-xl mb-1">🍎</span>
+                    <span>Apple</span>
+                  </button>
+                </div>
+              </div>
             </form>
 
             <p className={`text-center text-gray-500 text-sm mt-6 transition-all duration-300 ${

@@ -89,6 +89,21 @@ export const RegisterForm = ({ onSwitchToLogin }: { onSwitchToLogin: () => void 
           )}
         </TouchableOpacity>
 
+        <View style={styles.dividerContainer}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>O regístrate con</Text>
+          <View style={styles.divider} />
+        </View>
+
+        <View style={styles.socialContainer}>
+          <TouchableOpacity style={styles.socialButton}>
+            <Ionicons name="logo-google" size={20} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#000' }]}>
+            <Ionicons name="logo-apple" size={22} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>¿Ya tienes cuenta? </Text>
           <TouchableOpacity onPress={onSwitchToLogin}>
@@ -115,6 +130,11 @@ const styles = StyleSheet.create({
   input: { flex: 1, padding: 16, color: '#fff', fontSize: 15 },
   registerButton: { backgroundColor: '#e3504a', padding: 18, borderRadius: 16, alignItems: 'center', marginTop: 8 },
   registerButtonText: { color: '#fff', fontWeight: '800', fontSize: 16 },
+  dividerContainer: { flexDirection: 'row', alignItems: 'center', marginVertical: 16 },
+  divider: { flex: 1, height: 1, backgroundColor: '#334155' },
+  dividerText: { color: '#64748b', marginHorizontal: 16, fontSize: 12, fontWeight: '700', textTransform: 'uppercase' },
+  socialContainer: { flexDirection: 'row', gap: 12 },
+  socialButton: { flex: 1, height: 56, borderRadius: 16, backgroundColor: '#334155', justifyContent: 'center', alignItems: 'center', borderWeight: 1, borderColor: '#475569' },
   footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 24 },
   footerText: { color: '#94a3b8', fontSize: 14 },
   linkText: { color: '#e3504a', fontWeight: '700', fontSize: 14 },
