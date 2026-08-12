@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Capacitor } from '@capacitor/core';
 
 // Pages
 import { LandingPage } from "./pages/LandingPage";
@@ -60,6 +61,8 @@ const PublicRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 };
 
 function App() {
+  const isNative = Capacitor.isNativePlatform();
+
   return (
     <Router>
       <Routes>
@@ -67,9 +70,13 @@ function App() {
         <Route
           path="/"
           element={
-            <PublicRoute>
-              <LandingPage />
-            </PublicRoute>
+            isNative ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <PublicRoute>
+                <LandingPage />
+              </PublicRoute>
+            )
           }
         />
         <Route path="/login" element={<LoginPage />} />

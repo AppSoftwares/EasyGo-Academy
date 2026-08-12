@@ -108,7 +108,7 @@ export default function StudentUniverse() {
 
   return (
     <div id="student-universe-root" className={`min-h-screen flex flex-col justify-between relative overflow-x-hidden font-sans ${isDarkMode ? 'bg-brand-dark text-slate-100' : 'bg-slate-100 text-slate-900'}`}>
-      <header className={` ${isDarkMode ? 'bg-brand-dark/40 text-slate-100' : 'bg-slate-100/90 text-slate-900'} border-b ${isDarkMode ? 'border-white/5' : 'border-slate-200'} p-4 sticky top-0 backdrop-blur-md z-20`}>
+      <header className={` ${isDarkMode ? 'bg-brand-dark/40 text-slate-100' : 'bg-slate-100/90 text-slate-900'} border-b ${isDarkMode ? 'border-white/5' : 'border-slate-200'} p-4 pt-[calc(env(safe-area-inset-top)+1rem)] sticky top-0 backdrop-blur-md z-20`}>
         <div className="container-custom flex justify-between items-center select-none">
           <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActiveTab('home')}>
             <span className="font-display font-black text-white text-lg tracking-wider">EasyGo</span>
@@ -245,7 +245,7 @@ export default function StudentUniverse() {
         )}
       </main>
 
-      <footer className={`fixed bottom-0 left-0 right-0 py-3 backdrop-blur-md z-20 ${isDarkMode ? 'bg-brand-dark/95 border-t border-white/5' : 'bg-white/90 border-t border-slate-200'}`}>
+      <footer className={`fixed bottom-0 left-0 right-0 py-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] backdrop-blur-md z-20 ${isDarkMode ? 'bg-brand-dark/95 border-t border-white/5' : 'bg-white/90 border-t border-slate-200'}`}>
         <div className="container-custom flex justify-around items-center">
           {[
             { id: 'home', label: 'Inicio', icon: Home },
