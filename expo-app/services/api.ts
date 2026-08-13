@@ -1,8 +1,22 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
-// IMPORTANTE: Reemplaza con la IP real de tu servidor en la red local
-const API_URL = 'http://172.16.0.2:3001/api';
+const PROD_API_URL = 'https://easy-go-academy-web.vercel.app/api';
+
+const getDevHost = () => {
+  // Expo Go expone la IP del host de Metro en debuggerHost / hostUri
+  const hostUri =
+    Constants.expoConfig?.hostUri ||
+    (Constants as any).manifest?.debuggerHost ||
+    '';
+  const host = hostUri.split(':')[0];
+  return host ? `http://${host}:3001/api` : PROD_API_URL;
+};
+
+const API_URL = __DEV__ ? getDevHost() : PROD_API_URL;
+
+console.log('📡 Mobile API URL:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,

@@ -9,6 +9,14 @@ export const authService = {
     return api.post('/auth/register', userData)
   },
 
+  googleLogin: (idToken) => {
+    return api.post('/auth/google', { idToken })
+  },
+
+  appleLogin: (idToken, user) => {
+    return api.post('/auth/apple', { idToken, user })
+  },
+
   forgotPassword: (email) => {
     return api.post('/auth/forgot-password', { email })
   },

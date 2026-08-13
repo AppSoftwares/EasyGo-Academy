@@ -28,6 +28,7 @@ const communityRoutes = require('../backend/routes/communityRoutes')
 const aiRoutes = require("../backend/routes/ai");
 
 const seedRunner = require("../backend/config/seedRunner");
+const { authMiddleware, adminMiddleware } = require("../backend/middleware/auth");
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
@@ -96,7 +97,7 @@ app.use('/api/community', initDbMiddleware, communityRoutes)
 app.use("/api/ai", initDbMiddleware, aiRoutes);
 
 // Ruta especial para sincronizar base de datos manualmente si es necesario
-app.get("/api/admin/db-sync", async (req, res) => {
+app.get("/api/admin/db-sync", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     await syncDatabase();
     await seedRunner();

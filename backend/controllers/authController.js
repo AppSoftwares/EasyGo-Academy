@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { User, Session } = require("../models");
+const { OAuth2Client } = require('google-auth-library');
+const appleSignin = require('apple-signin-auth');
 require("dotenv").config();
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -86,7 +90,7 @@ const authController = {
       res.status(500).json({
         success: false,
         message: "Error al registrar usuario",
-        debug: process.env.NODE_ENV === 'production' ? error.message : undefined
+        debug: process.env.NODE_ENV !== 'production' ? error.message : undefined
       });
     }
   },
@@ -358,6 +362,99 @@ const authController = {
         success: false,
         message: "Error al cerrar sesión",
       });
+    }
+  },
+
+  // Iniciar sesión con Google
+  googleLogin: async (req, res) => {
+    const { idToken } = req.body;
+    try {
+      const ticket = await googleClient.verifyIdToken({
+        idToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const { email, name, picture } = payload;
+
+      let user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        user = await User.create({
+          name,
+          email,
+          password: Math.random().toString(36).slice(-10), // Random password
+          role: 'user',
+          photo: picture
+        });
+      }
+
+      const token = generateToken(user);
+
+      await Session.create({
+        userId: user.id,
+        token,
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      });
+
+      res.json({
+        success: true,
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          needsLevelTest: !user.levelTestCompleted,
+        }
+      });
+    } catch (error) {
+      console.error("Error Google Login:", error);
+      res.status(401).json({ success: false, message: "Autenticación de Google fallida" });
+    }
+  },
+
+  // Iniciar sesión con Apple
+  appleLogin: async (req, res) => {
+    const { idToken, user: userFromApple } = req.body;
+    try {
+      const { sub: appleId, email } = await appleSignin.verifyIdToken(idToken, {
+        audience: process.env.APPLE_CLIENT_ID,
+        ignoreExpiration: false,
+      });
+
+      let user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        user = await User.create({
+          name: userFromApple ? `${userFromApple.name.firstName} ${userFromApple.name.lastName}` : 'Estudiante Apple',
+          email,
+          password: Math.random().toString(36).slice(-10),
+          role: 'user'
+        });
+      }
+
+      const token = generateToken(user);
+
+      await Session.create({
+        userId: user.id,
+        token,
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      });
+
+      res.json({
+        success: true,
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          needsLevelTest: !user.levelTestCompleted,
+        }
+      });
+    } catch (error) {
+      console.error("Error Apple Login:", error);
+      res.status(401).json({ success: false, message: "Autenticación de Apple fallida" });
     }
   },
 };

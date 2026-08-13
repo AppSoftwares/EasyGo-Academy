@@ -76,6 +76,48 @@ export const useAuthStore = create(
         }
       },
 
+      loginWithGoogle: async (idToken) => {
+        set({ isLoading: true, error: null })
+        try {
+          const response = await authService.googleLogin(idToken)
+          const { token, user } = response.data
+          localStorage.setItem('token', token)
+          set({
+            user,
+            token,
+            isAuthenticated: true,
+            isLoading: false,
+            needsLevelTest: user.needsLevelTest || false,
+          })
+          return { success: true }
+        } catch (error) {
+          const message = error.response?.data?.message || 'Error con Google Login'
+          set({ error: message, isLoading: false })
+          return { success: false, error: message }
+        }
+      },
+
+      loginWithApple: async (idToken, appleUser) => {
+        set({ isLoading: true, error: null })
+        try {
+          const response = await authService.appleLogin(idToken, appleUser)
+          const { token, user } = response.data
+          localStorage.setItem('token', token)
+          set({
+            user,
+            token,
+            isAuthenticated: true,
+            isLoading: false,
+            needsLevelTest: user.needsLevelTest || false,
+          })
+          return { success: true }
+        } catch (error) {
+          const message = error.response?.data?.message || 'Error con Apple Login'
+          set({ error: message, isLoading: false })
+          return { success: false, error: message }
+        }
+      },
+
       forgotPassword: async (email) => {
         set({ isLoading: true, error: null })
         try {

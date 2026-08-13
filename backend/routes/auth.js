@@ -31,6 +31,9 @@ router.post('/forgot-password', [
   validate
 ], authController.forgotPassword);
 
+router.post('/google', authController.googleLogin);
+router.post('/apple', authController.appleLogin);
+
 // Rutas protegidas
 router.get('/profile', authMiddleware, authController.getProfile);
 router.post('/logout', authMiddleware, authController.logout);

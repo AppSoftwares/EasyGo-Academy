@@ -1,17 +1,16 @@
 import axios from 'axios'
 
-// Detectar IP automáticamente para evitar ERR_CONNECTION_REFUSED en red local
+// Producción: cualquier dominio que NO sea localhost/IP local usa ruta relativa /api
 const getBackendUrl = () => {
   const { hostname } = window.location;
 
-  // Si estamos en Vercel o en un dominio de producción, usamos ruta relativa
-  if (hostname.includes('vercel.app') || hostname.includes('Ga-Tillo.ddns.net')) {
-    return '/api';
-  }
+  const isLocalNetwork =
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1' ||
+    /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(hostname);
 
-  // Si estamos en local o red local, usamos el puerto 3001 explícitamente
-  if (hostname !== 'localhost' && hostname !== '127.0.0.1' && !hostname.includes('.')) {
-    return `http://${hostname}:3001/api`;
+  if (!isLocalNetwork) {
+    return '/api';
   }
 
   return import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
