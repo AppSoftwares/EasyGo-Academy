@@ -1,19 +1,16 @@
-name: Build APK and IPA
+name: iOS & Android Build (v2.3.8)
 
 on:
-  push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
+  workflow_dispatch: # Disparador manual para ahorrar minutos
     inputs:
       build_id:
-        description: 'Nombre del archivo base'
+        description: 'Nombre del archivo final'
         required: true
         default: 'EasyGoAcademy'
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-14 # El runner más rápido para ambos sistemas
     permissions:
       contents: write
 
@@ -32,7 +29,7 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
 
-      - name: Setup Java 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -49,13 +46,6 @@ jobs:
         run: |
           pnpm config set supported-architectures '{"os":["win32","darwin","linux"],"cpu":["x64","arm64"]}'
           pnpm install --frozen-lockfile || pnpm install
-          # Sharp is now in onlyBuiltDependencies, so its build script will run.
-
-      - name: Create .env file
-        run: |
-          if [ -f .env.example ]; then
-            cp .env.example .env
-          fi
 
       - name: Build Web Project
         run: pnpm run build
@@ -64,41 +54,32 @@ jobs:
         run: |
           pnpm exec capacitor-assets generate --iconBackgroundColor '#0a041e' --iconBackgroundColorDark '#0a041e'
           find android/app/src/main/res -name "*.webp" -delete || true
-          rm -rf ios/App/CapApp-SPM
 
       - name: Capacitor Sync
-        run: pnpm exec cap sync
+        run: npx cap sync
 
-      - name: Install CocoaPods Dependencies
-        run: |
-          cd ios/App
-          pod install
-
-      - name: Neutralizar Check Pods Manifest.lock
-        run: |
-          cd ios/App
-          ruby -e "require 'xcodeproj'; project = Xcodeproj::Project.open('App.xcodeproj'); project.targets.each { |t| t.shell_script_build_phases.each { |p| p.shell_script = 'echo \"Bypassing sync check in CI\"' if p.name.include?('Check Pods Manifest.lock') } }; project.save"
-          cp Podfile.lock Manifest.lock || true
-          mkdir -p Pods && cp Podfile.lock Pods/Manifest.lock || true
-
+      # --- CONSTRUCCIÓN ANDROID ---
       - name: Build Android App (Release)
-        env:
-          GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -XX:MaxMetaspaceSize=1024m"
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon --stacktrace --no-configuration-cache -Pandroid.defaults.buildfeatures.buildconfig=true
+          ./gradlew assembleRelease --no-daemon
 
       - name: Prepare Android Artifact
         run: |
           VERSION="${{ steps.package-version.outputs.version }}"
           APK_PATH=$(find android/app/build/outputs/apk/release -name "*.apk" | head -1)
-          cp "$APK_PATH" "EasyGoAcademy $VERSION.apk"
+          cp "$APK_PATH" "${{ github.event.inputs.build_id }} v$VERSION.apk"
+
+      # --- CONSTRUCCIÓN iOS (SIN FIRMA - GRATIS) ---
+      - name: Install CocoaPods
+        run: |
+          cd ios/App
+          pod install
 
       - name: Build iOS App (Unsigned)
         run: |
           cd ios/App
-          xcodebuild -resolvePackageDependencies -workspace App.xcworkspace -scheme App || true
           xcodebuild -workspace App.xcworkspace \
                     -scheme App \
                     -configuration Debug \
@@ -108,30 +89,29 @@ jobs:
                     CODE_SIGNING_REQUIRED=NO \
                     CODE_SIGN_IDENTITY="" \
                     ENABLE_USER_SCRIPT_SANDBOXING=NO \
-                    COMPILER_INDEX_STORE_ENABLE=NO \
-                    ONLY_ACTIVE_ARCH=NO \
                     build
 
       - name: Create IPA for Sideloadly
         run: |
           VERSION="${{ steps.package-version.outputs.version }}"
           APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | head -1)
-          if [ -z "$APP_PATH" ]; then
-            echo "Error: No se encontró el binario .app"
-            exit 1
-          fi
           mkdir -p Payload
           cp -R "$APP_PATH" Payload/
-          zip -rq "EasyGoAcademy $VERSION.ipa" Payload
+          zip -rq "${{ github.event.inputs.build_id }} v$VERSION.ipa" Payload
 
+      # --- PUBLICACIÓN EN RELEASES ---
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.package-version.outputs.version }}
-          name: "EasyGo Academy v${{ steps.package-version.outputs.version }}"
+          name: "Release v${{ steps.package-version.outputs.version }}"
           files: |
-            EasyGoAcademy ${{ steps.package-version.outputs.version }}.ipa
-            EasyGoAcademy ${{ steps.package-version.outputs.version }}.apk
+            *.apk
+            *.ipa
+          body: |
+            Compilación automática generada con éxito.
+            Versión: ${{ steps.package-version.outputs.version }}
+            Plataformas: Android (APK) e iOS (IPA Sideload).
           draft: false
           prerelease: false
         env:
