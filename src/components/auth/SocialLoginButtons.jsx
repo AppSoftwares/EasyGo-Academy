@@ -1,20 +1,13 @@
 import React from 'react';
-import { useGoogleLogin } from '@react-oauth/google';
+// import { useGoogleLogin } from '@react-oauth/google';
 import { useAuthStore } from '../../store/useAuthStore';
 
 export const SocialLoginButtons = () => {
   const { loginWithGoogle, loginWithApple } = useAuthStore();
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      // In a real scenario, you might want to exchange the access token for an ID token
-      // or send the access token to the backend if your backend handles it.
-      // For this implementation, we assume we want an ID token.
-      console.log('Google Success:', tokenResponse);
-      // loginWithGoogle(tokenResponse.access_token);
-    },
-    onError: () => console.log('Google Login Failed'),
-  });
+  const googleLogin = () => {
+    alert('Iniciando sesión con Google (Pendiente de configuración)');
+  };
 
   const handleAppleLogin = () => {
     // This requires the Apple JS library to be loaded

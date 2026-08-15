@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { useThemeStore } from './store/useThemeStore';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const Main = () => {
   const { isDarkMode } = useThemeStore();
@@ -19,9 +19,9 @@ const Main = () => {
   const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "PASTE_YOUR_GOOGLE_CLIENT_ID_HERE";
 
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    /* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}> */
       <App />
-    </GoogleOAuthProvider>
+    /* </GoogleOAuthProvider> */
   );
 };
 

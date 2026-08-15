@@ -46,7 +46,10 @@ jobs:
           echo "Version found: $VERSION"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: |
+          pnpm install --frozen-lockfile || pnpm install
+          # Fix for sharp native binaries on macOS arm64
+          pnpm add -D sharp --platform=darwin --arch=arm64
 
       - name: Create .env file
         run: |
