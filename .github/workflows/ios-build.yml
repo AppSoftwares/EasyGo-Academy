@@ -47,9 +47,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pnpm config set supported-architectures '{"os":["win32","darwin","linux"],"cpu":["x64","arm64"]}'
           pnpm install --frozen-lockfile || pnpm install
-          # Fix for sharp native binaries on macOS arm64
-          pnpm add -D sharp --platform=darwin --arch=arm64
+          # Sharp is now in onlyBuiltDependencies, so its build script will run.
 
       - name: Create .env file
         run: |

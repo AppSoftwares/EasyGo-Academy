@@ -93,7 +93,8 @@
       "@capacitor/cli",
       "@capacitor/core",
       "@capacitor/ios",
-      "nodemon"
+      "nodemon",
+      "sharp"
     ]
   }
 }
