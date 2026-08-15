@@ -87,7 +87,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon --stacktrace
+          ./gradlew assembleRelease --no-daemon --stacktrace --no-configuration-cache -Pandroid.defaults.buildfeatures.buildconfig=true
 
       - name: Prepare Android Artifact
         run: |
