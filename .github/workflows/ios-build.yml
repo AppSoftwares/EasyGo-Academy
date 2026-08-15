@@ -1,4 +1,4 @@
-name: iOS & Android Build (v2.3.8)
+name: iOS & Android Build
 
 on:
   workflow_dispatch: # Disparador manual para ahorrar minutos
