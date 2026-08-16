@@ -22,7 +22,7 @@ const generateToken = (user) => {
 const authController = {
   // Registro
   register: async (req, res) => {
-    console.log('--- INTENTO DE REGISTRO ---', req.body);
+    console.log('--- INTENTO DE REGISTRO ---', req.body.email);
     try {
       const { name, email, password, phone } = req.body;
 
@@ -100,7 +100,6 @@ const authController = {
     console.log('--- INTENTO DE LOGIN ---', req.body.email);
     try {
       const { email, password } = req.body;
-      console.log('Intento de login para:', email);
       if (!email || !password) {
         return res.status(400).json({
           success: false,
