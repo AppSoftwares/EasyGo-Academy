@@ -17,6 +17,7 @@ import StudentUniverse from "./pages/student/StudentUniverse";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { TeacherDashboard } from "./pages/teacher/TeacherDashboard";
 import { PublicLevelTest } from "./pages/PublicLevelTest";
+import { AppBootSplash } from "./components/auth/AppBootSplash";
 
 // Profile Sub-pages
 import { AppearancePage } from "./pages/profile/AppearancePage";
@@ -62,6 +63,11 @@ const PublicRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
 function App() {
   const isNative = Capacitor.isNativePlatform();
+  const [showBootSplash, setShowBootSplash] = React.useState(isNative);
+
+  if (showBootSplash) {
+    return <AppBootSplash onFinish={() => setShowBootSplash(false)} />;
+  }
 
   return (
     <Router>

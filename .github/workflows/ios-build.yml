@@ -103,14 +103,15 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.package-version.outputs.version }}
-          name: "Release v${{ steps.package-version.outputs.version }}"
+          tag_name: ${{ github.event.inputs.build_id }}-${{ steps.package-version.outputs.version }}-${{ github.run_number }}
+          name: ${{ github.event.inputs.build_id }}
           files: |
             *.apk
             *.ipa
           body: |
             Compilación automática generada con éxito.
             Versión: ${{ steps.package-version.outputs.version }}
+            ID de Compilación: ${{ github.event.inputs.build_id }}
             Plataformas: Android (APK) e iOS (IPA Sideload).
           draft: false
           prerelease: false
