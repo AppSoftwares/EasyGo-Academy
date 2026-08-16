@@ -4,11 +4,13 @@
 
 :root {
   --bg-color: #FAFAFA;
-  --text-color: #0f172a;
+  --text-color: #1A1A1A;
   --card-bg: #ffffff;
   --card-border: rgba(0, 0, 0, 0.05);
-  --primary: #5B2ECC;
-  --accent: #e3504a;
+  --primary: #E8622E;
+  --primary-light: #F2895A;
+  --primary-dark: #C2410C;
+  --accent: #D9542A;
   --glass-bg: rgba(255, 255, 255, 0.8);
 }
 
@@ -17,6 +19,10 @@
   --text-color: #f8fafc;
   --card-bg: #1e293b;
   --card-border: rgba(255, 255, 255, 0.1);
+  --primary: #5B2ECC;
+  --primary-light: #8B6FE8;
+  --primary-dark: #4A1FB8;
+  --accent: #e3504a;
   --glass-bg: rgba(255, 255, 255, 0.1);
 }
 
