@@ -70,13 +70,9 @@ function App() {
         <Route
           path="/"
           element={
-            isNative ? (
-              <Navigate to="/login" replace />
-            ) : (
-              <PublicRoute>
-                <LandingPage />
-              </PublicRoute>
-            )
+            <PublicRoute>
+              <LandingPage />
+            </PublicRoute>
           }
         />
         <Route path="/login" element={<LoginPage />} />

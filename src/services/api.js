@@ -1,7 +1,16 @@
 import axios from 'axios'
+import { Capacitor } from '@capacitor/core'
+
+const PROD_API_URL = 'https://easy-go-academy-web.vercel.app/api'
 
 // Producción: cualquier dominio que NO sea localhost/IP local usa ruta relativa /api
 const getBackendUrl = () => {
+  // App nativa (APK/IPA): 'localhost' aquí es el WebView del propio
+  // dispositivo, no un servidor real. Siempre usar el backend de producción.
+  if (Capacitor.isNativePlatform()) {
+    return import.meta.env.VITE_API_URL || PROD_API_URL
+  }
+
   const { hostname } = window.location;
 
   const isLocalNetwork =
