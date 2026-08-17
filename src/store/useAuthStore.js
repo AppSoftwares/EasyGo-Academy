@@ -37,7 +37,10 @@ export const useAuthStore = create(
           }
         } catch (error) {
           console.error('Error en login:', error);
-          const message = error.response?.data?.message || 'Error al iniciar sesión'
+          const message = error.response?.data?.message
+            || (error.code === 'ERR_NETWORK'
+                  ? 'No se pudo conectar con el servidor (revisa tu conexión o CORS).'
+                  : 'Error al iniciar sesión')
           set({ 
             error: message, 
             isLoading: false,
@@ -70,7 +73,9 @@ export const useAuthStore = create(
           console.error('Error en registro:', error);
           const message = error.response?.data?.message ||
                          (error.response?.data?.errors ? error.response.data.errors[0].msg : null) ||
-                         'Error al registrar';
+                         (error.code === 'ERR_NETWORK'
+                           ? 'No se pudo conectar con el servidor (revisa tu conexión o CORS).'
+                           : 'Error al registrar');
           set({ error: message, isLoading: false })
           return { success: false, error: message }
         }

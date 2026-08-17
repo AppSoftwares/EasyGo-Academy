@@ -40,12 +40,21 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-const allowedOrigins = (process.env.CORS_ORIGINS || '').split(',').filter(Boolean);
+const DEFAULT_ORIGINS = [
+  'capacitor://localhost', // iOS
+  'ionic://localhost',     // iOS legacy WebView
+  'https://localhost',     // Android (androidScheme: "https")
+  'http://localhost',
+  'http://localhost:3000',
+];
+const allowedOrigins = [
+  ...DEFAULT_ORIGINS,
+  ...(process.env.CORS_ORIGINS || '').split(',').filter(Boolean),
+];
 app.use(cors({
   origin: (origin, cb) => {
-    // Permitir peticiones sin origen (como apps móviles o Postman)
-    // o si el origen está en la lista blanca
     if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    console.warn('⛔ Origin bloqueado por CORS:', origin);
     return cb(new Error('Origin no permitido por CORS'));
   },
   credentials: true,
