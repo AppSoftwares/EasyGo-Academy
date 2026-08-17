@@ -25,6 +25,7 @@ const curriculumRoutes = require("../backend/routes/curriculumRoutes");
 const moduleRoutes = require("../backend/routes/moduleRoutes");
 const moduleContentRoutes = require("../backend/routes/moduleContentRoutes");
 const communityRoutes = require('../backend/routes/communityRoutes')
+const curriculumV2Routes = require("../backend/routes/curriculum");
 const aiRoutes = require("../backend/routes/ai");
 
 const seedRunner = require("../backend/config/seedRunner");
@@ -108,6 +109,7 @@ app.use("/api/notifications", initDbMiddleware, notificationRoutes);
 app.use("/api/admin", initDbMiddleware, adminNotificationRoutes);
 app.use("/api/teacher", initDbMiddleware, teacherRoutes);
 app.use("/api/curriculum", initDbMiddleware, curriculumRoutes);
+app.use("/api/v2/curriculum", initDbMiddleware, curriculumV2Routes);
 app.use("/api/modules", initDbMiddleware, moduleRoutes);
 app.use("/api/module-content", initDbMiddleware, moduleContentRoutes);
 app.use('/api/community', initDbMiddleware, communityRoutes)

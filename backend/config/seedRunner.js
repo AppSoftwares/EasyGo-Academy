@@ -31,8 +31,6 @@ const seedRunner = async () => {
     const grammarCount = await GrammarTopic.count()
     if (grammarCount === 0) {
       const seedGrammar = require('../seeders/seedGrammar')
-      // Note: seedGrammar might try to call process.exit(0) inside, need to be careful
-      // I will wrap it or just use the logic
       try {
         await seedGrammar()
       } catch (e) {
@@ -41,6 +39,10 @@ const seedRunner = async () => {
     } else {
       console.log(`⏭️  Temas de gramática: ya existen ${grammarCount}`)
     }
+
+    // ============ CURRICULUM ============
+    const seedCurriculum = require('../seeders/seedCurriculum')
+    await seedCurriculum()
 
     console.log('\n✅ Verificación de seeds completada\n')
   } catch (error) {

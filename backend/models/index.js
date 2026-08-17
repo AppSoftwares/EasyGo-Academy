@@ -77,6 +77,14 @@ const ModuleContentModel = require("./ModuleContent");
 const PostModel = require('./Post')
 const CommentModel = require('./Comment')
 const PostLikeModel = require('./PostLike')
+const CourseLevelModel = require("./CourseLevel");
+const ModuleModel = require("./Module");
+const CourseUnitModel = require("./CourseUnit");
+const MediaResourceModel = require("./MediaResource");
+const ReadingTextModel = require("./ReadingText");
+const PracticeParagraphModel = require("./PracticeParagraph");
+const LessonModel = require("./Lesson");
+const ExerciseModel = require("./Exercise");
 
 // Inicializar modelos
 const User = UserModel(sequelize);
@@ -104,6 +112,14 @@ const ModuleContent = ModuleContentModel(sequelize);
 const Post = PostModel(sequelize)
 const Comment = CommentModel(sequelize)
 const PostLike = PostLikeModel(sequelize)
+const CourseLevel = CourseLevelModel(sequelize);
+const Module = ModuleModel(sequelize);
+const CourseUnit = CourseUnitModel(sequelize);
+const MediaResource = MediaResourceModel(sequelize);
+const ReadingText = ReadingTextModel(sequelize);
+const PracticeParagraph = PracticeParagraphModel(sequelize);
+const Lesson = LessonModel(sequelize);
+const Exercise = ExerciseModel(sequelize);
 
 // ============ RELACIONES ============
 User.hasMany(LevelTest, { foreignKey: "user_id", as: "levelTests", onDelete: "CASCADE" });
@@ -161,6 +177,28 @@ PostLike.belongsTo(Post, { foreignKey: 'postId', as: 'post' })
 User.hasMany(PostLike, { foreignKey: 'userId', as: 'postLikesUser', onDelete: 'CASCADE' })
 PostLike.belongsTo(User, { foreignKey: 'userId', as: 'user' })
 
+// --- CURRICULUM RELATIONS ---
+CourseLevel.hasMany(Module, { foreignKey: "level_id", as: "modules" });
+Module.belongsTo(CourseLevel, { foreignKey: "level_id", as: "level" });
+
+Module.hasMany(CourseUnit, { foreignKey: "module_id", as: "units" });
+CourseUnit.belongsTo(Module, { foreignKey: "module_id", as: "module" });
+
+CourseUnit.hasMany(MediaResource, { foreignKey: "unit_id", as: "media" });
+MediaResource.belongsTo(CourseUnit, { foreignKey: "unit_id", as: "unit" });
+
+CourseUnit.hasMany(ReadingText, { foreignKey: "unit_id", as: "readingTexts" });
+ReadingText.belongsTo(CourseUnit, { foreignKey: "unit_id", as: "unit" });
+
+CourseUnit.hasMany(PracticeParagraph, { foreignKey: "unit_id", as: "practiceParagraphs" });
+PracticeParagraph.belongsTo(CourseUnit, { foreignKey: "unit_id", as: "unit" });
+
+CourseUnit.hasMany(Lesson, { foreignKey: "unit_id", as: "lessons" });
+Lesson.belongsTo(CourseUnit, { foreignKey: "unit_id", as: "unit" });
+
+Lesson.hasMany(Exercise, { foreignKey: "lesson_id", as: "exercises" });
+Exercise.belongsTo(Lesson, { foreignKey: "lesson_id", as: "lesson" });
+
 // ============ SINCRONIZACIÓN ==========
 const syncDatabase = async (force = false) => {
   try {
@@ -196,5 +234,6 @@ module.exports = {
   ListeningProgress, Pronunciation, News, Dictionary, Class, ClassEnrollment,
   GrammarTopic, Notification, Assignment, AssignmentSubmission, Content,
   Message, Schedule, ModuleContent, Post, Comment, PostLike,
+  CourseLevel, Module, CourseUnit, MediaResource, ReadingText, PracticeParagraph, Lesson, Exercise,
   syncDatabase,
 };
