@@ -10,4 +10,5 @@ export const userService = {
   getLevelTests: (params) => api.get('/users/level-tests', { params }),
   reviewLevelTest: (userId, data) => api.put(`/users/level-test/${userId}/review`, data),
   getStats: () => api.get('/users/stats'),
+  getCurriculumSnapshot: () => api.get('/progress/snapshot'),
 }

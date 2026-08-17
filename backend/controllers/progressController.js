@@ -8,6 +8,11 @@ const {
   Audiobook,
   Assignment,
   ListeningProgress,
+  CourseLevel,
+  Module,
+  CourseUnit,
+  Lesson,
+  Exercise
 } = require("../models");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
@@ -516,6 +521,82 @@ const progressController = {
       });
     }
   },
+
+  // Obtener snapshot de progreso para el calculador de frontend
+  getLevelSnapshot: async (req, res) => {
+    try {
+      const userId = req.user.id;
+      const user = await User.findByPk(userId);
+      const activeLevel = user.assignedLevel || 'A1';
+
+      // 1. Contar lecciones y ejercicios totales para el nivel (v2 curriculum)
+      const level = await CourseLevel.findOne({
+        where: { code: activeLevel },
+        include: [{
+          model: Module, as: 'modules',
+          include: [{
+            model: CourseUnit, as: 'units',
+            include: [{
+              model: Lesson, as: 'lessons',
+              include: [{ model: Exercise, as: 'exercises' }]
+            }]
+          }]
+        }]
+      });
+
+      let totalLessons = 0;
+      let totalExercises = 0;
+
+      if (level && level.modules) {
+        level.modules.forEach(m => {
+          if (m.units) {
+            m.units.forEach(u => {
+              if (u.lessons) {
+                totalLessons += u.lessons.length;
+                u.lessons.forEach(l => {
+                  if (l.exercises) totalExercises += l.exercises.length;
+                });
+              }
+            });
+          }
+        });
+      }
+
+      // 2. Contar lecciones completadas por el usuario
+      const completedLessons = await Progress.count({
+        where: {
+          userId,
+          level: activeLevel,
+          completed: true,
+          courseType: 'curriculum'
+        }
+      });
+
+      // Asumimos 10 ejercicios por lección si no hay tracking individual
+      const completedExercises = completedLessons * 10;
+
+      // 3. Obtener fecha de inicio (primer registro de progreso)
+      const firstProgress = await Progress.findOne({
+        where: { userId, level: activeLevel },
+        order: [['created_at', 'ASC']]
+      });
+
+      res.json({
+        success: true,
+        snapshot: {
+          levelId: level ? level.id : `level_${activeLevel.toLowerCase()}`,
+          totalLessons: totalLessons || 192, // fallback a arquitectura estándar
+          completedLessons,
+          totalExercises: totalExercises || (totalLessons * 10 || 1920),
+          completedExercises,
+          startedAt: firstProgress ? new Date(firstProgress.createdAt).getTime() : Date.now()
+        }
+      });
+    } catch (error) {
+      console.error("Error snapshot:", error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
 };
 
 module.exports = progressController;

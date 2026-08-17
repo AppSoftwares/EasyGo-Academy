@@ -9,6 +9,8 @@ import AdminDashboard from '../../components/AdminDashboard';
 import UserProfileView from '../../components/UserProfileView';
 import { useThemeStore } from '../../store/useThemeStore';
 import { useAuthStore } from '../../store/useAuthStore';
+import { userService } from '../../services/userService';
+import { ProgressCalculator, LevelCode, ProgressResult } from '../../utils/ProgressCalculator';
 import { VocabularyItem } from '../../types';
 import { INITIAL_VOCABULARY } from '../../data';
 import {
@@ -25,6 +27,9 @@ export default function StudentUniverse() {
   const [isAdminMode, setIsAdminMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('home');
 
+  // Real Progress Data
+  const [realProgress, setRealProgress] = useState<ProgressResult | null>(null);
+
   // User statistics state
   const [userXp, setUserXp] = useState<number>(1250);
   const [userStreak, setUserStreak] = useState<number>(7);
@@ -32,6 +37,27 @@ export default function StudentUniverse() {
   const userEmail = user?.email || 'estudiante@easygo.com';
   const userName = user?.name || 'Estudiante';
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>(INITIAL_VOCABULARY);
+
+  useEffect(() => {
+    const fetchRealProgress = async () => {
+      try {
+        const response = await userService.getCurriculumSnapshot();
+        if (response.data.success) {
+          const snapshot = response.data.snapshot;
+          const levelCode = (user?.assignedLevel?.split('-')[0] || 'A1') as LevelCode;
+          const planned = ProgressCalculator.plannedDurationMonths(levelCode);
+          const result = ProgressCalculator.calculateEstimate(snapshot, planned);
+          setRealProgress(result);
+        }
+      } catch (error) {
+        console.error('Error fetching progress snapshot:', error);
+      }
+    };
+
+    if (activeTab === 'home') {
+      fetchRealProgress();
+    }
+  }, [activeTab, user]);
 
   // States for daily mission checklist
   const [missions, setMissions] = useState([
@@ -147,13 +173,13 @@ export default function StudentUniverse() {
                   <div className="flex-1 md:max-w-xs space-y-3">
                     <div className="flex justify-between text-xs font-mono font-bold">
                       <span className="text-slate-400">PROGRESO NIVEL</span>
-                      <span className="text-brand-orange">{(userXp % 1000) / 10}%</span>
+                      <span className="text-brand-orange">{realProgress?.percentComplete || 0}%</span>
                     </div>
                     <div className="h-3 bg-white/10 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-brand-orange to-brand-purple h-full transition-all duration-1000 rounded-full" style={{ width: `${(userXp % 1000) / 10}%` }} />
+                      <div className="bg-gradient-to-r from-brand-orange to-brand-purple h-full transition-all duration-1000 rounded-full" style={{ width: `${realProgress?.percentComplete || 0}%` }} />
                     </div>
                     <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono">
-                      <Trophy className="w-3 h-3" /> 1000 XP para el siguiente hito
+                      <Trophy className="w-3 h-3" /> {realProgress?.lessonsRemaining || 0} lecciones para el siguiente hito
                     </div>
                   </div>
                 </div>
