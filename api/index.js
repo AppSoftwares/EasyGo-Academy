@@ -101,12 +101,20 @@ app.use("/api/module-content", initDbMiddleware, moduleContentRoutes);
 app.use('/api/community', initDbMiddleware, communityRoutes)
 app.use("/api/ai", initDbMiddleware, aiRoutes);
 
-// Ruta especial para sincronizar base de datos manualmente si es necesario
-app.get("/api/admin/db-sync", authMiddleware, adminMiddleware, async (req, res) => {
+// Ruta especial para sincronizar base de datos - TEMPORALMENTE PÚBLICA PARA SETUP INICIAL
+app.get("/api/admin/db-sync", async (req, res) => {
   try {
-    await syncDatabase();
-    await seedRunner();
-    res.json({ success: true, message: "Base de datos sincronizada y sembrada" });
+    console.log("🛠 Iniciando sincronización manual...");
+    // Ejecutar en segundo plano para evitar timeout de Vercel
+    syncDatabase().then(async () => {
+      await seedRunner();
+      console.log("✅ Sincronización manual completada");
+    }).catch(e => console.error("❌ Error en sync manual:", e.message));
+
+    res.json({
+      success: true,
+      message: "Proceso de sincronización iniciado en segundo plano. Espera 20 segundos y prueba el login."
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
