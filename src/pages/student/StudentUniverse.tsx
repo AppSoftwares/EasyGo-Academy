@@ -23,7 +23,7 @@ export default function StudentUniverse() {
   const { isDarkMode } = useThemeStore();
 
   // Master states
-  const [isOnboarded, setIsOnboarded] = useState<boolean>(false);
+  const [isOnboarded, setIsOnboarded] = useState<boolean>(true); // Forzamos true para saltar onboarding en pruebas
   const [isAdminMode, setIsAdminMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('home');
 
@@ -33,16 +33,20 @@ export default function StudentUniverse() {
   // User statistics state
   const [userXp, setUserXp] = useState<number>(1250);
   const [userStreak, setUserStreak] = useState<number>(7);
-  const [userLevel, setUserLevel] = useState<string>(user?.assignedLevel || 'A1-A2 Principiante');
+
+  // Extraer datos con seguridad
+  const userLevel = user?.assignedLevel || 'A1-A2 Principiante';
   const userEmail = user?.email || 'estudiante@easygo.com';
   const userName = user?.name || 'Estudiante';
+
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>(INITIAL_VOCABULARY);
 
   useEffect(() => {
     const fetchRealProgress = async () => {
+      if (!user) return;
       try {
         const response = await userService.getCurriculumSnapshot();
-        if (response.data.success) {
+        if (response?.data?.success) {
           const snapshot = response.data.snapshot;
           const levelCode = (user?.assignedLevel?.split('-')[0] || 'A1') as LevelCode;
           const planned = ProgressCalculator.plannedDurationMonths(levelCode);
@@ -50,11 +54,11 @@ export default function StudentUniverse() {
           setRealProgress(result);
         }
       } catch (error) {
-        console.error('Error fetching progress snapshot:', error);
+        console.warn('Error fetching progress:', error);
       }
     };
 
-    if (activeTab === 'home') {
+    if (activeTab === 'home' && user) {
       fetchRealProgress();
     }
   }, [activeTab, user]);
