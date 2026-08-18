@@ -41,23 +41,9 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-const DEFAULT_ORIGINS = [
-  'capacitor://localhost', // iOS
-  'ionic://localhost',     // iOS legacy WebView
-  'https://localhost',     // Android (androidScheme: "https")
-  'http://localhost',
-  'http://localhost:3000',
-];
-const allowedOrigins = [
-  ...DEFAULT_ORIGINS,
-  ...(process.env.CORS_ORIGINS || '').split(',').filter(Boolean),
-];
+// Permisividad total temporal para depuración de conectividad
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-    console.warn('⛔ Origin bloqueado por CORS:', origin);
-    return cb(new Error('Origin no permitido por CORS'));
-  },
+  origin: true,
   credentials: true,
 }));
 
