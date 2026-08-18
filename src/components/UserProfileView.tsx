@@ -1,7 +1,7 @@
-import React from 'react';
-import { 
+import React, { useRef, useState } from 'react';
+import {
   User, Shield, Bell, HelpCircle, FileText, LogOut, Moon, ChevronRight,
-  Sparkles
+  Sparkles, Camera, Settings
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -20,82 +20,112 @@ export default function UserProfileView({
   isDarkMode,
   onLogout
 }: UserProfileViewProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const MenuItem = ({ icon: Icon, text, to, color }: any) => (
     <Link
       to={to}
-      className={`flex items-center justify-between p-4 hover:bg-white/5 transition-all group`}
+      className={`flex items-center justify-between p-5 hover:bg-white/5 transition-all group`}
     >
       <div className="flex items-center gap-4">
-        <div className={`p-2.5 rounded-xl bg-white/5 ${color} group-hover:scale-110 transition-transform`}>
+        <div className={`p-3 rounded-2xl ${isDarkMode ? 'bg-white/5' : 'bg-slate-50'} ${color} group-hover:scale-110 transition-transform shadow-sm`}>
           <Icon className="w-5 h-5" />
         </div>
-        <span className={`text-sm font-bold text-[var(--text-color)]`}>{text}</span>
+        <span className={`text-sm font-black tracking-tight ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>{text}</span>
       </div>
-      <ChevronRight className="w-4 h-4 text-gray-500" />
+      <ChevronRight className="w-4 h-4 text-slate-400" />
     </Link>
   );
 
   return (
-    <div id="user-profile-screen" className="space-y-8 animate-fade-in text-left">
+    <div id="user-profile-screen" className="space-y-8 animate-fade-in text-left pb-10">
       {/* Header Encabezado Circular */}
-      <div className="flex flex-col items-center text-center space-y-4 pt-4">
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-25 group-hover:opacity-50 transition-opacity" />
-          <div className="relative w-28 h-28 rounded-full border-4 border-[var(--bg-color)] overflow-hidden shadow-2xl">
+      <div className="flex flex-col items-center text-center space-y-5 pt-4">
+        <div className="relative group cursor-pointer" onClick={handleImageClick}>
+          <div className="absolute -inset-2 bg-gradient-to-tr from-brand-orange to-brand-violet rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
+
+          <div className="relative w-32 h-32 rounded-full border-4 border-[var(--bg-color)] overflow-hidden shadow-2xl bg-slate-800">
             <img
-              src={`https://ui-avatars.com/api/?name=${userName}&background=5B2ECC&color=fff&bold=true`}
+              src={profileImage || `https://ui-avatars.com/api/?name=${userName}&background=E8622E&color=fff&bold=true&size=256`}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <Camera className="w-8 h-8 text-white" />
+            </div>
           </div>
-          <div className="absolute -bottom-1 -right-1 bg-accent text-white p-2 rounded-full shadow-lg border-2 border-[var(--bg-color)]">
+
+          <div className="absolute bottom-0 right-0 bg-brand-orange text-white p-2.5 rounded-full shadow-xl border-4 border-[var(--bg-color)] scale-110">
             <Sparkles className="w-4 h-4" />
           </div>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            className="hidden"
+            accept="image/*"
+          />
         </div>
 
-        <div>
-          <h2 className={`font-black text-2xl text-[var(--text-color)] tracking-tight`}>{userName}</h2>
-          <div className="flex items-center justify-center gap-2 mt-1">
-            <span className="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full font-black border border-primary/20">
+        <div className="space-y-1">
+          <h2 className={`font-black text-3xl tracking-tighter ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{userName}</h2>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-[10px] px-4 py-1.5 bg-brand-orange/10 text-brand-orange rounded-full font-black border border-brand-orange/20 uppercase tracking-widest">
               {userLevel}
             </span>
-            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{userEmail}</span>
+            <span className="text-[11px] text-slate-400 font-bold lowercase">{userEmail}</span>
           </div>
         </div>
       </div>
 
       <div className="space-y-6">
-        {/* Tarjeta 1 */}
-        <div className="glass rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl divide-y divide-white/5">
+        {/* Sección Sistema */}
+        <div className={`rounded-[2.5rem] overflow-hidden border transition-all duration-300 ${isDarkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'} divide-y ${isDarkMode ? 'divide-white/5' : 'divide-slate-50'}`}>
           <MenuItem
             icon={User}
             text="Configuración de Cuenta"
             to="/profile/account"
-            color="text-blue-400"
+            color="text-blue-500"
           />
           <MenuItem
             icon={Shield}
             text="Privacidad y Seguridad"
             to="/profile/privacy"
-            color="text-emerald-400"
+            color="text-emerald-500"
           />
           <MenuItem
             icon={Moon}
             text="Apariencia y Tema"
             to="/profile/appearance"
-            color="text-purple-400"
+            color="text-brand-orange"
           />
           <MenuItem
             icon={Bell}
             text="Notificaciones"
             to="/profile/notifications"
-            color="text-amber-400"
+            color="text-amber-500"
           />
         </div>
 
-        {/* Tarjeta 2 */}
-        <div className="glass rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl divide-y divide-white/5">
+        {/* Sección Soporte */}
+        <div className={`rounded-[2.5rem] overflow-hidden border transition-all duration-300 ${isDarkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'} divide-y ${isDarkMode ? 'divide-white/5' : 'divide-slate-50'}`}>
           <MenuItem
             icon={HelpCircle}
             text="Centro de Ayuda"
@@ -106,31 +136,33 @@ export default function UserProfileView({
             icon={FileText}
             text="Términos y Condiciones"
             to="/profile/legal"
-            color="text-gray-400"
+            color="text-slate-400"
           />
 
           <button
             onClick={() => {
-              if (window.confirm('¿Cerrar sesión en EasyGo?')) {
+              if (window.confirm('¿Cerrar sesión en EasyGo Academy?')) {
                 onLogout();
               }
             }}
-            className="w-full flex items-center justify-between p-4 hover:bg-red-500/5 transition-all group text-left"
+            className="w-full flex items-center justify-between p-5 hover:bg-red-500/5 transition-all group text-left"
           >
             <div className="flex items-center gap-4">
-              <div className="p-2.5 rounded-xl bg-red-500/10 text-red-500 group-hover:scale-110 transition-transform">
+              <div className={`p-3 rounded-2xl bg-red-500/10 text-red-500 group-hover:scale-110 transition-transform shadow-sm`}>
                 <LogOut className="w-5 h-5" />
               </div>
-              <span className="text-sm font-bold text-red-400">Cerrar Sesión</span>
+              <span className="text-sm font-black text-red-500 tracking-tight">Cerrar Sesión</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-gray-500" />
+            <ChevronRight className="w-4 h-4 text-red-300/50" />
           </button>
         </div>
       </div>
 
-      <p className="text-center text-[10px] text-gray-600 font-bold uppercase tracking-widest pb-8">
-        EasyGo Academy v1.1.0 · Texas, USA
-      </p>
+      <div className="pt-4 pb-12">
+        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] opacity-40 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+          EasyGo Academy V1.1.5
+        </p>
+      </div>
     </div>
   );
 }

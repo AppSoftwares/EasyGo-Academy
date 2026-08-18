@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #FAFAFA;
+  --bg-color: #FFFFFF;
   --text-color: #1A1A1A;
-  --card-bg: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.05);
+  --card-bg: #FFFFFF;
+  --card-border: rgba(227, 80, 74, 0.1);
   --primary: #E8622E;
   --primary-light: #F2895A;
   --primary-dark: #C2410C;
   --accent: #D9542A;
-  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.9);
 }
 
 .dark {
@@ -30,7 +30,6 @@ html, body {
   background-color: var(--bg-color) !important;
   color: var(--text-color);
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -42,11 +41,9 @@ html, body {
   touch-action: manipulation;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  /* Safe Area Support */
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+
+  /* Reset safe area for body to avoid white bars */
+  padding: 0 !important;
 }
 
 @layer base {
@@ -63,7 +60,7 @@ html, body {
   }
   
   #root {
-    @apply min-h-screen w-full;
+    @apply min-h-screen w-full flex flex-col items-center;
   }
 
   input, select, textarea {
@@ -73,7 +70,7 @@ html, body {
 
 @layer components {
   .container-custom {
-    @apply max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 w-full;
+    @apply max-w-md mx-auto px-5 w-full;
   }
   
   .text-gradient {
@@ -94,48 +91,26 @@ html, body {
   }
 }
 
-@layer utilities {
-  .bg-400\% {
-    background-size: 400% 400%;
-  }
-  .brand-bg-glow {
-    box-shadow: 0 0 50px -12px rgba(91, 46, 204, 0.3);
-  }
-}
-
-/* Animations */
-@keyframes gridMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 60px 60px; }
-}
-
-.hero-grid {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: gridMove 20s linear infinite;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+/* Fix for scrolling to top */
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: auto;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a041e;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #5B2ECC, #e3504a);
-  border-radius: 4px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
-/* Custom scrollbar for mobile areas */
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
