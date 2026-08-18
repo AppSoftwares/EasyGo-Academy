@@ -97,18 +97,11 @@ jobs:
           cp -R "$APP_PATH" Payload/
           zip -rq "${{ github.event.inputs.build_id }}.ipa" Payload
 
-      - name: Sanitize build ID for tag
-        id: sanitize
-        run: |
-          # Reemplazar espacios por guiones y quitar caracteres especiales prohibidos en tags de Git
-          SANITIZED=$(echo "${{ github.event.inputs.build_id }}" | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9._-]//g')
-          echo "tag=$SANITIZED" >> $GITHUB_OUTPUT
-
       # --- PUBLICACIÓN EN RELEASES ---
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.sanitize.outputs.tag }}-${{ steps.package-version.outputs.version }}-${{ github.run_number }}
+          tag_name: build-${{ github.run_id }}-${{ github.run_number }}
           name: ${{ github.event.inputs.build_id }}
           files: |
             *.apk
