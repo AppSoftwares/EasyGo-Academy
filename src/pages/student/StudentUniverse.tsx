@@ -82,12 +82,12 @@ export default function StudentUniverse() {
   return (
     <div
       id="student-universe-root"
-      className={`min-h-screen w-full max-w-md mx-auto flex flex-col relative overflow-x-hidden font-sans ${isDarkMode ? 'bg-[#0a041e] text-slate-100' : 'bg-slate-50 text-slate-900'}`}
+      className={`min-h-screen w-full flex flex-col relative overflow-x-hidden font-sans ${isDarkMode ? 'bg-[#0a041e] text-slate-100' : 'bg-slate-50 text-slate-900'}`}
     >
 
       {/* Header Fijo con Safe Area */}
       <header className={`p-4 pt-[calc(env(safe-area-inset-top)+1rem)] sticky top-0 backdrop-blur-md z-40 border-b transition-all duration-300 ${headerClass}`}>
-        <div className="flex justify-between items-center">
+        <div className="container-custom flex justify-between items-center">
           <div className="flex items-center gap-1.5 cursor-pointer" onClick={() => setActiveTab('home')}>
             <span className={`font-black text-lg tracking-wider ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>EasyGo</span>
             <span className="text-brand-orange text-sm font-semibold italic ml-0.5">Academy</span>
@@ -108,19 +108,21 @@ export default function StudentUniverse() {
       {/* Main Content Area */}
       <main
         ref={mainRef}
-        className="flex-1 w-full p-5 pb-32"
+        className="flex-1 w-full container-custom py-6 pb-32"
       >
         {activeTab === 'home' && (
           <div className="space-y-6 animate-fade-in">
             {/* Banner de Bienvenida */}
             <div className={`${cardClass} rounded-[2rem] p-7 relative overflow-hidden`}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/5 rounded-full -mr-10 -mt-10 blur-2xl" />
-              <div className="relative z-10">
-                <span className="text-[10px] text-brand-orange uppercase font-black tracking-widest">Estado de Aprendizaje</span>
-                <h2 className={`text-2xl font-black mt-1 flex items-center gap-2 ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
-                  {userLevel} <GraduationCap className="w-6 h-6 text-brand-orange" />
-                </h2>
-                <div className="mt-6 space-y-3">
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="space-y-1">
+                  <span className="text-[10px] text-brand-orange uppercase font-black tracking-widest">Estado de Aprendizaje</span>
+                  <h2 className={`text-3xl font-black mt-1 flex items-center gap-2 ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
+                    {userLevel} <GraduationCap className="w-8 h-8 text-brand-orange" />
+                  </h2>
+                </div>
+                <div className="flex-1 md:max-w-xs space-y-3">
                   <div className="flex justify-between text-xs font-bold">
                     <span className="text-slate-400 uppercase tracking-tighter">Avance del Nivel</span>
                     <span className="text-brand-orange">{realProgress?.percentComplete || 0}%</span>
@@ -138,8 +140,8 @@ export default function StudentUniverse() {
               </div>
             </div>
 
-            {/* Accesos Rápidos (Grid Nativa) */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* Accesos Rápidos (Grid Nativa que se expande en web) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
                 { id: 'lessons', label: 'Lecciones', icon: BookOpen, color: 'text-brand-violet', bg: 'bg-brand-violet/10' },
                 { id: 'practice', label: 'Hablar', icon: Mic, color: 'text-brand-orange', bg: 'bg-brand-orange/10' },
