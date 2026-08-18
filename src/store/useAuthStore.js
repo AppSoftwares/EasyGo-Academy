@@ -14,7 +14,30 @@ export const useAuthStore = create(
 
       login: async (email, password) => {
         set({ isLoading: true, error: null })
-        
+
+        // Puentear login para pruebas (Solo para maria@email.com)
+        if (email === 'maria@email.com' && password === '123456') {
+          console.log('⚡ Modo Prueba Activado: Entrando sin servidor');
+          const mockUser = {
+            id: 999,
+            name: 'Maria (Modo Prueba)',
+            email: 'maria@email.com',
+            role: 'user',
+            plan: 'premium',
+            needsLevelTest: false
+          };
+          localStorage.setItem('token', 'mock-token-for-testing');
+          set({
+            user: mockUser,
+            token: 'mock-token-for-testing',
+            isAuthenticated: true,
+            isLoading: false,
+            needsLevelTest: false,
+            error: null
+          });
+          return { success: true };
+        }
+
         try {
           const response = await authService.login(email, password)
           const { token, user } = response.data
