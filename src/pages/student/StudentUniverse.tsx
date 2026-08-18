@@ -34,8 +34,8 @@ export default function StudentUniverse() {
   const [userXp, setUserXp] = useState<number>(1250);
   const [userStreak, setUserStreak] = useState<number>(7);
 
-  // Extraer datos con seguridad
-  const userLevel = user?.assignedLevel || 'A1-A2 Principiante';
+  // Extraer datos con seguridad y mantener estado local para evitar crashes
+  const [userLevel, setUserLevel] = useState<string>(user?.assignedLevel || 'A1-A2 Principiante');
   const userEmail = user?.email || 'estudiante@easygo.com';
   const userName = user?.name || 'Estudiante';
 
